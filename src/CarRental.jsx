@@ -74,7 +74,7 @@ export default function CarRental() {
         {selected ? (
           <div>
             <button onClick={() => setSelected(null)} className="mb-4 text-blue-600">← {t.title}</button>
-            <img src={selected.image} alt={selected.title[lang]} className="w-full h-[260px] object-cover rounded-xl mb-4" />
+            <img src={selected.image} alt={selected.title[lang]} className="w-full h-[200px] object-cover rounded-xl mb-4" />
             <h2 className="text-xl font-bold mb-2">{selected.title[lang]}</h2>
             <p className="mb-2 text-gray-700">{selected.description[lang]}</p>
             <p className="font-semibold mb-4">{t.priceLabel} {selected.price}</p>
@@ -97,7 +97,7 @@ export default function CarRental() {
           <div className="flex flex-col gap-6">
             {cars.map((car) => (
               <div key={car.id} onClick={() => setSelected(car)} className="cursor-pointer bg-white rounded-xl shadow">
-                <img src={car.image} alt={car.title[lang]} className="w-full h-[240px] object-cover rounded-t-xl" />
+                <img src={car.image} alt={car.title[lang]} className="w-full h-[180px] object-cover rounded-t-xl" />
                 <div className="p-4">
                   <h2 className="font-semibold text-lg mb-1">{car.title[lang]}</h2>
                   <p className="text-sm text-gray-600 mb-2">{car.description[lang]}</p>
