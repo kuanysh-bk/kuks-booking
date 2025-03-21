@@ -99,7 +99,7 @@ export default function App() {
             <img
               src={selected.image}
               alt={selected.title[lang]}
-              className="w-full h-[200px] object-cover rounded-xl mb-4"
+              className="w-full h-[160px] object-cover rounded-xl mb-4"
             />
             <h2 className="text-xl font-bold mb-2">{selected.title[lang]}</h2>
             <p className="mb-2 text-gray-700">{selected.description[lang]}</p>
@@ -145,7 +145,7 @@ export default function App() {
                 <img
                   src={e.image}
                   alt={e.title[lang]}
-                  className="w-full h-[180px] object-cover rounded-t-xl"
+                  className="w-full h-[140px] object-cover rounded-t-xl"
                 />
                 <div className="p-4">
                   <h2 className="font-semibold text-lg mb-1">{e.title[lang]}</h2>
