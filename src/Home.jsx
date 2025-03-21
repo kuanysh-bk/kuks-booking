@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
+import BottomNav from "./BottomNav";
 
 const Home = () => {
   return (
@@ -19,5 +20,12 @@ const Home = () => {
     </div>
   );
 };
+
+return (
+    <>
+      <div className="...">...</div>
+      <BottomNav />
+    </>
+  );
 
 export default Home;

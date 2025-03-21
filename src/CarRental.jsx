@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import BottomNav from "./BottomNav";
 
 const translations = {
   ru: {
@@ -108,3 +109,10 @@ export default function CarRental() {
     </div>
   );
 }
+
+return (
+    <>
+      <div className="...">...</div>
+      <BottomNav />
+    </>
+  );

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BottomNav from "./BottomNav";
 
 const translations = {
   ru: {
@@ -119,3 +120,10 @@ export default function App() {
     </div>
   );
 }
+
+return (
+  <>
+    <div className="...">...</div>
+    <BottomNav />
+  </>
+);
