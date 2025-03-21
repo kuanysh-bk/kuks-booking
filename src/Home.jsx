@@ -28,8 +28,18 @@ const Home = () => {
       <div className="home-header">
         <h1 className="home-title">{t.heading}</h1>
         <div>
-          <button onClick={() => setLang("ru")} className={`mr-2 ${lang === "ru" ? "font-bold" : ""}`}>RU</button>
-          <button onClick={() => setLang("en")} className={`${lang === "en" ? "font-bold" : ""}`}>EN</button>
+          <button
+            onClick={() => setLang("ru")}
+            className={`lang-btn ${lang === "ru" ? "active" : ""}`}
+          >
+            RU
+          </button>
+          <button
+            onClick={() => setLang("en")}
+            className={`lang-btn ${lang === "en" ? "active" : ""}`}
+          >
+            EN
+          </button>
         </div>
       </div>
 
