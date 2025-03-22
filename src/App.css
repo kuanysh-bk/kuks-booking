@@ -6,48 +6,19 @@
   flex-direction: column;
 }
 
-/* Верхняя панель с выбором языка */
-header {
-  width: 100%;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  display: flex;
-  justify-content: flex-end;
-}
-
-.language-selector {
-  display: flex;
-  gap: 10px;
-}
-
-.language-selector a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  border: 1px solid #ddd;
-  padding: 5px 10px;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-.language-selector a:hover {
-  background-color: #ddd;
-}
-
-/* Основная область с фоном и кнопками */
+/* Основная область */
 main {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* Замените 'your-background.jpg' на путь к вашему изображению */
+  /* Пример фона – замените при необходимости */
   background: url('your-background.jpg') no-repeat center center;
   background-size: cover;
 }
 
-/* Стили для кнопок */
+/* Стили для кнопок (универсальные для всех страниц) */
 .button {
   margin: 10px;
   padding: 20px 40px;

@@ -1,35 +1,22 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Home from './pages/Home';
+import Excursion from './pages/Excursion';
+import CarRental from './pages/CarRental';
 import './App.css';
 
 function App() {
   return (
-    <div className="container">
-      <header>
-        <div className="language-selector">
-          <a href="?lang=ar">العربية</a>
-          <a href="?lang=kk">Қазақ</a>
-          <a href="?lang=fr">Français</a>
-          <a href="?lang=de">Deutsch</a>
-          <a href="?lang=es">Español</a>
-          <a href="?lang=en">English</a>
-          <a href="?lang=ru">Русский</a>
-        </div>
-      </header>
-      <main>
-        <button 
-          className="button" 
-          onClick={() => window.location.href = 'excursion.html'}
-        >
-          Выбрать экскурсию
-        </button>
-        <button 
-          className="button" 
-          onClick={() => window.location.href = 'car_rental.html'}
-        >
-          Аренда автомобиля
-        </button>
-      </main>
-    </div>
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/excursion" element={<Excursion />} />
+          <Route path="/car_rental" element={<CarRental />} />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   );
 }
 
