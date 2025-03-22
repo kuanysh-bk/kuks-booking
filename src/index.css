@@ -1,15 +1,15 @@
-body {
-  font-family: Arial, sans-serif;
+/* Сброс стилей и базовая настройка для центрирования */
+* {
   margin: 0;
   padding: 0;
-  background-color: #f7f7f7;
+  box-sizing: border-box;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-a:hover {
-  color: #1a73e8;
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
 }
