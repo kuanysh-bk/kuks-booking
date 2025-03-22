@@ -1,42 +1,87 @@
-#root {
-  max-width: 1280px;
+/* Сброс стилей и базовая настройка */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  /* Фиксированный размер для 1080x1920 */
+  width: 1080px;
+  height: 1920px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Контейнер, оборачивающий весь контент */
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Верхняя панель с выбором языка */
+header {
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: flex-end;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.language-selector {
+  display: flex;
+  gap: 10px;
 }
 
-.card {
-  padding: 2em;
+.language-selector a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
-.read-the-docs {
-  color: #888;
+.language-selector a:hover {
+  background-color: #ddd;
+}
+
+/* Основная область с фоном и кнопками */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* Замените 'your-background.jpg' на путь к вашему изображению */
+  background: url('your-background.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+/* Стили для кнопок */
+.button {
+  margin: 10px;
+  padding: 20px 40px;
+  font-size: 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #007BFF;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #0056b3;
 }
