@@ -4,7 +4,6 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import Excursion from './pages/Excursion';
 import CarRental from './pages/CarRental';
-import './App.css';
 
 function App() {
   return (
