@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import './Home.css';
+// Если дополнительные стили для Home не нужны, можно удалить этот импорт
+// import './Home.css';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -9,7 +10,6 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      <h1>{t('welcome')}</h1>
       <button className="button" onClick={() => navigate('/excursion')}>
         {t('excursion')}
       </button>

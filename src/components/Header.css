@@ -1,28 +1,30 @@
+/* Позиционируем панель выбора языка в правом верхнем углу */
 header {
-    width: 100%;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    display: flex;
-    justify-content: flex-end;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
   }
   
+  /* Стилизация кнопок выбора языка */
   .language-selector {
     display: flex;
     gap: 10px;
   }
   
-  .language-selector a {
-    text-decoration: none;
+  .language-selector button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
     color: #333;
-    font-weight: bold;
-    border: 1px solid #ddd;
     padding: 5px 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+    transition: color 0.3s, transform 0.3s;
   }
   
-  .language-selector a:hover {
-    background-color: #ddd;
+  .language-selector button:hover {
+    color: #007BFF;
+    transform: scale(1.1);
   }
   

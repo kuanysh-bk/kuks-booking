@@ -1,36 +1,37 @@
-/* Фиксированный контейнер для страницы */
+/* Фиксированный контейнер, центрированный на странице */
 .container {
   width: 1080px;
   height: 1920px;
+  position: relative;
   display: flex;
   flex-direction: column;
+  background: url('/assets/background.jpg') no-repeat center center;
+  background-size: cover;
 }
 
-/* Основная область */
+/* Основной контент */
 main {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* Пример фона – замените при необходимости */
-  background: url('your-background.jpg') no-repeat center center;
-  background-size: cover;
 }
 
-/* Стили для кнопок (универсальные для всех страниц) */
+/* Стилизация кнопок, имитирующая дизайн целевого сайта */
 .button {
-  margin: 10px;
-  padding: 20px 40px;
+  margin: 20px;
+  padding: 20px 60px;
   font-size: 24px;
-  border: none;
-  border-radius: 8px;
+  border: 2px solid #007BFF;
+  background: rgba(255, 255, 255, 0.8);
+  color: #007BFF;
+  border-radius: 30px;
   cursor: pointer;
-  background-color: #007BFF;
-  color: #fff;
-  transition: background-color 0.3s;
+  transition: background 0.3s, color 0.3s;
 }
 
 .button:hover {
-  background-color: #0056b3;
+  background: #007BFF;
+  color: #fff;
 }
