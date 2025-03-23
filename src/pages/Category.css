@@ -1,0 +1,29 @@
+/* src/pages/Category.css */
+.category-page {
+    padding: 40px;
+    text-align: center;
+  }
+  
+  .operator-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+  .operator-item {
+    padding: 20px;
+    border: 1px solid #007BFF;
+    border-radius: 8px;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .operator-item:hover {
+    background: #007BFF;
+    color: #fff;
+  }
+  

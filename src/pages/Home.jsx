@@ -1,8 +1,8 @@
+// src/pages/Home.jsx
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-// Если дополнительные стили для Home не нужны, можно удалить этот импорт
-// import './Home.css';
+// import './Home.css'; // если нужны стили
 
 const Home = () => {
   const { t } = useTranslation();
@@ -10,11 +10,11 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      <button className="button" onClick={() => navigate('/excursion')}>
-        {t('excursion')}
+      <button className="button" onClick={() => navigate('/category')}>
+        {t('excursion', 'Выбрать экскурсию')}
       </button>
       <button className="button" onClick={() => navigate('/car_rental')}>
-        {t('carRental')}
+        {t('carRental', 'Аренда автомобиля')}
       </button>
     </div>
   );
