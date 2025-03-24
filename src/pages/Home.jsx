@@ -35,8 +35,8 @@ const Home = () => {
           <Link to="/excursions" className="home-button">
             {t('home.bookExcursion')}
           </Link>
-          <Link to="/carRental" className="home-button">
-            {t('home.carRental')}
+          <Link to="/cars" className="home-button">
+            {t('home.rentCar')}
           </Link>
         </div>
       </div>
