@@ -27,7 +27,7 @@ const ExcursionDatePage = () => {
     if (selectedDate) {
       // Можно передавать дату через state, query или глобальное хранилище
       navigate(`/excursions/${operatorId}/${excursionId}/booking`, {
-        state: { selectedDate }
+        state: { selectedDate: selectedDate.toISOString().split('T')[0] } // формат: YYYY-MM-DD
       });
     }
   };
