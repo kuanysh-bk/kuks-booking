@@ -8,5 +8,12 @@
   "common": {
     "back": "⬅ Back",
     "book": "Book"
+  },
+  "details": {
+    "location": "Location",
+    "duration": "Duration",
+    "adult": "Adult",
+    "child": "Child",
+    "infant": "Infant"
   }
 }

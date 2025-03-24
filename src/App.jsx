@@ -8,6 +8,7 @@ import CarRental from './pages/CarRental';
 import './App.css';
 import ExcursionOperatorPage from './pages/ExcursionOperatorPage';
 import ExcursionListPage from './pages/ExcursionListPage';
+import ExcursionDetailsPage from './pages/ExcursionDetailsPage';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/car_rental" element={<CarRental />} />
           <Route path="/excursions" element={<ExcursionOperatorPage />} />
           <Route path="/excursions/:operatorId" element={<ExcursionListPage />} />
+          <Route path="/excursions/:operatorId/:excursionId" element={<ExcursionDetailsPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

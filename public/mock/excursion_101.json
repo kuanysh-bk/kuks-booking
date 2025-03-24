@@ -1,0 +1,18 @@
+{
+    "id": 101,
+    "title": "City Tour Dubai",
+    "description": "Обзорная экскурсия по Дубаю с посещением достопримечательностей.",
+    "duration": "4 часа",
+    "location": "Дубай, ОАЭ",
+    "images": [
+      "/images/city1.jpg",
+      "/images/city2.jpg",
+      "/images/city3.jpg"
+    ],
+    "prices": {
+      "adult": 150,
+      "child": 100,
+      "infant": 0
+    }
+  }
+  
