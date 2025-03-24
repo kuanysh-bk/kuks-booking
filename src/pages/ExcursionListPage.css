@@ -62,4 +62,9 @@
   .excursion-book-btn:hover {
     background-color: #004fcc;
   }
+
+  .excursion-card-link {
+    text-decoration: none;
+    color: inherit;
+  }
   

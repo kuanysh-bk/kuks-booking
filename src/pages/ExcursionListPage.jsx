@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './ExcursionListPage.css';
 import BackButton from '../components/BackButton';
@@ -18,14 +18,21 @@ const ExcursionListPage = () => {
   return (
     <div className="excursion-wrapper">
       <h1 className="excursion-title">Экскурсии туроператора #{operatorId}</h1>
-
       <div className="excursion-list">
         {excursions.map((exc) => (
-          <div key={exc.id} className="excursion-card">
-            <h3>{exc.title}</h3>
-            <p>Цена: {exc.price} AED</p>
-            <button className="excursion-book-btn">{t('common.book')}</button>
-          </div>
+          <Link
+            to={`/excursions/${operatorId}/${exc.id}`}
+            key={exc.id}
+            className="excursion-card-link"
+          >
+            <div className="excursion-card">
+              <h3>{exc.title}</h3>
+              <p>Цена: {exc.price} AED</p>
+              <button className="excursion-book-btn">
+                {t('common.book')}
+              </button>
+            </div>
+          </Link>
         ))}
       </div>
 
