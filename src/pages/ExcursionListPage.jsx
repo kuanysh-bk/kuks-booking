@@ -68,6 +68,7 @@ const ExcursionListPage = () => {
                 <div className="excursion-info">
                   <h3>{exc.title}</h3>
                   <p>Цена: {exc.price} AED</p>
+                  <p>Длительность: {exc.duration}</p>
                 </div>
               </div>
             </Link>
