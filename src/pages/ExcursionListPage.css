@@ -82,4 +82,20 @@
     flex-direction: column;
     gap: 0.5rem;
   }
+
+  .sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .sort-controls select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
   
