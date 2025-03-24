@@ -24,10 +24,12 @@
   }
   
   .excursion-card {
+    display: flex;
+    flex-direction: column;
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    padding: 1.5rem;
+    overflow: hidden;
     transition: transform 0.2s;
   }
   
@@ -66,5 +68,18 @@
   .excursion-card-link {
     text-decoration: none;
     color: inherit;
+  }
+  
+  .excursion-thumb {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .excursion-info {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
   

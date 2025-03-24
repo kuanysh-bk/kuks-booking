@@ -1,5 +1,14 @@
 [
-    { "id": 101, "title": "City Tour", "price": 150 },
-    { "id": 102, "title": "Museum Visit", "price": 100 }
-  ]
-  
+  {
+    "id": 101,
+    "title": "City Tour Dubai",
+    "price": 150,
+    "image": "/images/city1.jpg"
+  },
+  {
+    "id": 102,
+    "title": "Museum Visit",
+    "price": 100,
+    "image": "/images/museum.jpg"
+  }
+]
