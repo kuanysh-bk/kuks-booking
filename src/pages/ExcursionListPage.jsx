@@ -26,11 +26,12 @@ const ExcursionListPage = () => {
             className="excursion-card-link"
           >
             <div className="excursion-card">
-              <h3>{exc.title}</h3>
-              <p>Цена: {exc.price} AED</p>
-              <button className="excursion-book-btn">
-                {t('common.book')}
-              </button>
+            <img src={exc.image} alt={exc.title} className="excursion-thumb" />
+            <div className="excursion-info">
+                <h3>{exc.title}</h3>
+                <p>Цена: {exc.price} AED</p>
+                <button className="excursion-book-btn">{t('common.book')}</button>
+            </div>
             </div>
           </Link>
         ))}
