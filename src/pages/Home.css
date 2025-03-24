@@ -53,3 +53,29 @@
 .home-button:hover {
   background-color: #004fcc;
 }
+
+.language-switcher {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  gap: 1rem;
+  font-size: 1.2rem;
+}
+
+.lang-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  font-weight: 500;
+}
+
+.lang-link:hover {
+  color: #0066ff;
+}
+
+.lang-link.active {
+  color: #0066ff;
+  font-weight: 700;
+}
