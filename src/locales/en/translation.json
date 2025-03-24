@@ -4,5 +4,9 @@
     "subtitle": "Please choose a service:",
     "bookExcursion": "Book an Excursion",
     "rentCar": "Car Rental"
+  },
+  "common": {
+    "back": "⬅ Back",
+    "book": "Book"
   }
 }

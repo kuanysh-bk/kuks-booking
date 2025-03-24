@@ -1,0 +1,65 @@
+.excursion-wrapper {
+    height: 100vh;
+    background-color: #f8f9fb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    overflow-y: auto;
+  }
+  
+  .excursion-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .excursion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .excursion-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    transition: transform 0.2s;
+  }
+  
+  .excursion-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .excursion-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.3rem;
+    color: #222;
+  }
+  
+  .excursion-card p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #666;
+  }
+  
+  .excursion-book-btn {
+    margin-top: 1rem;
+    background-color: #0066ff;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .excursion-book-btn:hover {
+    background-color: #004fcc;
+  }
+  

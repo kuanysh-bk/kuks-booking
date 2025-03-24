@@ -1,0 +1,39 @@
+.operator-wrapper {
+    height: 100vh;
+    background-color: #f8f9fb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 80px;
+  }
+  
+  .operator-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  .operator-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 500px;
+    padding: 0 20px;
+  }
+  
+  .operator-card {
+    padding: 1rem;
+    font-size: 1.2rem;
+    background-color: #0066ff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .operator-card:hover {
+    background-color: #004fcc;
+  }
+  
