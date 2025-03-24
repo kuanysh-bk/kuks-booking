@@ -15,5 +15,10 @@
     "adult": "Adult",
     "child": "Child",
     "infant": "Infant"
+  },
+  "booking": {
+    "selectDate": "Select Excursion Date",
+    "chooseDate": "Click to choose a date",
+    "continue": "Continue"
   }
 }
