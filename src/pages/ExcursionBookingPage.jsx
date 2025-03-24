@@ -3,7 +3,6 @@ import { useParams, useLocation } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import './ExcursionBookingPage.css';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
 
 const ExcursionBookingPage = () => {
   const { excursionId } = useParams();
