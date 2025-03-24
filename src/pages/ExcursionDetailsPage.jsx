@@ -54,7 +54,7 @@ const ExcursionDetailsPage = () => {
 
       <button
         className="excursion-book-btn"
-        onClick={() => navigate(`/excursions/${operatorId}/${excursionId}/booking`)}
+        onClick={() => navigate(`/excursions/${operatorId}/${excursionId}/date`)}
       >
         {t('common.book')}
       </button>
