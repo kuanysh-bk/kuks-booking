@@ -1,11 +1,23 @@
+// src/App.jsx
 import React from 'react';
-import TerminalComponent from './components/TerminalComponent';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Home from './pages/Home';
+import Category from './pages/Category';
+import CarRental from './pages/CarRental';
+import './App.css';
 
 function App() {
   return (
-    <div style={{ height: '100vh', backgroundColor: '#000' }}>
-      <TerminalComponent />
-    </div>
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/category" element={<Category />} />
+          <Route path="/car_rental" element={<CarRental />} />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   );
 }
 
