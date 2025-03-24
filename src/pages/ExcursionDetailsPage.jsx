@@ -3,6 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './ExcursionDetailsPage.css';
 import BackButton from '../components/BackButton';
 import { useTranslation } from 'react-i18next';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
 
 const ExcursionDetailsPage = () => {
   const { excursionId, operatorId } = useParams();
@@ -23,9 +26,20 @@ const ExcursionDetailsPage = () => {
       <h1 className="excursion-title">{data.title}</h1>
 
       <div className="excursion-images">
+      <Carousel
+        showThumbs={false}
+        showStatus={false}
+        infiniteLoop
+        autoPlay
+        interval={4000}
+        className="excursion-carousel"
+        >
         {data.images.map((src, index) => (
-          <img key={index} src={src} alt={`img-${index}`} />
+            <div key={index}>
+            <img src={src} alt={`slide-${index}`} />
+            </div>
         ))}
+        </Carousel>
       </div>
 
       <p className="excursion-description">{data.description}</p>
