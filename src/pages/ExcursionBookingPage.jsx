@@ -67,6 +67,7 @@ const ExcursionBookingPage = () => {
 
   if (!excursion) return <div>Загрузка...</div>;
 
+  
   return (
     <div className="booking-wrapper">
       <h1 className="booking-title">{excursion.title}</h1>
