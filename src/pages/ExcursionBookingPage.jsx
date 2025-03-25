@@ -53,17 +53,35 @@ const ExcursionBookingPage = () => {
     );
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+  
     const payload = {
       ...form,
-      excursionId,
-      date: selectedDate
+      excursion_title: excursion.title,
+      date: selectedDate,
+      total_price: calculateTotal()
     };
   
-    console.log('Отправка бронирования:', payload);
-    alert('Бронирование отправлено!');
-  };
+    try {
+      const response = await fetch('https://booking-backend.onrender.com/api/pay', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+  
+      if (response.ok) {
+        alert("✅ Бронирование успешно отправлено туроператору!");
+      } else {
+        alert("❌ Ошибка при оплате. Попробуйте позже.");
+      }
+    } catch (err) {
+      console.error("Ошибка при отправке:", err);
+      alert("⚠️ Сервер недоступен.");
+    }
+  };  
 
   if (!excursion) return <div>Загрузка...</div>;
 
