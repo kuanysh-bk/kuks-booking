@@ -59,11 +59,20 @@ const ExcursionBookingPage = () => {
     setLoading(true);
   
     const payload = {
-      ...form,
-      excursion_title: excursion.title,
-      date: selectedDate,
-      total_price: calculateTotal()
-    };
+        first_name: form.firstName,
+        last_name: form.lastName,
+        phone: form.phone,
+        contact_method: form.contactMethod,
+        email: form.email,
+        document_number: form.documentNumber,
+        language: form.language,
+        adults: Number(form.adults),
+        children: Number(form.children),
+        infants: Number(form.infants),
+        excursion_title: excursion.title,
+        date: selectedDate,
+        total_price: calculateTotal()
+      };      
   
     try {
       const response = await fetch('https://booking-backend-tjmn.onrender.com/api/pay', {
