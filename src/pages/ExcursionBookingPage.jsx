@@ -66,7 +66,7 @@ const ExcursionBookingPage = () => {
     };
   
     try {
-      const response = await fetch('https://booking-backend.onrender.com/api/pay', {
+      const response = await fetch('https://booking-backend-tjmn.onrender.com/api/pay', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
