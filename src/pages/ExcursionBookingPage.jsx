@@ -73,6 +73,10 @@ const ExcursionBookingPage = () => {
         },
         body: JSON.stringify(payload)
       });
+
+      const text = await response.text();
+        console.log("🔍 Response status:", response.status);
+        console.log("🔍 Response text:", text);
   
       if (response.ok) {
         alert("✅ Бронирование успешно отправлено туроператору!");
