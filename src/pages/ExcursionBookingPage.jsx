@@ -67,12 +67,15 @@ const ExcursionBookingPage = () => {
 
   if (!excursion) return <div>Загрузка...</div>;
 
-  
+
   return (
     <div className="booking-wrapper">
       <h1 className="booking-title">{excursion.title}</h1>
-
+      
       <form className="booking-form" onSubmit={handleSubmit}>
+      <p style={{ background: 'lightgreen', padding: '1rem' }}>
+        Проверка формы: поле "Имя" должно быть ниже
+        </p>
         <label>Имя<input type="text" name="firstName" required onChange={handleChange} /></label>
         <label>Фамилия<input type="text" name="lastName" required onChange={handleChange} /></label>
         <label>Телефон<input type="tel" name="phone" required onChange={handleChange} /></label>
