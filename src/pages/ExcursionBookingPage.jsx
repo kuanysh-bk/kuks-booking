@@ -9,6 +9,7 @@ const ExcursionBookingPage = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const selectedDate = location.state?.selectedDate;
+  const [loading, setLoading] = useState(false);
 
   const [excursion, setExcursion] = useState(null);
   const [languages, setLanguages] = useState([]);
@@ -55,6 +56,7 @@ const ExcursionBookingPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
   
     const payload = {
       ...form,
@@ -80,7 +82,9 @@ const ExcursionBookingPage = () => {
     } catch (err) {
       console.error("Ошибка при отправке:", err);
       alert("⚠️ Сервер недоступен.");
-    }
+    } finally {
+        setLoading(false);
+      }
   };  
 
   if (!excursion) return <div>Загрузка...</div>;
@@ -91,9 +95,6 @@ const ExcursionBookingPage = () => {
       <h1 className="booking-title">{excursion.title}</h1>
       
       <form className="booking-form" onSubmit={handleSubmit}>
-      <p style={{ background: 'lightgreen', padding: '1rem' }}>
-        Проверка формы: поле "Имя" должно быть ниже
-        </p>
         <label>Имя<input type="text" name="firstName" required onChange={handleChange} /></label>
         <label>Фамилия<input type="text" name="lastName" required onChange={handleChange} /></label>
         <label>Телефон<input type="tel" name="phone" required onChange={handleChange} /></label>
@@ -107,7 +108,7 @@ const ExcursionBookingPage = () => {
         </label>
 
         {form.contactMethod === 'Email' && (
-          <label>Email<input type="email" name="email" onChange={handleChange} /></label>
+          <label>Email<input type="email" name="email" required onChange={handleChange} /></label>
         )}
 
         <label>Номер документа<input type="text" name="documentNumber" onChange={handleChange} /></label>
@@ -135,7 +136,9 @@ const ExcursionBookingPage = () => {
         </div>
         )}
 
-        <button type="submit" className="submit-button">Подтвердить бронирование</button>
+        <button type="submit" className="submit-button" disabled={loading}>
+        {loading ? "Отправка..." : "Подтвердить бронирование"}
+        </button>
       </form>
 
       <BackButton />
