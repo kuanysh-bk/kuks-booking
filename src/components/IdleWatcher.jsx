@@ -16,6 +16,7 @@ const IdleWatcher = ({ children }) => {
     if (isMainPage) return; // исключаем главную страницу
 
     const resetTimer = () => {
+      console.log("👆 Активность обнаружена — сброс таймера");
       clearTimeout(timerRef.current);
       if (idle) {
         setIdle(false);
@@ -36,7 +37,7 @@ const IdleWatcher = ({ children }) => {
       window.removeEventListener('click', resetTimer);
       clearTimeout(timerRef.current);
     };
-  }, [idle, isMainPage]);
+  }, [location.pathname]);
 
   // Обратный отсчет при неактивности
   useEffect(() => {
