@@ -1,0 +1,60 @@
+.success-page {
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 2rem;
+    text-align: center;
+    background: #f9f9f9;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    font-family: sans-serif;
+  }
+  
+  .success-page h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #2e7d32;
+  }
+  
+  .details p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+  }
+  
+  .home-button {
+    margin-top: 2rem;
+    padding: 0.8rem 2rem;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .home-button:hover {
+    background-color: #1565c0;
+  }
+  
+  .idle-banner {
+    margin-top: 2rem;
+    background-color: #fff8e1;
+    border: 1px solid #fbc02d;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  
+  .idle-banner p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .idle-banner button {
+    padding: 0.5rem 1.5rem;
+    background-color: #fbc02d;
+    color: #333;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  

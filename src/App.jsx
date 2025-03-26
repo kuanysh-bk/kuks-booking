@@ -11,6 +11,7 @@ import ExcursionListPage from './pages/ExcursionListPage';
 import ExcursionDetailsPage from './pages/ExcursionDetailsPage';
 import ExcursionDatePage from './pages/ExcursionDatePage';
 import ExcursionBookingPage from './pages/ExcursionBookingPage';
+import BookingSuccessPage from './pages/BookingSuccessPage';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/excursions/:operatorId/:excursionId" element={<ExcursionDetailsPage />} />
           <Route path="/excursions/:operatorId/:excursionId/date" element={<ExcursionDatePage />} />
           <Route path="/excursions/:operatorId/:excursionId/booking" element={<ExcursionBookingPage />} />
+          <Route path="/success" element={<BookingSuccessPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>
