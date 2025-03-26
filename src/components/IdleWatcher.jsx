@@ -13,10 +13,13 @@ const IdleWatcher = ({ children }) => {
 
   // Отслеживаем активность пользователя
   useEffect(() => {
+    if (location.pathname === '/') {
+        setIdle(false);
+        setCountdown(15);
+      }
     if (isMainPage) return; // исключаем главную страницу
 
     const resetTimer = () => {
-      console.log("👆 Активность обнаружена — сброс таймера");
       clearTimeout(timerRef.current);
       if (idle) {
         setIdle(false);
