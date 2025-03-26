@@ -1,0 +1,40 @@
+.idle-overlay {
+    position: relative;
+  }
+  
+  .idle-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    font-family: sans-serif;
+  }
+  
+  .idle-popup p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .idle-popup button {
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .idle-popup button:hover {
+    background-color: #1565c0;
+  }
+  

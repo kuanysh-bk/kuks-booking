@@ -3,8 +3,6 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
-import Category from './pages/Category';
-import CarRental from './pages/CarRental';
 import './App.css';
 import ExcursionOperatorPage from './pages/ExcursionOperatorPage';
 import ExcursionListPage from './pages/ExcursionListPage';
@@ -12,16 +10,16 @@ import ExcursionDetailsPage from './pages/ExcursionDetailsPage';
 import ExcursionDatePage from './pages/ExcursionDatePage';
 import ExcursionBookingPage from './pages/ExcursionBookingPage';
 import BookingSuccessPage from './pages/BookingSuccessPage';
+import IdleWatcher from './components/IdleWatcher';
 
 
 function App() {
   return (
+    <IdleWatcher>
     <BrowserRouter>
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/category" element={<Category />} />
-          <Route path="/car_rental" element={<CarRental />} />
           <Route path="/excursions" element={<ExcursionOperatorPage />} />
           <Route path="/excursions/:operatorId" element={<ExcursionListPage />} />
           <Route path="/excursions/:operatorId/:excursionId" element={<ExcursionDetailsPage />} />
@@ -31,6 +29,7 @@ function App() {
         </Routes>
       </Layout>
     </BrowserRouter>
+    </IdleWatcher>
   );
 }
 
