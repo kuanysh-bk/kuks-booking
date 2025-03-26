@@ -11,22 +11,22 @@ const IdleWatcher = ({ children }) => {
   const [countdown, setCountdown] = useState(15);
   const timerRef = useRef(null);
 
-  // Отслеживаем активность пользователя
+  const resetTimer = useCallback(() => {
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setIdle(true), 60 * 1000); // 1 минута
+  }, []);
+
+  // Сбросить при переходе на главную
   useEffect(() => {
     if (location.pathname === '/') {
-        setIdle(false);
-        setCountdown(15);
-      }
-    if (isMainPage) return; // исключаем главную страницу
+      setIdle(false);
+      setCountdown(15);
+    }
+  }, [location.pathname]);
 
-    const resetTimer = () => {
-      clearTimeout(timerRef.current);
-      if (idle) {
-        setIdle(false);
-        setCountdown(15);
-      }
-      timerRef.current = setTimeout(() => setIdle(true), 60 * 1000); // 1 минута
-    };
+  // Отслеживаем активность пользователя
+  useEffect(() => {
+    if (isMainPage) return; // исключаем главную страницу
 
     window.addEventListener('mousemove', resetTimer);
     window.addEventListener('keydown', resetTimer);
@@ -40,11 +40,13 @@ const IdleWatcher = ({ children }) => {
       window.removeEventListener('click', resetTimer);
       clearTimeout(timerRef.current);
     };
-  }, [location.pathname]);
+  }, [isMainPage, resetTimer]);
 
   // Обратный отсчет при неактивности
   useEffect(() => {
     if (!idle) return;
+
+    setCountdown(15); // Сбросить таймер при активации idle
 
     const interval = setInterval(() => {
       setCountdown((prev) => {
@@ -60,12 +62,18 @@ const IdleWatcher = ({ children }) => {
     return () => clearInterval(interval);
   }, [idle, navigate]);
 
+  const stayHere = () => {
+    setIdle(false);
+    setCountdown(15);
+    resetTimer();
+  };
+
   if (idle) {
     return (
       <div className="idle-overlay">
         <div className="idle-popup">
           <p>Вы здесь? Возвращаемся на главную через {countdown} сек...</p>
-          <button onClick={() => setIdle(false)}>Остаться</button>
+          <button onClick={stayHere}>Остаться</button>
         </div>
         {children}
       </div>
