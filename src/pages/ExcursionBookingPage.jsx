@@ -149,17 +149,18 @@ const ExcursionBookingPage = () => {
         </div>
         )}
 
-        <button type="submit" className="submit-button" disabled={loading}>
-        {loading ? "Отправка..." : "Подтвердить бронирование"}
+        <button type="submit" className="submit-button"
         onClick = {()=> navigate('/success', {
-                                    state: {
-                                        bookingId: nextId,
-                                        title: excursion.title,
-                                        date: selectedDate,
-                                        totalPeople: Number(form.adults) + Number(form.children) + Number(form.infants),
-                                        operatorContact: "+971-50-123-4567" // можно подтянуть из данных туроператора
-                                    }
-                                    })}
+            state: {
+                bookingId: nextId,
+                title: excursion.title,
+                date: selectedDate,
+                totalPeople: Number(form.adults) + Number(form.children) + Number(form.infants),
+                operatorContact: "+971-50-123-4567" // можно подтянуть из данных туроператора
+            }
+            })} disabled={loading}>
+        {loading ? "Отправка..." : "Подтвердить бронирование"}
+        
         </button>
       </form>
 
