@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './IdleWatcher.css';
 
@@ -24,15 +24,14 @@ const IdleWatcher = ({ children }) => {
     }
   }, [location.pathname]);
 
-  // Отслеживаем активность пользователя
   useEffect(() => {
-    if (isMainPage) return; // исключаем главную страницу
+    if (isMainPage) return;
 
     window.addEventListener('mousemove', resetTimer);
     window.addEventListener('keydown', resetTimer);
     window.addEventListener('click', resetTimer);
 
-    resetTimer(); // инициализация
+    resetTimer();
 
     return () => {
       window.removeEventListener('mousemove', resetTimer);
@@ -42,7 +41,6 @@ const IdleWatcher = ({ children }) => {
     };
   }, [isMainPage, resetTimer]);
 
-  // Обратный отсчет при неактивности
   useEffect(() => {
     if (!idle) return;
 
