@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import './ExcursionBookingPage.css';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,8 @@ const ExcursionBookingPage = () => {
   const { t } = useTranslation();
   const selectedDate = location.state?.selectedDate;
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
 
   const [excursion, setExcursion] = useState(null);
   const [languages, setLanguages] = useState([]);
@@ -88,7 +90,18 @@ const ExcursionBookingPage = () => {
         console.log("🔍 Response text:", text);
   
       if (response.ok) {
-        alert("✅ Бронирование успешно отправлено туроператору!");
+        // Можно сгенерировать временный bookingId
+        const bookingId = Math.floor(Math.random() * 10000) + 1;
+
+        navigate('/success', {
+            state: {
+            bookingId,
+            title: excursion.title,
+            date: selectedDate,
+            totalPeople: Number(form.adults) + Number(form.children) + Number(form.infants),
+            operatorContact: "+971-50-123-4567"
+            }
+        });
       } else {
         alert("❌ Ошибка при оплате. Попробуйте позже.");
       }
@@ -149,16 +162,7 @@ const ExcursionBookingPage = () => {
         </div>
         )}
 
-        <button type="submit" className="submit-button"
-        onClick = {()=> navigate('/success', {
-            state: {
-                bookingId: nextId,
-                title: excursion.title,
-                date: selectedDate,
-                totalPeople: Number(form.adults) + Number(form.children) + Number(form.infants),
-                operatorContact: "+971-50-123-4567" // можно подтянуть из данных туроператора
-            }
-            })} disabled={loading}>
+        <button type="submit" className="submit-button"  disabled={loading}>
         {loading ? "Отправка..." : "Подтвердить бронирование"}
         
         </button>
