@@ -15,9 +15,9 @@ import IdleWatcher from './components/IdleWatcher';
 
 function App() {
   return (
-    <IdleWatcher>
     <BrowserRouter>
       <Layout>
+        <IdleWatcher>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/excursions" element={<ExcursionOperatorPage />} />
@@ -27,9 +27,9 @@ function App() {
           <Route path="/excursions/:operatorId/:excursionId/booking" element={<ExcursionBookingPage />} />
           <Route path="/success" element={<BookingSuccessPage />} />
         </Routes>
+        </IdleWatcher>
       </Layout>
     </BrowserRouter>
-    </IdleWatcher>
   );
 }
 
