@@ -56,12 +56,13 @@
 }
 
 .language-switcher {
-  position: absolute;
-  top: 20px;
+  position: fixed;
+  top: 50px;
   right: 30px;
   display: flex;
   gap: 1rem;
   font-size: 1.2rem;
+  z-index: 1000;
 }
 
 .lang-link {
