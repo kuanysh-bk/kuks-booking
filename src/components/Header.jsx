@@ -10,15 +10,20 @@ const Header = () => {
   };
 
   return (
-    <header>
+    <header className="header">
       <div className="language-selector">
-        <button onClick={() => changeLanguage('ar')}>العربية</button>
-        <button onClick={() => changeLanguage('kk')}>Қазақ</button>
-        <button onClick={() => changeLanguage('fr')}>Français</button>
-        <button onClick={() => changeLanguage('de')}>Deutsch</button>
-        <button onClick={() => changeLanguage('es')}>Español</button>
-        <button onClick={() => changeLanguage('en')}>English</button>
-        <button onClick={() => changeLanguage('ru')}>Русский</button>
+        <button
+          onClick={() => changeLanguage('ru')}
+          className={i18n.language === 'ru' ? 'active' : ''}
+        >
+          Русский
+        </button>
+        <button
+          onClick={() => changeLanguage('en')}
+          className={i18n.language === 'en' ? 'active' : ''}
+        >
+          English
+        </button>
       </div>
     </header>
   );
