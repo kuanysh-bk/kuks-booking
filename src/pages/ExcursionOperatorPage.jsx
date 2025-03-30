@@ -8,14 +8,14 @@ const ExcursionOperatorPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Временно — локальный mock
-    fetch('/mock/operators.json')
+    fetch('https://booking-backend-tjmn.onrender.com/operators') 
       .then(res => res.json())
-      .then(setOperators);
+      .then(data => setOperators(data))
+      .catch(err => console.error('Ошибка загрузки операторов:', err));
   }, []);
 
-  const handleSelect = (operatorId) => {
-    navigate(`/excursions/${operatorId}`);
+  const handleOperatorClick = (id) => {
+    navigate(`/excursions/operator/${id}`);
   };
 
   return (
@@ -23,9 +23,10 @@ const ExcursionOperatorPage = () => {
       <h1 className="operator-title">Выберите туроператора</h1>
       <div className="operator-list">
         {operators.map((op) => (
-          <button key={op.id} className="operator-card" onClick={() => handleSelect(op.id)}>
-            {op.name}
-          </button>
+          <div key={op.id} className="operator-card" onClick={() => handleOperatorClick(op.id)}>
+            {op.logo_url && <img src={op.logo_url} alt={op.name} className="operator-logo" />}
+            <h3>{op.name}</h3>
+          </div>
         ))}
       </div>
       <BackButton />
