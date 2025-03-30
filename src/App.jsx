@@ -11,6 +11,7 @@ import ExcursionDatePage from './pages/ExcursionDatePage';
 import ExcursionBookingPage from './pages/ExcursionBookingPage';
 import BookingSuccessPage from './pages/BookingSuccessPage';
 import IdleWatcher from './components/IdleWatcher';
+import CarRentalPage from './pages/CarRentalPage';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/excursions" element={<ExcursionOperatorPage />} />
+          <Route path="/cars" element={<CarRentalPage />} />
           <Route path="/excursions/:operatorId" element={<ExcursionListPage />} />
           <Route path="/excursions/:operatorId/:excursionId" element={<ExcursionDetailsPage />} />
           <Route path="/excursions/:operatorId/:excursionId/date" element={<ExcursionDatePage />} />
