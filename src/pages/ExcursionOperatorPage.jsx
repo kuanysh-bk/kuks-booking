@@ -15,7 +15,7 @@ const ExcursionOperatorPage = () => {
   }, []);
 
   const handleOperatorClick = (id) => {
-    navigate(`/excursions/operator/${id}`);
+    navigate(`/excursions/${id}`);
   };
 
   return (
