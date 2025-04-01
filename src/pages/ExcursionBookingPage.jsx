@@ -1,171 +1,131 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import BackButton from '../components/BackButton';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './ExcursionBookingPage.css';
 import { useTranslation } from 'react-i18next';
+import BackButton from '../components/BackButton';
 
 const ExcursionBookingPage = () => {
-  const { excursionId } = useParams();
+  const { operatorId, excursionId } = useParams();
   const location = useLocation();
-  const { t } = useTranslation();
-  const selectedDate = location.state?.selectedDate;
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-
+  const { t } = useTranslation();
   const [excursion, setExcursion] = useState(null);
-  const [languages, setLanguages] = useState([]);
 
-  const [form, setForm] = useState({
+  const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     phone: '',
     contactMethod: 'WhatsApp',
     email: '',
     documentNumber: '',
-    language: '',
-    adults: 1,
-    children: 0,
-    infants: 0
+    language: 'en',
+    adults: '1',
+    children: '0',
+    infants: '0',
+    pickupLocation: ''
   });
 
-  useEffect(() => {
-    // Загрузка данных экскурсии
-    fetch(`/mock/excursion_${excursionId}.json`)
-      .then(res => res.json())
-      .then(setExcursion);
+  const [status, setStatus] = useState(null);
 
-    // Загрузка языков из БД (пока mock)
-    fetch('/mock/languages.json')
+  const selectedDate = location.state?.date || '';
+
+  useEffect(() => {
+    fetch(`https://booking-backend-tjmn.onrender.com/excursions?operator_id=${operatorId}`)
       .then(res => res.json())
-      .then(setLanguages);
-  }, [excursionId]);
+      .then(data => {
+        const found = data.find(exc => String(exc.id) === excursionId);
+        setExcursion(found);
+      })
+      .catch(err => console.error('Ошибка загрузки экскурсии:', err));
+  }, [operatorId, excursionId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
-  };
-
-  const calculateTotal = () => {
-    if (!excursion) return 0;
-    const { adult, child, infant } = excursion.prices;
-    return (
-      form.adults * adult +
-      form.children * child +
-      form.infants * infant
-    );
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-  
+    setStatus(null);
+
+    const totalPrice = excursion.price * (
+      parseInt(formData.adults) +
+      parseInt(formData.children) +
+      parseInt(formData.infants)
+    );
+
     const payload = {
-        first_name: form.firstName,
-        last_name: form.lastName,
-        phone: form.phone,
-        contact_method: form.contactMethod,
-        email: form.email,
-        document_number: form.documentNumber,
-        language: form.language,
-        adults: Number(form.adults),
-        children: Number(form.children),
-        infants: Number(form.infants),
-        excursion_title: excursion.title,
-        date: selectedDate,
-        total_price: calculateTotal()
-      };      
-  
+      ...formData,
+      excursion_title: excursion.title,
+      date: selectedDate,
+      total_price: totalPrice
+    };
+
     try {
       const response = await fetch('https://booking-backend-tjmn.onrender.com/api/pay', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
 
-      const text = await response.text();
-        console.log("🔍 Response status:", response.status);
-        console.log("🔍 Response text:", text);
-  
-      if (response.ok) {
-        // Можно сгенерировать временный bookingId
-        const bookingId = Math.floor(Math.random() * 10000) + 1;
+      if (!response.ok) throw new Error('Ошибка оплаты');
 
-        navigate('/success', {
-            state: {
-            bookingId,
-            title: excursion.title,
-            date: selectedDate,
-            totalPeople: Number(form.adults) + Number(form.children) + Number(form.infants),
-            operatorContact: "+971-50-123-4567"
-            }
-        });
-      } else {
-        alert("❌ Ошибка при оплате. Попробуйте позже.");
-      }
+      const result = await response.json();
+      navigate('/booking-success', {
+        state: {
+          bookingId: result.booking_id,
+          excursionTitle: excursion.title,
+          date: selectedDate,
+          people: parseInt(formData.adults) + parseInt(formData.children) + parseInt(formData.infants),
+          contact: excursion.contact,
+        }
+      });
     } catch (err) {
-      console.error("Ошибка при отправке:", err);
-      alert("⚠️ Сервер недоступен.");
-    } finally {
-        setLoading(false);
-      }
-  };  
+      console.error(err);
+      setStatus('Ошибка при оплате. Попробуйте позже.');
+    }
+  };
 
-  if (!excursion) return <div>Загрузка...</div>;
-
+  if (!excursion) return <p>Загрузка...</p>;
 
   return (
-    <div className="booking-wrapper">
-      <h1 className="booking-title">{excursion.title}</h1>
-      
-      <form className="booking-form" onSubmit={handleSubmit}>
-        <label>Имя<input type="text" name="firstName" required onChange={handleChange} /></label>
-        <label>Фамилия<input type="text" name="lastName" required onChange={handleChange} /></label>
-        <label>Телефон<input type="tel" name="phone" required onChange={handleChange} /></label>
+    <div className="booking-page">
+      <h1>Бронирование: {excursion.title}</h1>
+      <form onSubmit={handleSubmit} className="booking-form">
+        <input type="text" name="firstName" placeholder="Имя" value={formData.firstName} onChange={handleChange} required />
+        <input type="text" name="lastName" placeholder="Фамилия" value={formData.lastName} onChange={handleChange} required />
+        <input type="tel" name="phone" placeholder="Телефон" value={formData.phone} onChange={handleChange} required />
 
-        <label>Метод связи
-          <select name="contactMethod" onChange={handleChange}>
-            <option>WhatsApp</option>
-            <option>Telegram</option>
-            <option>Email</option>
-          </select>
-        </label>
+        <select name="contactMethod" value={formData.contactMethod} onChange={handleChange} required>
+          <option value="WhatsApp">WhatsApp</option>
+          <option value="Telegram">Telegram</option>
+          <option value="Email">Email</option>
+        </select>
 
-        {form.contactMethod === 'Email' && (
-          <label>Email<input type="email" name="email" required onChange={handleChange} /></label>
-        )}
+        <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+        <input type="text" name="documentNumber" placeholder="Номер документа" value={formData.documentNumber} onChange={handleChange} required />
 
-        <label>Номер документа<input type="text" name="documentNumber" onChange={handleChange} /></label>
+        <input type="text" name="pickupLocation" placeholder="Pick-up location" value={formData.pickupLocation} onChange={handleChange} />
 
-        <label>Язык экскурсии
-          <select name="language" required onChange={handleChange}>
-            <option value="">Выберите язык</option>
-            {languages.map(lang => (
-              <option key={lang.code} value={lang.code}>{lang.name}</option>
-            ))}
-          </select>
-        </label>
+        <select name="language" value={formData.language} onChange={handleChange} required>
+          <option value="ru">Русский</option>
+          <option value="en">English</option>
+        </select>
 
-        <label>Взрослых<input type="number" name="adults" min="0" value={form.adults} onChange={handleChange} /></label>
-        <label>Детей<input type="number" name="children" min="0" value={form.children} onChange={handleChange} /></label>
-        <label>Младенцев<input type="number" name="infants" min="0" value={form.infants} onChange={handleChange} /></label>
+        <input type="number" name="adults" placeholder="Взрослые" value={formData.adults} onChange={handleChange} min="0" required />
+        <input type="number" name="children" placeholder="Дети" value={formData.children} onChange={handleChange} min="0" />
+        <input type="number" name="infants" placeholder="Младенцы" value={formData.infants} onChange={handleChange} min="0" />
 
-        <div className="booking-total">
-          Итого: <strong>{calculateTotal()} AED</strong>
-        </div>
+        <p><strong>Дата:</strong> {selectedDate}</p>
+        <p><strong>Итого:</strong> {excursion.price * (
+          parseInt(formData.adults) +
+          parseInt(formData.children) +
+          parseInt(formData.infants)
+        )} AED</p>
 
-        {selectedDate && (
-        <div className="selected-date">
-            📅 Дата экскурсии: <strong>{selectedDate}</strong>
-        </div>
-        )}
+        {status && <p className="error-text">{status}</p>}
 
-        <button type="submit" className="submit-button"  disabled={loading}>
-        {loading ? "Отправка..." : "Подтвердить бронирование"}
-        
-        </button>
+        <button type="submit">Оплатить</button>
       </form>
 
       <BackButton />
