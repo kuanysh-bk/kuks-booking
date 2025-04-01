@@ -15,9 +15,9 @@ const ExcursionBookingPage = () => {
     firstName: '',
     lastName: '',
     phone: '',
-    contactMethod: 'WhatsApp',
+    contact_method: 'WhatsApp',
     email: '',
-    documentNumber: '',
+    document_number: '',
     language: 'en',
     adults: '1',
     children: '0',
@@ -96,14 +96,14 @@ const ExcursionBookingPage = () => {
         <input type="text" name="lastName" placeholder="Фамилия" value={formData.lastName} onChange={handleChange} required />
         <input type="tel" name="phone" placeholder="Телефон" value={formData.phone} onChange={handleChange} required />
 
-        <select name="contactMethod" value={formData.contactMethod} onChange={handleChange} required>
+        <select name="contact_method" value={formData.contact_method} onChange={handleChange} required>
           <option value="WhatsApp">WhatsApp</option>
           <option value="Telegram">Telegram</option>
           <option value="Email">Email</option>
         </select>
 
         <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
-        <input type="text" name="documentNumber" placeholder="Номер документа" value={formData.documentNumber} onChange={handleChange} required />
+        <input type="text" name="document_number" placeholder="Номер документа" value={formData.document_number} onChange={handleChange} required />
 
         <input type="text" name="pickupLocation" placeholder="Pick-up location" value={formData.pickupLocation} onChange={handleChange} />
 
