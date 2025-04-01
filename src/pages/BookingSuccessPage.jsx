@@ -7,64 +7,93 @@ const BookingSuccessPage = () => {
   const location = useLocation();
   const data = location.state;
 
-  const [idle, setIdle] = useState(false);
+  const [showIdlePrompt, setShowIdlePrompt] = useState(false);
   const [countdown, setCountdown] = useState(15);
+  const [timer, setTimer] = useState(null);
+  const [idleTimer, setIdleTimer] = useState(null);
 
-  // Мок данных (позже заменим на реальные из БД)
-  const bookingId = data?.bookingId || 101; // например max(id) + 1
-  const title = data?.title || 'City Tour Dubai';
-  const date = data?.date || '2025-04-01';
-  const totalPeople = data?.totalPeople || 3;
-  const operatorContact = data?.operatorContact || '+971-50-123-4567';
-
-  useEffect(() => {
-    const idleTimer = setTimeout(() => {
-      setIdle(true);
-    }, 2 * 60 * 1000); // 2 минуты неактивности
-
-    return () => clearTimeout(idleTimer);
-  }, []);
+  const bookingId = data?.bookingId;
+  const title = data?.excursionTitle;
+  const date = data?.date;
+  const totalPeople = data?.people;
+  const operatorContact = data?.contact;
 
   useEffect(() => {
-    if (idle) {
-      const interval = setInterval(() => {
-        setCountdown((prev) => {
+    const startIdleTimer = () => {
+      const timeout = setTimeout(() => {
+        setShowIdlePrompt(true);
+        startCountdown();
+      }, 120000);
+      setIdleTimer(timeout);
+    };
+
+    const resetIdleTimer = () => {
+      clearTimeout(idleTimer);
+      setShowIdlePrompt(false);
+      setCountdown(15);
+      clearInterval(timer);
+      startIdleTimer();
+    };
+
+    const handleUserActivity = () => {
+      resetIdleTimer();
+    };
+
+    const startCountdown = () => {
+      const countdownTimer = setInterval(() => {
+        setCountdown(prev => {
           if (prev <= 1) {
-            clearInterval(interval);
+            clearInterval(countdownTimer);
             navigate('/');
+            return 0;
           }
           return prev - 1;
         });
       }, 1000);
+      setTimer(countdownTimer);
+    };
 
-      return () => clearInterval(interval);
-    }
-  }, [idle, navigate]);
+    startIdleTimer();
 
-  const stayHere = () => {
-    setIdle(false);
+    window.addEventListener('mousemove', handleUserActivity);
+    window.addEventListener('keydown', handleUserActivity);
+
+    return () => {
+      clearTimeout(idleTimer);
+      clearInterval(timer);
+      window.removeEventListener('mousemove', handleUserActivity);
+      window.removeEventListener('keydown', handleUserActivity);
+    };
+  }, [navigate]);
+
+  const handleStay = () => {
+    setShowIdlePrompt(false);
     setCountdown(15);
+    clearInterval(timer);
   };
 
-  const goHome = () => navigate('/');
+  if (!data) {
+    navigate('/');
+    return null;
+  }
 
   return (
-    <div className="success-page">
-      <h1>🎉 Бронирование успешно!</h1>
-      <div className="details">
+    <div className="success-wrapper">
+      <h1>Бронирование успешно!</h1>
+      <div className="success-info">
         <p><strong>Номер брони:</strong> {bookingId}</p>
         <p><strong>Экскурсия:</strong> {title}</p>
         <p><strong>Дата:</strong> {date}</p>
-        <p><strong>Количество участников:</strong> {totalPeople}</p>
-        <p><strong>Контакты туроператора:</strong> {operatorContact}</p>
+        <p><strong>Количество человек:</strong> {totalPeople}</p>
+        <p><strong>Контакт туроператора:</strong> {operatorContact}</p>
       </div>
 
-      <button onClick={goHome} className="home-button">На главную</button>
+      <button className="home-button" onClick={() => navigate('/')}>На главную</button>
 
-      {idle && (
+      {showIdlePrompt && (
         <div className="idle-banner">
-          <p>⏳ Вы здесь? Возвращаемся на главную через {countdown} сек...</p>
-          <button onClick={stayHere}>Остаться</button>
+          <p>Вы всё ещё здесь? Возврат на главную через {countdown} сек.</p>
+          <button onClick={handleStay}>Остаться</button>
         </div>
       )}
     </div>
