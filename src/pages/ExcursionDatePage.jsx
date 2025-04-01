@@ -1,57 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './ExcursionDatePage.css';
 import BackButton from '../components/BackButton';
-import { useTranslation } from 'react-i18next';
 
 const ExcursionDatePage = () => {
   const { operatorId, excursionId } = useParams();
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
   const [unavailableDates, setUnavailableDates] = useState([]);
 
   useEffect(() => {
-    // Здесь будет реальный запрос к БД
-    fetch(`/mock/excursion_availability_${excursionId}.json`)
-      .then((res) => res.json())
-      .then((data) => {
-        const dates = data.unavailable.map(dateStr => new Date(dateStr));
+    fetch(`https://booking-backend-tjmn.onrender.com/excursion-reservations?excursion_id=${excursionId}`)
+      .then(res => res.json())
+      .then(data => {
+        const dates = data.map(item => new Date(item.date));
         setUnavailableDates(dates);
-      });
+      })
+      .catch(err => console.error('Ошибка загрузки дат:', err));
   }, [excursionId]);
 
   const handleContinue = () => {
-    if (selectedDate) {
-      // Можно передавать дату через state, query или глобальное хранилище
-      navigate(`/excursions/${operatorId}/${excursionId}/booking`, {
-        state: { selectedDate: selectedDate.toISOString().split('T')[0] } // формат: YYYY-MM-DD
-      });
-    }
+    if (!selectedDate) return;
+    navigate(`/excursions/${operatorId}/${excursionId}/booking`, {
+      state: { date: selectedDate.toISOString().split('T')[0] }
+    });
   };
 
   return (
-    <div className="date-picker-wrapper">
-      <h1 className="date-picker-title">{t('booking.selectDate')}</h1>
+    <div className="date-page-wrapper">
+      <h2>Выберите дату экскурсии</h2>
 
       <DatePicker
         selected={selectedDate}
         onChange={(date) => setSelectedDate(date)}
-        excludeDates={unavailableDates}
         minDate={new Date()}
-        dateFormat="dd.MM.yyyy"
-        placeholderText={t('booking.chooseDate')}
-        inline
+        excludeDates={unavailableDates}
+        placeholderText="Выберите доступную дату"
+        dateFormat="yyyy-MM-dd"
+        className="custom-datepicker"
       />
 
       <button
-        className="submit-button"
         onClick={handleContinue}
+        className="continue-button"
         disabled={!selectedDate}
       >
-        {t('booking.continue')}
+        Продолжить
       </button>
 
       <BackButton />
