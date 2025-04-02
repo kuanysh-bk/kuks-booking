@@ -22,7 +22,7 @@ const ExcursionBookingPage = () => {
     adults: '1',
     children: '0',
     infants: '0',
-    pickupLocation: ''
+    pickup_location: ''
   });
 
   const [status, setStatus] = useState(null);
@@ -105,7 +105,7 @@ const ExcursionBookingPage = () => {
         <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
         <input type="text" name="document_number" placeholder="Номер документа" value={formData.document_number} onChange={handleChange} required />
 
-        <input type="text" name="pickupLocation" placeholder="Pick-up location" value={formData.pickupLocation} onChange={handleChange} />
+        <input type="text" name="pickup_location" placeholder="Pick-up location" value={formData.pickup_location} onChange={handleChange} />
 
         <select name="language" value={formData.language} onChange={handleChange} required>
           <option value="ru">Русский</option>
