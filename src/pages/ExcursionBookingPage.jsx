@@ -71,7 +71,7 @@ const ExcursionBookingPage = () => {
       if (!response.ok) throw new Error('Ошибка оплаты');
 
       const result = await response.json();
-      navigate('/booking-success', {
+      navigate('/success', {
         state: {
           bookingId: result.booking_id,
           excursionTitle: excursion.title,
