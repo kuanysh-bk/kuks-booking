@@ -11,31 +11,6 @@
   background: linear-gradient(145deg, #f5f7fa, #e0e6ed);
 }
 
-/* Переключение языка */
-.language-switcher {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  display: flex;
-  gap: 0.5rem;
-}
-
-.lang-link {
-  padding: 0.4rem 0.8rem;
-  font-size: 1rem;
-  border: none;
-  background-color: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.lang-link.active {
-  font-weight: bold;
-  background-color: #007bff;
-  color: #fff;
-}
-
 /* Контент главной страницы */
 .home-content {
   text-align: center;

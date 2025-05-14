@@ -12,20 +12,6 @@ const Home = () => {
 
   return (
     <div className="home-wrapper">
-      <div className="language-switcher">
-        <button
-          onClick={() => changeLanguage('ru')}
-          className={`lang-link ${i18n.language === 'ru' ? 'active' : ''}`}
-        >
-          🇷🇺 RU
-        </button>
-        <button
-          onClick={() => changeLanguage('en')}
-          className={`lang-link ${i18n.language === 'en' ? 'active' : ''}`}
-        >
-          🇬🇧 EN
-        </button>
-      </div>
 
       <div className="home-content">
         <h1 className="home-title">{t('home.title')}</h1>
