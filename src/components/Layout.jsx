@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
   return (
     <div className="container">
       <Header />
-      <main>
+      <main style={{ paddingTop: '60px' }}>
         {children}
       </main>
     </div>

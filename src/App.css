@@ -1,12 +1,14 @@
 /* Фиксированный контейнер, центрированный на странице */
 .container {
-  width: 1080px;
-  height: 1920px;
+  width: 100%;
+  height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
   background: url('/assets/background.jpg') no-repeat center center;
   background-size: cover;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* Основной контент */
