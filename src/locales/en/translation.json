@@ -20,5 +20,11 @@
     "selectDate": "Select Excursion Date",
     "chooseDate": "Click to choose a date",
     "continue": "Continue"
+  },
+  "operator": {
+    "selectOperator": "Select a tour operator",
+    "loading": "Loading...",
+    "loadError": "Failed to load operators. Please try again later.",
+    "noOperators": "No available tour operators"
   }
 }
