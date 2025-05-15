@@ -9,6 +9,8 @@
   background-size: cover;
   box-sizing: border-box;
   overflow-x: hidden;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 /* Основной контент */
