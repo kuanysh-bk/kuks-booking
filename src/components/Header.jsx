@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
-  const { i18n } = useTranslation();
+  const {t, i18n } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
 
