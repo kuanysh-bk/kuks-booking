@@ -8,6 +8,8 @@ const ExcursionListPage = () => {
   const { operatorId } = useParams();
   const [excursions, setExcursions] = useState([]);
   const [sortOption, setSortOption] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
   const { t } = useTranslation();
 
   const parseDurationHours = (text) => {
@@ -17,7 +19,6 @@ const ExcursionListPage = () => {
 
   const sortExcursions = (list, option) => {
     const sorted = [...list];
-
     if (option === 'price-asc') {
       sorted.sort((a, b) => a.price - b.price);
     } else if (option === 'price-desc') {
@@ -25,51 +26,86 @@ const ExcursionListPage = () => {
     } else if (option === 'duration') {
       sorted.sort((a, b) => parseDurationHours(a.duration) - parseDurationHours(b.duration));
     }
-
     return sorted;
   };
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(`https://booking-backend-tjmn.onrender.com/excursions?operator_id=${operatorId}`)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then((data) => {
-        const sorted = sortExcursions(data, sortOption);
-        setExcursions(sorted);
+        setExcursions(sortExcursions(data, sortOption));
+        setHasError(false);
       })
-      .catch(err => console.error('Ошибка загрузки экскурсий:', err));
+      .catch((err) => {
+        console.error('Ошибка загрузки экскурсий:', err);
+        setHasError(true);
+      })
+      .finally(() => setIsLoading(false));
   }, [operatorId, sortOption]);
 
   return (
     <div className="excursion-wrapper">
-      <h1 className="excursion-title">Экскурсии туроператора #{operatorId}</h1>
-      <div className="excursion-list">
-        <div className="sort-controls">
-          <label htmlFor="sort">Сортировать по: </label>
-          <select id="sort" value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
-            <option value="">Без сортировки</option>
-            <option value="price-asc">Цене: от дешевых</option>
-            <option value="price-desc">Цене: от дорогих</option>
-            <option value="duration">Длительности</option>
-          </select>
-        </div>
+      <h1 className="excursion-title">
+        {t('excursion.operatorHeader', { id: operatorId })}
+      </h1>
 
-        {excursions.map((exc) => (
-          <Link
-            to={`/excursions/${operatorId}/${exc.id}`}
-            key={exc.id}
-            className="excursion-card-link"
-          >
-            <div className="excursion-card">
-              <img src={exc.image_urls?.split(',')[0]} alt={exc.title} className="excursion-thumb" />
-              <div className="excursion-info">
-                <h3>{exc.title}</h3>
-                <p>Цена: {exc.price} AED</p>
-                <p>Длительность: {exc.duration}</p>
-              </div>
-            </div>
-          </Link>
-        ))}
+      <div className="sort-controls">
+        <label htmlFor="sort">{t('excursion.sortBy')}:</label>
+        <select id="sort" value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
+          <option value="">{t('sort.none')}</option>
+          <option value="price-asc">{t('sort.priceAsc')}</option>
+          <option value="price-desc">{t('sort.priceDesc')}</option>
+          <option value="duration">{t('sort.duration')}</option>
+        </select>
       </div>
+
+      {isLoading && (
+        <p className="excursion-status">
+          {t('excursion.loading')}
+        </p>
+      )}
+
+      {!isLoading && hasError && (
+        <p className="excursion-status error">
+          {t('excursion.loadError')}
+        </p>
+      )}
+
+      {!isLoading && !hasError && excursions.length === 0 && (
+        <p className="excursion-status">
+          {t('excursion.noExcursions')}
+        </p>
+      )}
+
+      {!isLoading && !hasError && excursions.length > 0 && (
+        <div className="excursion-list">
+          {excursions.map((exc) => (
+            <Link
+              to={`/excursions/${operatorId}/${exc.id}`}
+              key={exc.id}
+              className="excursion-card-link"
+            >
+              <div className="excursion-card">
+                <img
+                  src={exc.image_urls?.split(',')[0]}
+                  alt={exc.title}
+                  className="excursion-thumb"
+                />
+                <div className="excursion-info">
+                  <h3>{exc.title}</h3>
+                  <p>
+                    {t('excursion.price')}: {exc.price} AED
+                  </p>
+                  <p>
+                    {t('excursion.duration')}: {exc.duration}
+                  </p>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
 
       <BackButton />
     </div>

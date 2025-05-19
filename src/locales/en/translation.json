@@ -27,5 +27,20 @@
     "loading": "Loading...",
     "loadError": "Failed to load operators. Please try again later.",
     "noOperators": "No available tour operators"
+  },
+  "excursion": {
+    "operatorHeader": "Excursions for operator #{{id}}",
+    "sortBy": "Sort by",
+    "price": "Price",
+    "duration": "Duration",
+    "loading": "Loading...",
+    "loadError": "Failed to load excursions. Please try again later.",
+    "noExcursions": "No excursions available"
+  },
+  "sort": {
+    "none": "No sorting",
+    "priceAsc": "Price: low to high",
+    "priceDesc": "Price: high to low",
+    "duration": "Duration"
   }
 }
