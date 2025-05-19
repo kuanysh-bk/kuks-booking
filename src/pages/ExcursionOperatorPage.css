@@ -1,12 +1,3 @@
-/* общий контейнер для всех страниц */
-.container {
-  width: 100%;
-  max-width: 1024px;
-  margin: 0 auto;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
 /* обёртка страницы операторов */
 .operator-wrapper {
   display: flex;
@@ -51,18 +42,4 @@
 .operator-card:hover {
   background-color: #004fcc;
   transform: translateY(-2px);
-}
-
-/* медиазапрос для очень узких экранов */
-@media (max-width: 480px) {
-  .operator-wrapper {
-    padding-top: 70px;
-  }
-  .operator-title {
-    font-size: clamp(1.5rem, 5vw, 2rem);
-  }
-  .operator-card {
-    font-size: 1rem;
-    padding: 0.75rem;
-  }
 }

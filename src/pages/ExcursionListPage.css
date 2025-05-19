@@ -1,106 +1,83 @@
+/* Обёртка всей страницы, внутри уже есть .container из Layout */
 .excursion-wrapper {
-    height: 100vh;
-    background-color: #f8f9fb;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 60px 20px;
-    overflow-y: auto;
-  }
-  
-  .excursion-title {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-  
-  .excursion-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    width: 100%;
-    max-width: 500px;
-  }
-  
-  .excursion-card {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    transition: transform 0.2s;
-  }
-  
-  .excursion-card:hover {
-    transform: translateY(-4px);
-  }
-  
-  .excursion-card h3 {
-    margin: 0 0 0.5rem;
-    font-size: 1.3rem;
-    color: #222;
-  }
-  
-  .excursion-card p {
-    margin: 0;
-    font-size: 1.1rem;
-    color: #666;
-  }
-  
-  .excursion-book-btn {
-    margin-top: 1rem;
-    background-color: #0066ff;
-    color: white;
-    border: none;
-    padding: 0.8rem 1.2rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .excursion-book-btn:hover {
-    background-color: #004fcc;
-  }
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;             /* центрирование */
+  padding: 80px 20px 40px;    /* 80px сверху = 60px header + 20px отступ */
+  box-sizing: border-box;
+}
 
-  .excursion-card-link {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  .excursion-thumb {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
-  
-  .excursion-info {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+/* Контролы сортировки справа */
+.sort-controls {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  gap: 10px;
+}
 
-  .excursion-info p {
-    margin: 0.3rem 0;
-    font-size: 1rem;
-  }  
+.sort-controls label {
+  font-weight: 500;
+}
 
-  .sort-controls {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
-  }
-  
-  .sort-controls select {
-    padding: 0.5rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-  }
-  
-  
+/* Сетка для карточек */
+.excursion-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Ссылка на карточку обнуляет стили */
+.excursion-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Карточка экскурсии */
+.excursion-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.excursion-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* Изображение */
+.excursion-thumb {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* Инфоблок под картинкой */
+.excursion-info {
+  padding: 1rem;
+}
+
+.excursion-info h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.excursion-info p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Статусы (загрузка, ошибки, пусто) */
+.excursion-status {
+  text-align: center;
+  font-size: 1rem;
+  color: #666;
+  margin: 2rem 0;
+}
+
+.excursion-status.error {
+  color: crimson;
+}
