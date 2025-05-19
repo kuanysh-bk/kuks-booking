@@ -33,6 +33,7 @@
     "sortBy": "Sort by",
     "price": "Price",
     "duration": "Duration",
+    "duration_min": "min.",
     "loading": "Loading...",
     "loadError": "Failed to load excursions. Please try again later.",
     "noExcursions": "No excursions available"

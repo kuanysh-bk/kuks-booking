@@ -98,7 +98,7 @@ const ExcursionListPage = () => {
                     {t('excursion.price')}: {exc.price} AED
                   </p>
                   <p>
-                    {t('excursion.duration')}: {exc.duration}
+                    {t('excursion.duration')}: {exc.duration} {t('excursion.duration_min')}
                   </p>
                 </div>
               </div>
