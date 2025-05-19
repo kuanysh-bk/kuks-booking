@@ -30,21 +30,26 @@
   margin-bottom: 2rem;
 }
 
-/* Кнопки */
-.home-wrapper {
-  width: 100%;           /* займёт всю ширину .container */
-  min-height: calc(100vh - 60px); /* вычитаем header */
+.home-buttons {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* только Home-контент по вертикали */
+  gap: 1rem;
   align-items: center;
-  padding: 20px 0;
-  box-sizing: border-box;
-  background: linear-gradient(145deg, #f5f7fa, #e0e6ed);
 }
 
-.home-content {
+.home-button {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  width: clamp(200px, 80%, 400px);
   text-align: center;
-  max-width: 800px;
-  width: 100%;
+}
+
+.home-button:hover {
+  background-color: #0056b3;
 }
