@@ -7,7 +7,8 @@
   },
   "common": {
     "back": "⬅ Back",
-    "book": "Book"
+    "book": "Book",
+    "home": "Home"
   },
   "details": {
     "location": "Location",

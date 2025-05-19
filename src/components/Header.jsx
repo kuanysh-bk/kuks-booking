@@ -1,16 +1,30 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
   const { i18n } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
 
+  const goHome = () => {
+    navigate('/');
+  };
+
   return (
     <header className="header">
+      <div className="header-left">
+        {location.pathname !== '/' && (
+          <button className="home-button" onClick={goHome}>
+            {t('button.home', 'Home')}
+          </button>
+        )}
+      </div>
       <div className="language-selector">
         <button
           onClick={() => changeLanguage('ru')}
