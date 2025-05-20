@@ -1,75 +1,67 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import { useTranslation } from 'react-i18next';
-import './ExcursionDetailsPage.css';
+import ru from 'date-fns/locale/ru';
+import enUS from 'date-fns/locale/en-US';
+import 'react-datepicker/dist/react-datepicker.css';
+import './ExcursionDatePage.css';
 import BackButton from '../components/BackButton';
 
-const ExcursionDetailsPage = () => {
+// Регистрируем локали для календаря
+registerLocale('ru', ru);
+registerLocale('en', enUS);
+
+const ExcursionDatePage = () => {
   const { t, i18n } = useTranslation();
   const { operatorId, excursionId } = useParams();
-  const [excursion, setExcursion] = useState(null);
   const navigate = useNavigate();
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [unavailableDates, setUnavailableDates] = useState([]);
 
   useEffect(() => {
-    fetch(`https://booking-backend-tjmn.onrender.com/excursions?operator_id=${operatorId}`)
+    fetch(`https://booking-backend-tjmn.onrender.com/excursion-reservations?excursion_id=${excursionId}`)
       .then(res => res.json())
       .then(data => {
-        const found = data.find(exc => String(exc.id) === excursionId);
-        setExcursion(found);
+        const dates = data.map(item => new Date(item.date));
+        setUnavailableDates(dates);
       })
-      .catch(err => console.error('Ошибка загрузки экскурсии:', err));
-  }, [operatorId, excursionId]);
+      .catch(err => console.error('Ошибка загрузки дат:', err));
+  }, [excursionId]);
 
-  if (!excursion) {
-    return <p className="loading">{t('excursion.loading')}</p>;
-  }
-
-  const images = excursion.image_urls?.split(',').map(url => url.trim()) || [];
-
-  // dynamic translation: use language-specific fields if available
-  const description = excursion[`description_${i18n.language}`] || excursion.description;
-  const locationValue = excursion[`location_${i18n.language}`] || excursion.location;
+  const handleContinue = () => {
+    if (!selectedDate) return;
+    navigate(`/excursions/${operatorId}/${excursionId}/booking`, {
+      state: { date: selectedDate.toISOString().split('T')[0] }
+    });
+  };
 
   return (
-    <div className="excursion-details-wrapper">
-      <h1 className="excursion-details-title">{excursion.title}</h1>
-
-      <div className="image-carousel">
-        {images.map((url, idx) => (
-          <img
-            key={idx}
-            src={url}
-            alt={t('excursion.photoAlt', { index: idx + 1 })}
-            className="carousel-img"
-          />
-        ))}
+    <div className="date-page-wrapper">
+      <h2 className="date-page-title">{t('booking.selectDate')}</h2>
+      <div className="datepicker-container">
+        <DatePicker
+          selected={selectedDate}
+          onChange={date => setSelectedDate(date)}
+          minDate={new Date()}
+          excludeDates={unavailableDates}
+          placeholderText={t('booking.placeholder')}
+          dateFormat="yyyy-MM-dd"
+          locale={i18n.language === 'ru' ? 'ru' : 'en'}
+          inline
+          calendarClassName="custom-calendar"
+        />
       </div>
-
-      <div className="excursion-info-block">
-        <p>
-          <strong>{t('excursion.description')}:</strong> {description}
-        </p>
-        <p>
-          <strong>{t('excursion.location')}:</strong> {locationValue}
-        </p>
-        <p>
-          <strong>{t('excursion.duration')}:</strong> {excursion.duration} {t('excursion.duration_min')}
-        </p>
-        <p>
-          <strong>{t('excursion.price')}:</strong> {excursion.price} AED
-        </p>
-      </div>
-
       <button
-        className="book-button"
-        onClick={() => navigate(`/excursions/${operatorId}/${excursionId}/date`)}
+        onClick={handleContinue}
+        className="continue-button"
+        disabled={!selectedDate}
       >
-        {t('excursion.book')}
+        {t('booking.continue')}
       </button>
-
       <BackButton/>
     </div>
   );
 };
 
-export default ExcursionDetailsPage;
+export default ExcursionDatePage;
