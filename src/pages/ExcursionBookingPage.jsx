@@ -14,15 +14,24 @@ const ExcursionBookingPage = () => {
 
   const [excursion, setExcursion] = useState(null);
   const [formData, setFormData] = useState({
-    firstName: '', lastName: '', phone: '', contact_method: 'WhatsApp',
-    email: '', document_number: '', language: i18n.language,
-    adults: 1, children: 0, infants: 0, pickup_location: ''
+    firstName: '',
+    lastName: '',
+    phone: '',
+    contact_method: 'WhatsApp',
+    email: '',
+    document_number: '',
+    language: i18n.language,
+    adults: 1,
+    children: 0,
+    infants: 0,
+    pickup_location: ''
   });
   const [status, setStatus] = useState(null);
   const selectedDate = location.state?.date || '';
 
-  // Virtual keyboard state
+  // Keyboard state
   const [showKeyboard, setShowKeyboard] = useState(false);
+  const [layoutName, setLayoutName] = useState('default');
   const [currentInput, setCurrentInput] = useState('');
 
   useEffect(() => {
@@ -51,35 +60,61 @@ const ExcursionBookingPage = () => {
   };
 
   const handleKeyPress = button => {
-    setFormData(prev => ({
-      ...prev,
-      [currentInput]: button === 'bksp'
-        ? prev[currentInput].slice(0, -1)
-        : prev[currentInput] + button
-    }));
+    if (!currentInput) return;
+    setFormData(prev => {
+      let val = String(prev[currentInput] || '');
+      if (button === '{bksp}') val = val.slice(0, -1);
+      else if (button === '{space}') val += ' ';
+      else val += button;
+      return { ...prev, [currentInput]: val };
+    });
+  };
+
+  const toggleLayout = () => {
+    setLayoutName(layoutName === 'default' ? 'shift' : 'default');
+  };
+
+  const hideKeyboard = () => {
+    setShowKeyboard(false);
+    setCurrentInput('');
   };
 
   const handleSubmit = async e => {
-    e.preventDefault(); setStatus(null);
+    e.preventDefault();
+    setStatus(null);
     if (!excursion) return;
+
     const totalPrice =
       excursion.adult_price * formData.adults +
       excursion.child_price * formData.children +
       excursion.infant_price * formData.infants;
+
     const payload = {
-      ...formData, excursion_title: excursion.title,
-      date: selectedDate, total_price: totalPrice
+      ...formData,
+      excursion_title: excursion.title,
+      date: selectedDate,
+      total_price: totalPrice
     };
+
     try {
       const res = await fetch('https://booking-backend-tjmn.onrender.com/api/pay', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
       if (!res.ok) throw new Error('payment error');
       const result = await res.json();
-      navigate('/success', { state: { bookingId: result.booking_id } });
+      navigate('/success', {
+        state: {
+          bookingId: result.booking_id,
+          excursionTitle: excursion.title,
+          date: selectedDate,
+          peopleCount: formData.adults + formData.children + formData.infants
+        }
+      });
     } catch (err) {
-      console.error(err); setStatus(t('booking.error'));
+      console.error(err);
+      setStatus(t('booking.error'));
     }
   };
 
@@ -148,14 +183,20 @@ const ExcursionBookingPage = () => {
       </form>
       {showKeyboard && (
         <div className="keyboard-wrapper">
+          <button className="keyboard-hide-btn" onClick={hideKeyboard}>
+            {t('keyboard.hide')}
+          </button>
+          <button className="keyboard-layout-btn" onClick={toggleLayout}>
+            {t('keyboard.toggle')}
+          </button>
           <Keyboard
-            layoutName="default"
+            layoutName={layoutName}
             onKeyPress={handleKeyPress}
-            inputName={currentInput}
           />
         </div>
       )}
-      <BackButton/>
+
+      <BackButton />
     </div>
   );
 };
