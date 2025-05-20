@@ -69,3 +69,9 @@
   font-size: 0.9rem;
   text-align: center;
 }
+
+.keyboard-wrapper {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
