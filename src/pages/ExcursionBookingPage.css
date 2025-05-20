@@ -70,8 +70,23 @@
   text-align: center;
 }
 
+/* Контейнер виртуальной клавиатуры */
 .keyboard-wrapper {
-  margin-top: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 10px 0;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  z-index: 2000;
   display: flex;
   justify-content: center;
+  opacity: 0.95;
+}
+
+/* Настройка прозрачности самой клавиатуры */
+.react-simple-keyboard {
+  opacity: 0.9;
 }
