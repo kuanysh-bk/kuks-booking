@@ -1,30 +1,48 @@
-.date-picker-wrapper {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-  }
-  
-  .date-picker-title {
-    font-size: 1.8rem;
-    text-align: center;
-  }
-  
-  .submit-button {
-    background-color: #0066ff;
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .submit-button:disabled {
-    background-color: #aaa;
-    cursor: not-allowed;
-  }
-  
+.date-page-wrapper {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 80px 20px 40px; /* учёт fixed header */
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.date-page-title {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+/* Контейнер для календаря: центр и увеличенный размер */
+.datepicker-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.custom-calendar {
+  width: auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 1rem;
+}
+
+/* Стили кнопки продолжения */
+.continue-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-bottom: 1rem;
+}
+
+.continue-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+

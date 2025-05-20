@@ -19,7 +19,7 @@
   },
   "booking": {
     "selectDate": "Select Excursion Date",
-    "chooseDate": "Click to choose a date",
+    "placeholder": "Click to choose a date",
     "continue": "Continue"
   },
   "operator": {

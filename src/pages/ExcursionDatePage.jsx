@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
+import { useTranslation } from 'react-i18next';
 import 'react-datepicker/dist/react-datepicker.css';
 import './ExcursionDatePage.css';
 import BackButton from '../components/BackButton';
 
 const ExcursionDatePage = () => {
+  const { t, i18n } = useTranslation();
   const { operatorId, excursionId } = useParams();
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
@@ -30,27 +32,27 @@ const ExcursionDatePage = () => {
 
   return (
     <div className="date-page-wrapper">
-      <h2>Выберите дату экскурсии</h2>
-
-      <DatePicker
-        selected={selectedDate}
-        onChange={(date) => setSelectedDate(date)}
-        minDate={new Date()}
-        excludeDates={unavailableDates}
-        placeholderText="Выберите доступную дату"
-        dateFormat="yyyy-MM-dd"
-        className="custom-datepicker"
-      />
-
+      <h2 className="date-page-title">{t('booking.selectDate')}</h2>
+      <div className="datepicker-container">
+        <DatePicker
+          selected={selectedDate}
+          onChange={date => setSelectedDate(date)}
+          minDate={new Date()}
+          excludeDates={unavailableDates}
+          placeholderText={t('booking.placeholder')}
+          dateFormat="yyyy-MM-dd"
+          inline
+          calendarClassName="custom-calendar"
+        />
+      </div>
       <button
         onClick={handleContinue}
         className="continue-button"
         disabled={!selectedDate}
       >
-        Продолжить
+        {t('booking.continue')}
       </button>
-
-      <BackButton />
+      <BackButton/>
     </div>
   );
 };
