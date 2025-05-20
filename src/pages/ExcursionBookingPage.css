@@ -71,39 +71,33 @@
 }
 
 /* Контейнер виртуальной клавиатуры */
+/* Кнопка скрытия клавиатуры в правом верхнем углу */
 .keyboard-wrapper {
   position: fixed;
   bottom: 0;
-  width: 60%;
-  background: rgba(255, 255, 255, 0.85);
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
   padding: 10px 0;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);
   z-index: 2000;
   display: flex;
   justify-content: center;
-  opacity: 0.95;
+  align-items: center;
 }
 
-/* Настройка прозрачности самой клавиатуры */
-.react-simple-keyboard {
-  opacity: 0.9;
-}
-
-/* Внешний вид кнопок управления клавиатурой */
-.keyboard-hide-btn,
-.keyboard-layout-btn {
-  margin: 0 5px;
-  padding: 6px 12px;
-  background: #007bff;
-  color: #fff;
+.keyboard-hide-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 32px;
+  text-align: center;
   cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.keyboard-hide-btn:hover,
-.keyboard-layout-btn:hover {
-  background: #0056b3;
 }

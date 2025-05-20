@@ -31,16 +31,12 @@ const ExcursionBookingPage = () => {
 
   // Keyboard state
   const [showKeyboard, setShowKeyboard] = useState(false);
-  const [layoutName, setLayoutName] = useState('default');
   const [currentInput, setCurrentInput] = useState('');
 
   useEffect(() => {
     fetch(`https://booking-backend-tjmn.onrender.com/excursions?operator_id=${operatorId}`)
       .then(res => res.json())
-      .then(data => {
-        const found = data.find(e => String(e.id) === excursionId);
-        setExcursion(found);
-      })
+      .then(data => setExcursion(data.find(e => String(e.id) === excursionId)))
       .catch(err => console.error('Ошибка загрузки экскурсии:', err));
   }, [operatorId, excursionId]);
 
@@ -70,10 +66,6 @@ const ExcursionBookingPage = () => {
     });
   };
 
-  const toggleLayout = () => {
-    setLayoutName(layoutName === 'default' ? 'shift' : 'default');
-  };
-
   const hideKeyboard = () => {
     setShowKeyboard(false);
     setCurrentInput('');
@@ -83,35 +75,18 @@ const ExcursionBookingPage = () => {
     e.preventDefault();
     setStatus(null);
     if (!excursion) return;
-
     const totalPrice =
       excursion.adult_price * formData.adults +
       excursion.child_price * formData.children +
       excursion.infant_price * formData.infants;
-
-    const payload = {
-      ...formData,
-      excursion_title: excursion.title,
-      date: selectedDate,
-      total_price: totalPrice
-    };
-
+    const payload = { ...formData, excursion_title: excursion.title, date: selectedDate, total_price: totalPrice };
     try {
       const res = await fetch('https://booking-backend-tjmn.onrender.com/api/pay', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
       });
       if (!res.ok) throw new Error('payment error');
       const result = await res.json();
-      navigate('/success', {
-        state: {
-          bookingId: result.booking_id,
-          excursionTitle: excursion.title,
-          date: selectedDate,
-          peopleCount: formData.adults + formData.children + formData.infants
-        }
-      });
+      navigate('/success', { state: { bookingId: result.booking_id } });
     } catch (err) {
       console.error(err);
       setStatus(t('booking.error'));
@@ -183,14 +158,8 @@ const ExcursionBookingPage = () => {
       </form>
       {showKeyboard && (
         <div className="keyboard-wrapper">
-          <button className="keyboard-hide-btn" onClick={hideKeyboard}>
-            {t('keyboard.hide')}
-          </button>
-          <button className="keyboard-layout-btn" onClick={toggleLayout}>
-            {t('keyboard.toggle')}
-          </button>
+          <button className="keyboard-hide-btn" onClick={hideKeyboard}>×</button>
           <Keyboard
-            layoutName={layoutName}
             onKeyPress={handleKeyPress}
           />
         </div>
