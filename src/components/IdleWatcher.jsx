@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './IdleWatcher.css';
 
 const IdleWatcher = ({ children }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const isMainPage = location.pathname === '/';
@@ -13,17 +15,18 @@ const IdleWatcher = ({ children }) => {
 
   const resetTimer = useCallback(() => {
     clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => setIdle(true), 60 * 1000); // 1 минута
+    timerRef.current = setTimeout(() => setIdle(true), 60 * 1000);
   }, []);
 
-  // Сбросить при переходе на главную
+  // Сброс при переходе на главную
   useEffect(() => {
-    if (location.pathname === '/') {
+    if (isMainPage) {
       setIdle(false);
       setCountdown(15);
     }
-  }, [location.pathname]);
+  }, [isMainPage]);
 
+  // Настройка слушателей активности
   useEffect(() => {
     if (isMainPage) return;
 
@@ -41,13 +44,13 @@ const IdleWatcher = ({ children }) => {
     };
   }, [isMainPage, resetTimer]);
 
+  // Таймер обратного отсчета
   useEffect(() => {
     if (!idle) return;
 
-    setCountdown(15); // Сбросить таймер при активации idle
-
+    setCountdown(15);
     const interval = setInterval(() => {
-      setCountdown((prev) => {
+      setCountdown(prev => {
         if (prev <= 1) {
           clearInterval(interval);
           navigate('/');
@@ -70,8 +73,8 @@ const IdleWatcher = ({ children }) => {
     return (
       <div className="idle-overlay">
         <div className="idle-popup">
-          <p>Вы здесь? Возвращаемся на главную через {countdown} сек...</p>
-          <button onClick={stayHere}>Остаться</button>
+          <p>{t('idle.message', { count: countdown })}</p>
+          <button onClick={stayHere}>{t('idle.stay')}</button>
         </div>
         {children}
       </div>

@@ -43,5 +43,9 @@
     "priceAsc": "Price: low to high",
     "priceDesc": "Price: high to low",
     "duration": "Duration"
+  },
+  "idle": {
+    "message": "Are you still there? Returning to home in {{count}} sec...",
+    "stay": "Stay"
   }
 }
