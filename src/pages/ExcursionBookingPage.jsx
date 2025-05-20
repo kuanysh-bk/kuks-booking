@@ -14,17 +14,9 @@ const ExcursionBookingPage = () => {
 
   const [excursion, setExcursion] = useState(null);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    phone: '',
-    contact_method: 'WhatsApp',
-    email: '',
-    document_number: '',
-    language: i18n.language,
-    adults: 1,
-    children: 0,
-    infants: 0,
-    pickup_location: ''
+    firstName: '', lastName: '', phone: '', contact_method: 'WhatsApp',
+    email: '', document_number: '', language: i18n.language,
+    adults: 1, children: 0, infants: 0, pickup_location: ''
   });
   const [status, setStatus] = useState(null);
   const selectedDate = location.state?.date || '';
@@ -32,6 +24,7 @@ const ExcursionBookingPage = () => {
   // Keyboard state
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [currentInput, setCurrentInput] = useState('');
+  const [layoutName, setLayoutName] = useState('default');
 
   useEffect(() => {
     fetch(`https://booking-backend-tjmn.onrender.com/excursions?operator_id=${operatorId}`)
@@ -56,6 +49,12 @@ const ExcursionBookingPage = () => {
   };
 
   const handleKeyPress = button => {
+    // handle shift and caps lock
+    if (button === '{shift}' || button === '{lock}') {
+      const newLayout = layoutName === 'default' ? 'shift' : 'default';
+      setLayoutName(newLayout);
+      return;
+    }
     if (!currentInput) return;
     setFormData(prev => {
       let val = String(prev[currentInput] || '');
@@ -69,6 +68,7 @@ const ExcursionBookingPage = () => {
   const hideKeyboard = () => {
     setShowKeyboard(false);
     setCurrentInput('');
+    setLayoutName('default');
   };
 
   const handleSubmit = async e => {
@@ -160,6 +160,7 @@ const ExcursionBookingPage = () => {
         <div className="keyboard-wrapper">
           <button className="keyboard-hide-btn" onClick={hideKeyboard}>×</button>
           <Keyboard
+            layoutName={layoutName}
             onKeyPress={handleKeyPress}
           />
         </div>
