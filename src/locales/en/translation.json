@@ -36,7 +36,11 @@
     "duration_min": "min.",
     "loading": "Loading...",
     "loadError": "Failed to load excursions. Please try again later.",
-    "noExcursions": "No excursions available"
+    "noExcursions": "No excursions available",
+    "photoAlt": "Photo {{index}}",
+    "description": "Description",
+    "location": "Location",
+    "book": "Book"
   },
   "sort": {
     "none": "No sorting",

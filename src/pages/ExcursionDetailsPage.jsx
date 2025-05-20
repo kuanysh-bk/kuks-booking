@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './ExcursionDetailsPage.css';
 import BackButton from '../components/BackButton';
 
 const ExcursionDetailsPage = () => {
+  const { t, i18n } = useTranslation();
   const { operatorId, excursionId } = useParams();
   const [excursion, setExcursion] = useState(null);
   const navigate = useNavigate();
@@ -18,32 +20,54 @@ const ExcursionDetailsPage = () => {
       .catch(err => console.error('Ошибка загрузки экскурсии:', err));
   }, [operatorId, excursionId]);
 
-  if (!excursion) return <p>Загрузка...</p>;
+  if (!excursion) {
+    return <p className="loading">{t('excursion.loading')}</p>;
+  }
 
-  const images = excursion.image_urls?.split(',') || [];
+  const images = excursion.image_urls?.split(',').map(url => url.trim()) || [];
+
+  // dynamic translation: use language-specific fields if available
+  const description = excursion[`description_${i18n.language}`] || excursion.description;
+  const locationValue = excursion[`location_${i18n.language}`] || excursion.location;
 
   return (
     <div className="excursion-details-wrapper">
-      <h1>{excursion.title}</h1>
+      <h1 className="excursion-details-title">{excursion.title}</h1>
 
       <div className="image-carousel">
         {images.map((url, idx) => (
-          <img key={idx} src={url.trim()} alt={`Фото ${idx + 1}`} className="carousel-img" />
+          <img
+            key={idx}
+            src={url}
+            alt={t('excursion.photoAlt', { index: idx + 1 })}
+            className="carousel-img"
+          />
         ))}
       </div>
 
       <div className="excursion-info-block">
-        <p><strong>Описание:</strong> {excursion.description}</p>
-        <p><strong>Локация:</strong> {excursion.location}</p>
-        <p><strong>Длительность:</strong> {excursion.duration}</p>
-        <p><strong>Цена:</strong> {excursion.price} AED</p>
+        <p>
+          <strong>{t('excursion.description')}:</strong> {description}
+        </p>
+        <p>
+          <strong>{t('excursion.location')}:</strong> {locationValue}
+        </p>
+        <p>
+          <strong>{t('excursion.duration')}:</strong> {excursion.duration} {t('excursion.duration_min')}
+        </p>
+        <p>
+          <strong>{t('excursion.price')}:</strong> {excursion.price} AED
+        </p>
       </div>
 
-      <button className="book-button" onClick={() => navigate(`/excursions/${operatorId}/${excursionId}/date`)}>
-        Забронировать
+      <button
+        className="book-button"
+        onClick={() => navigate(`/excursions/${operatorId}/${excursionId}/date`)}
+      >
+        {t('excursion.book')}
       </button>
 
-      <BackButton />
+      <BackButton/>
     </div>
   );
 };
