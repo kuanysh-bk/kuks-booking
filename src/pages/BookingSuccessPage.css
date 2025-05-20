@@ -20,7 +20,7 @@
     font-size: 1rem;
   }
   
-  .home-button {
+  .home-button-success-page {
     margin-top: 2rem;
     padding: 0.8rem 2rem;
     background-color: #1976d2;
@@ -31,7 +31,7 @@
     cursor: pointer;
   }
   
-  .home-button:hover {
+  .home-button-success-page {
     background-color: #1565c0;
   }
   

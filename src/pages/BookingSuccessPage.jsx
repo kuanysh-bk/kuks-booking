@@ -88,7 +88,7 @@ const BookingSuccessPage = () => {
         <p><strong>Контакт туроператора:</strong> {operatorContact}</p>
       </div>
 
-      <button className="home-button" onClick={() => navigate('/')}>На главную</button>
+      <button className="home-button-success-page" onClick={() => navigate('/')}>На главную</button>
 
       {showIdlePrompt && (
         <div className="idle-banner">
