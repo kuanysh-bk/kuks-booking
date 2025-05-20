@@ -74,7 +74,6 @@
 .keyboard-wrapper {
   position: fixed;
   bottom: 0;
-  left: 0;
   width: 60%;
   background: rgba(255, 255, 255, 0.85);
   padding: 10px 0;
@@ -89,4 +88,22 @@
 /* Настройка прозрачности самой клавиатуры */
 .react-simple-keyboard {
   opacity: 0.9;
+}
+
+/* Внешний вид кнопок управления клавиатурой */
+.keyboard-hide-btn,
+.keyboard-layout-btn {
+  margin: 0 5px;
+  padding: 6px 12px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.keyboard-hide-btn:hover,
+.keyboard-layout-btn:hover {
+  background: #0056b3;
 }

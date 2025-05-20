@@ -68,5 +68,9 @@
   "idle": {
     "message": "Are you still there? Returning to home in {{count}} sec...",
     "stay": "Stay"
+  },
+  "keyboard": {
+    "hide": "Hide Keyboard",
+    "toggle": "Toggle Layout"
   }
 }
