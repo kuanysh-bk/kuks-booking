@@ -20,7 +20,24 @@
   "booking": {
     "selectDate": "Select Excursion Date",
     "placeholder": "Click to choose a date",
-    "continue": "Continue"
+    "continue": "Continue",
+    "loading": "Loading...",
+    "title": "Booking: {{title}}",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone",
+    "contactMethod": "Contact Method",
+    "email": "Email",
+    "documentNumber": "Document Number",
+    "pickupLocation": "Pick-up Location",
+    "guideLanguage": "Guide Language",
+    "adults": "Adults",
+    "children": "Children",
+    "infants": "Infants",
+    "date": "Date",
+    "total": "Total",
+    "pay": "Pay",
+    "error": "Payment error. Please try again later."
   },
   "operator": {
     "selectOperator": "Select a tour operator",

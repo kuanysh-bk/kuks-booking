@@ -20,7 +20,24 @@
   "booking": {
     "selectDate": "Выберите дату экскурсии",
     "placeholder": "Выберите доступную дату",
-    "continue": "Продолжить"
+    "continue": "Продолжить",
+    "loading": "Загрузка...",
+    "title": "Бронирование: {{title}}",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "phone": "Телефон",
+    "contactMethod": "Метод связи",
+    "email": "Email",
+    "documentNumber": "Номер документа",
+    "pickupLocation": "Место встречи",
+    "guideLanguage": "Язык гида",
+    "adults": "Взрослые",
+    "children": "Дети",
+    "infants": "Младенцы",
+    "date": "Дата",
+    "total": "Итого",
+    "pay": "Оплатить",
+    "error": "Ошибка при оплате. Попробуйте позже."
   },
   "operator": {
     "selectOperator": "Выберите туроператора",
