@@ -29,7 +29,7 @@
     "noOperators": "No available tour operators"
   },
   "excursion": {
-    "operatorHeader": "Excursions for operator #{{id}}",
+    "operatorHeader": "{{name}} Excursions",
     "sortBy": "Sort by",
     "price": "Price",
     "duration": "Duration",

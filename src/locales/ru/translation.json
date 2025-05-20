@@ -29,7 +29,7 @@
     "noOperators": "Нет доступных туроператоров"
   },
   "excursion": {
-    "operatorHeader": "Экскурсии туроператора №{{id}}",
+    "operatorHeader": "Экскурсии {{name}}",
     "sortBy": "Сортировать по",
     "price": "Цена",
     "duration": "Длительность",
