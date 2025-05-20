@@ -58,12 +58,13 @@ const ExcursionListPage = () => {
 
   return (
     <div className="excursion-wrapper">
+      {!isLoading && !hasError && excursions.length > 0 && (
       <h1 className="excursion-title">
         {operatorName
           ? t('excursion.operatorHeader', { name: operatorName })
           : t('excursion.operatorHeaderId', { id: operatorId })
         }
-      </h1>
+      </h1>)}
 
       <div className="sort-controls">
         <label htmlFor="sort">{t('excursion.sortBy')}:</label>
