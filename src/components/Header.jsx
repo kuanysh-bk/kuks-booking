@@ -20,7 +20,7 @@ const Header = () => {
     <header className="header">
       <div className="header-left">
         {location.pathname !== '/' && (
-          <button className="home-button" onClick={goHome}>
+          <button className="home-button-header" onClick={goHome}>
             {t('common.home', 'Home')}
           </button>
         )}

@@ -13,7 +13,7 @@
   z-index: 1000;
 }
 .language-selector button,
-.home-button {
+.home-button-header {
   background: none;
   border: none;
   cursor: pointer;
@@ -25,12 +25,12 @@
   box-sizing: border-box;
 }
 .language-selector button:hover,
-.home-button:hover {
+.home-button-header:hover {
   color: #007BFF;
   transform: scale(1.05);
 }
 .language-selector button.active,
-.home-button.active {
+.home-button-header.active {
   font-weight: bold;
   color: #007BFF;
 }
