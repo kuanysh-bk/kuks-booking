@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-left">
-        {location.pathname !== '/' && (
+        {location.pathname !== '/' && location.pathname !== "/success" && (
           <button className="home-button-header" onClick={goHome}>
             {t('common.home', 'Home')}
           </button>

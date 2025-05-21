@@ -1,6 +1,8 @@
+// src/pages/ExcursionDatePage.jsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
+import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 import 'react-datepicker/dist/react-datepicker.css';
 import './ExcursionDatePage.css';
@@ -14,25 +16,23 @@ const ExcursionDatePage = () => {
   const [unavailableDates, setUnavailableDates] = useState([]);
 
   useEffect(() => {
-    fetch(`https://…/excursion-reservations?excursion_id=${excursionId}`)
+    fetch(`https://booking-backend-tjmn.onrender.com/excursion-reservations?excursion_id=${excursionId}`)
       .then(res => res.json())
       .then(data => {
+        // Парсим YYYY-MM-DD в локальный Date
         const dates = data.map(item => {
           const [y, m, d] = item.date.split('-');
-          return new Date(y, m - 1, d);  // создаём в локальной зоне
+          return new Date(+y, +m - 1, +d);
         });
         setUnavailableDates(dates);
       })
       .catch(err => console.error('Ошибка загрузки дат:', err));
-  }, [excursionId]);  
+  }, [excursionId]);
 
   const handleContinue = () => {
     if (!selectedDate) return;
-    // Собираем дату в локальном формате yyyy-MM-dd
-    const offsetMs   = selectedDate.getTime() - (selectedDate.getTimezoneOffset() * 60000);
-    const localDate  = new Date(offsetMs);
-    const dateString = localDate.toISOString().slice(0, 10);
-
+    // format() берёт локальную дату, без смещений
+    const dateString = format(selectedDate, 'yyyy-MM-dd');
     navigate(`/excursions/${operatorId}/${excursionId}/booking`, {
       state: { date: dateString }
     });
