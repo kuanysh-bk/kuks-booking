@@ -19,7 +19,7 @@ const ExcursionDatePage = () => {
       .then(data => {
         const dates = data.map(item => {
           const [y, m, d] = item.date.split('-');
-          return new Date(+y, +m - 1, +d);
+          return new Date(+y, +m - 1, +d); // локальная дата
         });
         setUnavailableDates(dates);
       })
@@ -29,11 +29,14 @@ const ExcursionDatePage = () => {
   const handleContinue = () => {
     if (!selectedDate) return;
 
-    // Преобразуем выбранную дату в локальную строку в формате YYYY-MM-DD
-    const dateString = selectedDate.toLocaleDateString('en-CA');
-    console.log('Дата получена из location.state:', selectedDate);
-    console.log('Дата в формате YYYY-MM-DD:', dateString);
-    
+    // Формируем строго локальную дату в формате YYYY-MM-DD
+    const year = selectedDate.getFullYear();
+    const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+    const day = String(selectedDate.getDate()).padStart(2, '0');
+    const dateString = `${year}-${month}-${day}`;
+
+    console.log('Выбрана дата:', dateString);
+
     navigate(`/excursions/${operatorId}/${excursionId}/booking`, {
       state: { date: dateString }
     });
@@ -46,9 +49,9 @@ const ExcursionDatePage = () => {
         <DatePicker
           selected={selectedDate}
           onChange={date => {
-            // Убираем время
-            const cleanDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-            setSelectedDate(cleanDate);
+            // Убираем смещение времени — создаём дату без времени
+            const local = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            setSelectedDate(local);
           }}
           minDate={new Date()}
           excludeDates={unavailableDates}
