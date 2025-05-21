@@ -28,8 +28,13 @@ const ExcursionDatePage = () => {
 
   const handleContinue = () => {
     if (!selectedDate) return;
-    const dateString = selectedDate.toLocaleDateString('en-CA');
-    console.log('Собранная дата:', dateString);
+
+    // Преобразуем выбранную дату в локальную строку в формате YYYY-MM-DD
+    const year = selectedDate.getFullYear();
+    const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+    const day = String(selectedDate.getDate()).padStart(2, '0');
+    const dateString = `${year}-${month}-${day}`;
+
     navigate(`/excursions/${operatorId}/${excursionId}/booking`, {
       state: { date: dateString }
     });
@@ -41,7 +46,7 @@ const ExcursionDatePage = () => {
       <div className="datepicker-container">
         <DatePicker
           selected={selectedDate}
-          onChange={date => setSelectedDate(date)}
+          onChange={date => setSelectedDate(new Date(date.getFullYear(), date.getMonth(), date.getDate()))}
           minDate={new Date()}
           excludeDates={unavailableDates}
           placeholderText={t('booking.placeholder')}
