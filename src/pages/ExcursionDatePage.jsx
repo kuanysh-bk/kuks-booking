@@ -1,8 +1,6 @@
-// src/pages/ExcursionDatePage.jsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
-import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 import 'react-datepicker/dist/react-datepicker.css';
 import './ExcursionDatePage.css';
@@ -19,7 +17,6 @@ const ExcursionDatePage = () => {
     fetch(`https://booking-backend-tjmn.onrender.com/excursion-reservations?excursion_id=${excursionId}`)
       .then(res => res.json())
       .then(data => {
-        // Парсим YYYY-MM-DD в локальный Date
         const dates = data.map(item => {
           const [y, m, d] = item.date.split('-');
           return new Date(+y, +m - 1, +d);
@@ -31,8 +28,8 @@ const ExcursionDatePage = () => {
 
   const handleContinue = () => {
     if (!selectedDate) return;
-    // format() берёт локальную дату, без смещений
-    const dateString = format(selectedDate, 'yyyy-MM-dd');
+    const dateString = selectedDate.toLocaleDateString('en-CA');
+    console.log('Собранная дата:', dateString);
     navigate(`/excursions/${operatorId}/${excursionId}/booking`, {
       state: { date: dateString }
     });
