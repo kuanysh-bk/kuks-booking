@@ -29,10 +29,9 @@ const ExcursionDatePage = () => {
   const handleContinue = () => {
     if (!selectedDate) return;
     // Собираем дату в локальном формате yyyy-MM-dd
-    const year  = selectedDate.getUTCFullYear();
-    const month = String(selectedDate.getUTCMonth() + 1).padStart(2, '0');
-    const day   = String(selectedDate.getUTCDate()).padStart(2, '0');
-    const dateString = `${year}-${month}-${day}`;
+    const offsetMs   = selectedDate.getTime() - (selectedDate.getTimezoneOffset() * 60000);
+    const localDate  = new Date(offsetMs);
+    const dateString = localDate.toISOString().slice(0, 10);
 
     navigate(`/excursions/${operatorId}/${excursionId}/booking`, {
       state: { date: dateString }
