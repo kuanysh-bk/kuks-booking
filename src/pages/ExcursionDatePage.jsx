@@ -14,18 +14,24 @@ const ExcursionDatePage = () => {
   const [unavailableDates, setUnavailableDates] = useState([]);
 
   useEffect(() => {
-    fetch(`https://booking-backend-tjmn.onrender.com/excursion-reservations?excursion_id=${excursionId}`)
+    fetch(`https://…/excursion-reservations?excursion_id=${excursionId}`)
       .then(res => res.json())
-      .then(data => setUnavailableDates(data.map(item => new Date(item.date))))
+      .then(data => {
+        const dates = data.map(item => {
+          const [y, m, d] = item.date.split('-');
+          return new Date(y, m - 1, d);  // создаём в локальной зоне
+        });
+        setUnavailableDates(dates);
+      })
       .catch(err => console.error('Ошибка загрузки дат:', err));
-  }, [excursionId]);
+  }, [excursionId]);  
 
   const handleContinue = () => {
     if (!selectedDate) return;
     // Собираем дату в локальном формате yyyy-MM-dd
-    const year  = selectedDate.getFullYear();
-    const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
-    const day   = String(selectedDate.getDate()).padStart(2, '0');
+    const year  = selectedDate.getUTCFullYear();
+    const month = String(selectedDate.getUTCMonth() + 1).padStart(2, '0');
+    const day   = String(selectedDate.getUTCDate()).padStart(2, '0');
     const dateString = `${year}-${month}-${day}`;
 
     navigate(`/excursions/${operatorId}/${excursionId}/booking`, {
