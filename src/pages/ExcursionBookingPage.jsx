@@ -86,7 +86,10 @@ const ExcursionBookingPage = () => {
       });
       if (!res.ok) throw new Error('payment error');
       const result = await res.json();
-      navigate('/success', { state: { bookingId: result.booking_id } });
+      navigate('/success', { state: { bookingId: result.booking_id, excursionTitle: excursion.title,
+        date: selectedDate,
+        peopleCount: formData.adults + formData.children + formData.infants,
+        operatorId } });
     } catch (err) {
       console.error(err);
       setStatus(t('booking.error'));

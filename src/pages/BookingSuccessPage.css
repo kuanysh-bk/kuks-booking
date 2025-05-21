@@ -1,60 +1,56 @@
-.success-page {
-    max-width: 500px;
-    margin: 100px auto;
-    padding: 2rem;
-    text-align: center;
-    background: #f9f9f9;
-    border-radius: 16px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    font-family: sans-serif;
-  }
-  
-  .success-page h1 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    color: #2e7d32;
-  }
-  
-  .details p {
-    margin: 0.5rem 0;
-    font-size: 1rem;
-  }
-  
-  .home-button-success-page {
-    margin-top: 2rem;
-    padding: 0.8rem 2rem;
-    background-color: #1976d2;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  
-  .home-button-success-page {
-    background-color: #1565c0;
-  }
-  
-  .idle-banner {
-    margin-top: 2rem;
-    background-color: #fff8e1;
-    border: 1px solid #fbc02d;
-    padding: 1rem;
-    border-radius: 8px;
-  }
-  
-  .idle-banner p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .idle-banner button {
-    padding: 0.5rem 1.5rem;
-    background-color: #fbc02d;
-    color: #333;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
+/* Обёртка страницы успеха */
+.success-wrapper {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 80px 20px 40px; /* учёт фиксированного header, отступ сверху и снизу */
+  box-sizing: border-box;
+  text-align: center;
+  background-color: #f8f9fa;
+}
+
+/* Заголовок успеха */
+.success-title {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* Блок с информацией о брони */
+.success-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.success-info p {
+  font-size: 1rem;
+  color: #444;
+  margin: 0;
+}
+
+.success-info p strong {
+  font-weight: 600;
+  color: #222;
+}
+
+/* Кнопка возврата на главную */
+.home-button-success {
+  display: inline-block;
+  width: 160px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.home-button-success:hover {
+  background-color: #0056b3;
+}

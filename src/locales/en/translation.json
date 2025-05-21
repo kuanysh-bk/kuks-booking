@@ -72,5 +72,14 @@
   "keyboard": {
     "hide": "Hide Keyboard",
     "toggle": "Toggle Layout"
+  },
+  "bookingSuccess": {
+    "title": "Booking Successful!",
+    "bookingId": "Booking Number",
+    "excursion": "Excursion",
+    "date": "Date",
+    "peopleCount": "Number of People",
+    "operatorContact": "Operator Contact",
+    "home": "Home"
   }
 }
