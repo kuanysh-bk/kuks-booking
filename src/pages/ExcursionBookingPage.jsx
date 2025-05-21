@@ -60,6 +60,8 @@ const ExcursionBookingPage = () => {
       let val = String(prev[currentInput] || '');
       if (button === '{bksp}') val = val.slice(0, -1);
       else if (button === '{space}') val += ' ';
+      else if (button === '{tab}') val += '';
+      else if (button === '{enter}') val += '';
       else val += button;
       return { ...prev, [currentInput]: val };
     });

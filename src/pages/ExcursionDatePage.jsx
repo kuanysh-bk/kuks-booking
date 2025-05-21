@@ -7,7 +7,7 @@ import './ExcursionDatePage.css';
 import BackButton from '../components/BackButton';
 
 const ExcursionDatePage = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { operatorId, excursionId } = useParams();
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
@@ -16,17 +16,20 @@ const ExcursionDatePage = () => {
   useEffect(() => {
     fetch(`https://booking-backend-tjmn.onrender.com/excursion-reservations?excursion_id=${excursionId}`)
       .then(res => res.json())
-      .then(data => {
-        const dates = data.map(item => new Date(item.date));
-        setUnavailableDates(dates);
-      })
+      .then(data => setUnavailableDates(data.map(item => new Date(item.date))))
       .catch(err => console.error('Ошибка загрузки дат:', err));
   }, [excursionId]);
 
   const handleContinue = () => {
     if (!selectedDate) return;
+    // Собираем дату в локальном формате yyyy-MM-dd
+    const year  = selectedDate.getFullYear();
+    const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+    const day   = String(selectedDate.getDate()).padStart(2, '0');
+    const dateString = `${year}-${month}-${day}`;
+
     navigate(`/excursions/${operatorId}/${excursionId}/booking`, {
-      state: { date: selectedDate.toISOString().split('T')[0] }
+      state: { date: dateString }
     });
   };
 
@@ -52,7 +55,7 @@ const ExcursionDatePage = () => {
       >
         {t('booking.continue')}
       </button>
-      <BackButton/>
+      <BackButton />
     </div>
   );
 };

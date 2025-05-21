@@ -70,33 +70,42 @@
   text-align: center;
 }
 
-/* Контейнер виртуальной клавиатуры */
-/* Кнопка скрытия клавиатуры в правом верхнем углу */
+/* Контейнер клавиатуры */
 .keyboard-wrapper {
   position: fixed;
-  bottom: 5px;
-  width: 60%;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 10px 0;
-  backdrop-filter: blur(5px);
+  top: 50%;               /* по вертикали посредине */
+  left: 50%;              /* по горизонтали посредине */
+  transform: translate(-50%, -50%);
+  width: auto;            /* по контенту / можно задать %, напр. 90% */
+  max-width: 600px;       /* ограничение по ширине */
+  padding: 0;             /* убираем внутренние отступы */
+  background: transparent;/* без фона */
+  box-shadow: none;       /* убираем тень/обводку */
+  backdrop-filter: none;  /* отключаем размытие */
   z-index: 2000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
+/* Удаляем рамки внутри самой клавиатуры */
+.react-simple-keyboard,
+.react-simple-keyboard .hg-row {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Кнопка скрытия — по правому верхнему краю контейнера, над клавиатурой */
 .keyboard-hide-btn {
   position: absolute;
-  top: 5px;
-  right: 10px;
+  top: -16px;             /* выводим над самим блоком */
+  right: -16px;
   width: 32px;
   height: 32px;
   background: rgba(0, 0, 0, 0.5);
-  color: white;
+  color: #fff;
   border: none;
   border-radius: 50%;
   font-size: 20px;
   line-height: 32px;
   text-align: center;
   cursor: pointer;
+  z-index: 2100;          /* чуть выше, чем клавиатура */
 }
