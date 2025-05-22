@@ -64,10 +64,10 @@ const CarRentalPage = () => {
               <img src={car.image_url} alt={`${car.brand} ${car.model}`} className="car-image" />
               <div className="car-info">
                 <h3>{car.brand} {car.model}</h3>
-                <p>{t('cars.color')}: {car.color}</p>
+                <p>{t(`cars.color`)}: {t(`cars.colors.${car.color}`)}</p>
                 <p>{t('cars.seats')}: {car.seats}</p>
-                <p>{t('cars.type')}: {car.car_type}</p>
-                <p>{t('cars.transmission')}: {car.transmission}</p>
+                <p>{t(`cars.type`)}: {t(`cars.types.${car.car_type}`)}</p>
+                <p>{t(`cars.transmission`)}: {t(`cars.transmissionTypes.${car.transmission}`)}</p>
                 <p>{t('cars.ac')}: {car.has_air_conditioning ? t('common.yes') : t('common.no')}</p>
                 <p>{t('cars.pricePerDay')}: {car.price_per_day} AED</p>
                 <button className="book-button" onClick={() => handleBookClick(car)}>

@@ -106,6 +106,23 @@
     "noSort": "No sorting",
     "priceAsc": "Price ascending",
     "priceDesc": "Price descending"
+  },
+  "types": {
+    "sedan": "Sedan",
+    "suv": "SUV",
+    "minivan": "Minivan"
+  },
+  "transmissionTypes": {
+    "automatic": "Automatic",
+    "manual": "Manual"
+  },
+  "colors": {
+    "black": "Black",
+    "white": "White",
+    "blue": "Blue",
+    "red": "Red",
+    "silver": "Silver",
+    "gray": "Gray"
   }
 }
 }
