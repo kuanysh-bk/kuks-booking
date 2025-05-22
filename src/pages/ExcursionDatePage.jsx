@@ -49,7 +49,7 @@ const ExcursionDatePage = () => {
         <DatePicker
           selected={selectedDate}
           onChange={date => {
-            // Убираем смещение времени — создаём дату без времени
+            console.log('onChange получила:', date);
             const local = new Date(date.getFullYear(), date.getMonth(), date.getDate());
             setSelectedDate(local);
           }}
@@ -68,6 +68,7 @@ const ExcursionDatePage = () => {
       >
         {t('booking.continue')}
       </button>
+      <p>Selected: {selectedDate?.toLocaleDateString()}</p>
       <BackButton />
     </div>
   );
