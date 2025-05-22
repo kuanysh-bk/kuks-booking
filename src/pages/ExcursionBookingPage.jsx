@@ -37,8 +37,8 @@ const ExcursionBookingPage = () => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: ['adults','children','infants'].includes(name)
-        ? Math.max(0, parseInt(value, 10) || 0)
+      [name]: ['adults', 'children', 'infants'].includes(name)
+        ? Number(value)
         : value
     }));
   };
@@ -49,7 +49,6 @@ const ExcursionBookingPage = () => {
   };
 
   const handleKeyPress = button => {
-    // handle shift and caps lock
     if (button === '{shift}' || button === '{lock}') {
       const newLayout = layoutName === 'default' ? 'shift' : 'default';
       setLayoutName(newLayout);
@@ -81,17 +80,28 @@ const ExcursionBookingPage = () => {
       excursion.adult_price * formData.adults +
       excursion.child_price * formData.children +
       excursion.infant_price * formData.infants;
-    const payload = { ...formData, excursion_title: excursion.title, date: selectedDate, total_price: totalPrice };
+    const totalPeople = formData.adults + formData.children + formData.infants;
+    const payload = {
+      ...formData,
+      excursion_title: excursion.title,
+      date: selectedDate,
+      total_price: totalPrice
+    };
     try {
       const res = await fetch('https://booking-backend-tjmn.onrender.com/api/pay', {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
       });
       if (!res.ok) throw new Error('payment error');
       const result = await res.json();
-      navigate('/success', { state: { bookingId: result.booking_id, excursionTitle: excursion.title,
-        date: selectedDate,
-        peopleCount: formData.adults + formData.children + formData.infants,
-        operatorId } });
+      navigate('/success', {
+        state: {
+          bookingId: result.booking_id,
+          excursionTitle: excursion.title,
+          date: selectedDate,
+          peopleCount: totalPeople,
+          operatorId
+        }
+      });
     } catch (err) {
       console.error(err);
       setStatus(t('booking.error'));
@@ -116,7 +126,7 @@ const ExcursionBookingPage = () => {
               value={formData[field]}
               onChange={handleChange}
               onFocus={handleFocus}
-              required={['firstName','lastName','phone','documentNumber'].includes(field)}
+              required={['firstName','lastName','phone'].includes(field)}
             />
           </div>
         ))}

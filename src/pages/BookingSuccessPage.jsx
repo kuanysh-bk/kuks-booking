@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './BookingSuccessPage.css';
-import BackButton from '../components/BackButton';
 
 const BookingSuccessPage = () => {
   const { t } = useTranslation();
