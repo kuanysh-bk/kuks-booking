@@ -123,6 +123,7 @@
     "red": "Red",
     "silver": "Silver",
     "gray": "Gray"
-  }
+  },
+  "noPhoto": "Photo not uploaded yet"
 }
 }

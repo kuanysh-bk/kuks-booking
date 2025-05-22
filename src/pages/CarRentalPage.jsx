@@ -61,7 +61,11 @@ const CarRentalPage = () => {
         <div className="car-list">
           {filteredCars.map(car => (
             <div className="car-card" key={car.id}>
-              <img src={car.image_url} alt={`${car.brand} ${car.model}`} className="car-image" />
+              {car.image_url ? (
+                <img src={car.image_url} alt={`${car.brand} ${car.model}`} className="car-image" />
+              ) : (
+                <div className="no-image">{t('cars.noPhoto')}</div>
+              )}
               <div className="car-info">
                 <h3>{car.brand} {car.model}</h3>
                 <p>{t(`cars.color`)}: {t(`cars.colors.${car.color}`)}</p>

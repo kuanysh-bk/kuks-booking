@@ -53,3 +53,15 @@
   font-size: 16px;
   cursor: pointer;
 }
+
+.no-image {
+  width: 40%;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  color: #777;
+  font-style: italic;
+  text-align: center;
+}
