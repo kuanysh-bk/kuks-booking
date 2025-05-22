@@ -62,7 +62,10 @@ const ExcursionBookingPage = () => {
       else if (button === '{tab}') val += '';
       else if (button === '{enter}') val += '';
       else val += button;
-      return { ...prev, [currentInput]: val };
+      return { ...prev,
+        [currentInput]: ['adults', 'children', 'infants'].includes(currentInput)
+          ? Number(val)
+          : val };
     });
   };
 
