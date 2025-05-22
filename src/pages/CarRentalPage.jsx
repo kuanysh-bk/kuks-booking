@@ -67,7 +67,7 @@ const CarRentalPage = () => {
                 <div className="no-image">{t('cars.noPhoto')}</div>
               )}
               <div className="car-info">
-                <h3>{car.brand} {car.model}</h3>
+                <h2>{car.brand} {car.model}</h2>
                 <p>{t(`cars.color`)}: {t(`cars.colors.${car.color}`)}</p>
                 <p>{t('cars.seats')}: {car.seats}</p>
                 <p>{t(`cars.type`)}: {t(`cars.types.${car.car_type}`)}</p>
