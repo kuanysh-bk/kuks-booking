@@ -37,7 +37,8 @@
     "date": "Date",
     "total": "Total",
     "pay": "Pay",
-    "error": "Payment error. Please try again later."
+    "error": "Payment error. Please try again later.",
+    "processing": "Processing..."
   },
   "operator": {
     "selectOperator": "Select a tour operator",

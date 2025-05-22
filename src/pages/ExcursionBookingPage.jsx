@@ -19,6 +19,7 @@ const ExcursionBookingPage = () => {
     adults: 1, children: 0, infants: 0, pickup_location: ''
   });
   const [status, setStatus] = useState(null);
+  const [loading, setLoading] = useState(false);
   const selectedDate = location.state?.date || '';
 
   // Keyboard state
@@ -62,10 +63,12 @@ const ExcursionBookingPage = () => {
       else if (button === '{tab}') val += '';
       else if (button === '{enter}') val += '';
       else val += button;
-      return { ...prev,
+      return {
+        ...prev,
         [currentInput]: ['adults', 'children', 'infants'].includes(currentInput)
           ? Number(val)
-          : val };
+          : val
+      };
     });
   };
 
@@ -78,6 +81,7 @@ const ExcursionBookingPage = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     setStatus(null);
+    setLoading(true);
     if (!excursion) return;
     const totalPrice =
       excursion.adult_price * formData.adults +
@@ -108,6 +112,8 @@ const ExcursionBookingPage = () => {
     } catch (err) {
       console.error(err);
       setStatus(t('booking.error'));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -122,9 +128,7 @@ const ExcursionBookingPage = () => {
             <label htmlFor={field}>{t(`booking.${field}`)}</label>
             <input
               id={field} name={field}
-              type={field === 'phone' || ['adults','children','infants'].includes(field) ? 'tel' : 'text'}
-              inputMode={['phone','adults','children','infants'].includes(field) ? 'numeric' : 'text'}
-              pattern={['phone','adults','children','infants'].includes(field) ? '[0-9]*' : undefined}
+              type="text"
               placeholder={t(`booking.${field}`)}
               value={formData[field]}
               onChange={handleChange}
@@ -172,7 +176,9 @@ const ExcursionBookingPage = () => {
           } AED</p>
         </div>
         {status && <p className="error-text">{status}</p>}
-        <button type="submit" className="pay-button">{t('booking.pay')}</button>
+        <button type="submit" className="pay-button" disabled={loading}>
+          {loading ? t('booking.processing') : t('booking.pay')}
+        </button>
       </form>
       {showKeyboard && (
         <div className="keyboard-wrapper">
