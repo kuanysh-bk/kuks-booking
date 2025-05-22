@@ -68,7 +68,6 @@ const ExcursionDatePage = () => {
       >
         {t('booking.continue')}
       </button>
-      <p>Selected: {selectedDate?.toLocaleDateString()}</p>
       <BackButton />
     </div>
   );
