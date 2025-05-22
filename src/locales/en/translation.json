@@ -8,7 +8,10 @@
   "common": {
     "back": "⬅ Back",
     "book": "Book",
-    "home": "Home"
+    "home": "Home",
+    "yes": "Yes",
+    "no": "No",
+    "loading": "Loading..."
   },
   "details": {
     "location": "Location",
@@ -82,5 +85,27 @@
     "peopleCount": "Number of People",
     "operatorContact": "Operator Contact",
     "home": "Home"
+  },
+  "cars": {
+  "title": "Car Rental",
+  "color": "Color",
+  "seats": "Seats",
+  "type": "Type",
+  "transmission": "Transmission",
+  "ac": "Air Conditioning",
+  "pricePerDay": "Price per day",
+  "book": "Book Now",
+  "booked": "Car booked",
+  "filters": {
+    "allTypes": "All types",
+    "sedan": "Sedan",
+    "suv": "SUV",
+    "minivan": "Minivan"
+  },
+  "car_sort": {
+    "noSort": "No sorting",
+    "priceAsc": "Price ascending",
+    "priceDesc": "Price descending"
   }
+}
 }
