@@ -18,7 +18,8 @@ const ExcursionOperatorPage = () => {
         return res.json();
       })
       .then(data => {
-        setOperators(data);
+        const excursionSuppliers = data.filter(supplier => supplier.supplier_type === 'excursion');
+        setOperators(excursionSuppliers);
         setHasError(false);
       })
       .catch(err => {
