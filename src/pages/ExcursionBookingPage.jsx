@@ -102,7 +102,11 @@ const ExcursionBookingPage = () => {
       const res = await fetch('https://booking-backend-tjmn.onrender.com/api/pay', {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
       });
-      if (!res.ok) throw new Error('payment error');
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => null);
+        console.error('Ошибка сервера:', errorData);
+        throw new Error('payment error');
+      }
       const result = await res.json();
       navigate('/success', {
         state: {
