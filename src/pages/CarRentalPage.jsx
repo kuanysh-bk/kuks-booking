@@ -121,7 +121,61 @@ const CarRentalPage = () => {
 
       {showFilters && (
         <div className="advanced-filters">
-          {/* ... остальные select-фильтры ... */}
+          <select name="type" value={filter.type} onChange={handleFilterChange}>
+            <option value="">{t('cars.filters.allTypes')}</option>
+            <option value="sedan">{t('cars.filters.sedan')}</option>
+            <option value="suv">{t('cars.filters.suv')}</option>
+            <option value="minivan">{t('cars.filters.minivan')}</option>
+          </select>
+
+          <select name="brand" value={filter.brand} onChange={handleFilterChange}>
+            <option value="">{t('cars.filters.allBrands')}</option>
+            {brands.map(b => <option key={b} value={b}>{b}</option>)}
+          </select>
+
+          {filter.brand && (
+            <select name="model" value={filter.model} onChange={handleFilterChange}>
+              <option value="">{t('cars.filters.allModels')}</option>
+              {models.map(m => <option key={m} value={m}>{m}</option>)}
+            </select>
+          )}
+
+          <select name="color" value={filter.color} onChange={handleFilterChange}>
+            <option value="">{t('cars.filters.allColors')}</option>
+            <option value="white">{t('cars.colors.white')}</option>
+            <option value="black">{t('cars.colors.black')}</option>
+            <option value="silver">{t('cars.colors.silver')}</option>
+            <option value="gray">{t('cars.colors.gray')}</option>
+            <option value="blue">{t('cars.colors.blue')}</option>
+            <option value="red">{t('cars.colors.red')}</option>
+          </select>
+
+          <select name="transmission" value={filter.transmission} onChange={handleFilterChange}>
+            <option value="">{t('cars.filters.allTransmissions')}</option>
+            <option value="automatic">{t('cars.transmissionTypes.automatic')}</option>
+            <option value="manual">{t('cars.transmissionTypes.manual')}</option>
+          </select>
+
+          <select name="airConditioning" value={filter.airConditioning} onChange={handleFilterChange}>
+            <option value="">{t('cars.filters.anyAC')}</option>
+            <option value="yes">{t('common.yes')}</option>
+            <option value="no">{t('common.no')}</option>
+          </select>
+
+          <select name="fuel_type" value={filter.fuel_type} onChange={handleFilterChange}>
+            <option value="">{t('cars.filters.allFuels')}</option>
+            <option value="petrol">{t('cars.fuel.petrol')}</option>
+            <option value="diesel">{t('cars.fuel.diesel')}</option>
+            <option value="gas">{t('cars.fuel.gas')}</option>
+            <option value="electric">{t('cars.fuel.electric')}</option>
+          </select>
+
+          <select name="drive_type" value={filter.drive_type} onChange={handleFilterChange}>
+            <option value="">{t('cars.filters.allDrives')}</option>
+            <option value="FWD">{t('cars.drive.fwd')}</option>
+            <option value="RWD">{t('cars.drive.rwd')}</option>
+            <option value="AWD">{t('cars.drive.awd')}</option>
+          </select>
 
           {[{
             label: t('cars.seats'),
@@ -148,19 +202,9 @@ const CarRentalPage = () => {
               <label>{label}</label>
               <div className="range-inputs">
                 <span>{t('common.from')}</span>
-                <input
-                  type="number"
-                  name={from}
-                  value={filter[from]}
-                  onChange={handleFilterChange}
-                />
+                <input type="number" name={from} value={filter[from]} onChange={handleFilterChange} />
                 <span>{t('common.to')}</span>
-                <input
-                  type="number"
-                  name={to}
-                  value={filter[to]}
-                  onChange={handleFilterChange}
-                />
+                <input type="number" name={to} value={filter[to]} onChange={handleFilterChange} />
               </div>
             </div>
           ))}
