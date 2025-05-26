@@ -97,13 +97,23 @@
     "book": "Забронировать",
     "booked": "Забронирована машина",
     "filters": {
-      "allTypes": "Все типы",
-      "sedan": "Седан",
-      "suv": "Внедорожник",
-      "minivan": "Минивэн",
-      "allBrands": "Все бренды",
-      "allModels": "Все модели"
+      "allColors": "All colors",
+      "allTransmissions": "Any transmission",
+      "anyAC": "Air Conditioning (yes/no)",
+      "allFuels": "Any fuel type",
+      "allDrives": "Any drive type"
     },
+    "fuel": {
+    "petrol": "Petrol",
+    "diesel": "Diesel",
+    "gas": "Gas",
+    "electric": "Electric"
+  },
+  "drive": {
+    "fwd": "Front-wheel drive",
+    "rwd": "Rear-wheel drive",
+    "awd": "All-wheel drive"
+  },
     "resetFilters": "Сбросить фильтры",
     "showFilters": "Показать фильтры",
     "hideFilters": "Скрыть фильтры",

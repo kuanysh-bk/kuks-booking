@@ -97,12 +97,22 @@
   "book": "Book Now",
   "booked": "Car booked",
   "filters": {
-    "allTypes": "All types",
-    "sedan": "Sedan",
-    "suv": "SUV",
-    "minivan": "Minivan",
-    "allBrands": "All brands",
-    "allModels": "All models"
+    "allColors": "All colors",
+    "allTransmissions": "Any transmission",
+    "anyAC": "Air Conditioning (yes/no)",
+    "allFuels": "Any fuel type",
+    "allDrives": "Any drive type"
+  },
+  "fuel": {
+    "petrol": "Petrol",
+    "diesel": "Diesel",
+    "gas": "Gas",
+    "electric": "Electric"
+  },
+  "drive": {
+    "fwd": "Front-wheel drive",
+    "rwd": "Rear-wheel drive",
+    "awd": "All-wheel drive"
   },
   "resetFilters": "Reset filters",
   "showFilters": "Show filters",
