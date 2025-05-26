@@ -97,6 +97,10 @@ const ExcursionBookingPage = () => {
       booking_type: 'excursion',
       car_id: null
     };
+
+    ['document_number', 'pickup_location', 'email'].forEach(field => {
+      if (payload[field] === '') payload[field] = null;
+    });
     try {
       console.log('payload →', JSON.stringify(payload, null, 2));
       const res = await fetch('https://booking-backend-tjmn.onrender.com/api/pay', {
