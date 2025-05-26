@@ -98,6 +98,7 @@ const ExcursionBookingPage = () => {
       car_id: null
     };
     try {
+      console.log('payload →', JSON.stringify(payload, null, 2));
       const res = await fetch('https://booking-backend-tjmn.onrender.com/api/pay', {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
       });
