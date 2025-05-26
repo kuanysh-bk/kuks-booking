@@ -92,7 +92,10 @@ const ExcursionBookingPage = () => {
       ...formData,
       excursion_title: excursion.title,
       date: selectedDate,
-      total_price: totalPrice
+      total_price: totalPrice,
+      supplier_id: excursion.supplier_id,
+      booking_type: 'excursion',
+      car_id: null
     };
     try {
       const res = await fetch('https://booking-backend-tjmn.onrender.com/api/pay', {
