@@ -93,7 +93,7 @@ const ExcursionBookingPage = () => {
       excursion_title: excursion.title,
       date: selectedDate,
       total_price: totalPrice,
-      supplier_id: excursion.supplier_id,
+      supplier_id: operatorId,
       booking_type: 'excursion',
       car_id: null
     };
