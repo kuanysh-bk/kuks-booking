@@ -5,13 +5,21 @@ import { useTranslation } from 'react-i18next';
 import 'react-datepicker/dist/react-datepicker.css';
 import './ExcursionDatePage.css';
 import BackButton from '../components/BackButton';
+import { registerLocale } from 'react-datepicker';
+import ru from 'date-fns/locale/ru';
+import en from 'date-fns/locale/en-US';
 
 const ExcursionDatePage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { operatorId, excursionId } = useParams();
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
   const [unavailableDates, setUnavailableDates] = useState([]);
+
+  useEffect(() => {
+    registerLocale('ru', ru);
+    registerLocale('en', en);
+  }, []);
 
   useEffect(() => {
     fetch(`https://booking-backend-tjmn.onrender.com/excursion-reservations?excursion_id=${excursionId}`)
@@ -59,6 +67,7 @@ const ExcursionDatePage = () => {
           dateFormat="yyyy-MM-dd"
           inline
           calendarClassName="custom-calendar"
+          locale={i18n.language === 'ru' ? 'ru' : 'en'}
         />
       </div>
       <button
