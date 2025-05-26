@@ -127,7 +127,7 @@ const ExcursionBookingPage = () => {
     <div className="booking-page">
       <h1 className="booking-title">{t('booking.title', { title: excursion.title })}</h1>
       <form className="booking-form" onSubmit={handleSubmit}>
-        {['firstName','lastName','phone','email','documentNumber','pickupLocation'].map(field => (
+        {['firstName','lastName','phone','email','document_number','pickup_location'].map(field => (
           <div className="form-group" key={field}>
             <label htmlFor={field}>{t(`booking.${field}`)}</label>
             <input
