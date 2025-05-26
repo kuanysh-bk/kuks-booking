@@ -103,7 +103,14 @@
     "allTransmissions": "Any transmission",
     "anyAC": "Air Conditioning (yes/no)",
     "allFuels": "Any fuel type",
-    "allDrives": "Any drive type"
+    "allDrives": "Any drive type",
+    "allTypes": "All types",
+    "allSeats": "Any number of seats",
+      "allBrands": "All brands",
+      "allModels": "All models",
+      "sedan": "Sedan",
+      "suv": "SUV",
+      "minivan": "Minivan"
   },
   "fuel": {
     "petrol": "Petrol",
