@@ -11,7 +11,9 @@
     "home": "Home",
     "yes": "Yes",
     "no": "No",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "from": "from",
+    "to": "to"
   },
   "details": {
     "location": "Location",

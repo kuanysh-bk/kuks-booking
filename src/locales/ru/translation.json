@@ -11,7 +11,9 @@
     "home": "Главная",
     "yes": "Да",
     "no": "Нет",
-    "loading": "Загрузка..."
+    "loading": "Загрузка...",
+    "from": "от",
+    "to": "до"
   },
   "details": {
     "location": "Локация",
@@ -97,22 +99,23 @@
     "book": "Забронировать",
     "booked": "Забронирована машина",
     "filters": {
-      "allColors": "All colors",
-      "allTransmissions": "Any transmission",
-      "anyAC": "Air Conditioning (yes/no)",
-      "allFuels": "Any fuel type",
-      "allDrives": "Any drive type"
+      "allColors": "Все цвета",
+      "allSeats": "Любое количество мест",
+      "allTransmissions": "Любая трансмиссия",
+      "anyAC": "Кондиционер (да/нет)",
+      "allFuels": "Любой тип топлива",
+      "allDrives": "Любой тип привода"
     },
     "fuel": {
-    "petrol": "Petrol",
-    "diesel": "Diesel",
-    "gas": "Gas",
-    "electric": "Electric"
+    "petrol": "Бензин",
+    "diesel": "Дизель",
+    "gas": "Газ",
+    "electric": "Электрический"
   },
   "drive": {
-    "fwd": "Front-wheel drive",
-    "rwd": "Rear-wheel drive",
-    "awd": "All-wheel drive"
+    "fwd": "Передний привод",
+    "rwd": "Задний привод",
+    "awd": "Полный привод"
   },
     "resetFilters": "Сбросить фильтры",
     "showFilters": "Показать фильтры",

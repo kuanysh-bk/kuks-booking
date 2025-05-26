@@ -58,8 +58,10 @@ const CarRentalPage = () => {
   useEffect(() => {
     if (filter.brand && allModels.has(filter.brand)) {
       setModels(Array.from(allModels.get(filter.brand)));
+      setFilter(prev => ({ ...prev, model: '' }));
     } else {
       setModels([]);
+      setFilter(prev => ({ ...prev, model: '' }));
     }
   }, [filter.brand, allModels]);
 
@@ -85,7 +87,7 @@ const CarRentalPage = () => {
       (!transmission || car.transmission === transmission) &&
       (!airConditioning || (airConditioning === 'yes' ? car.has_air_conditioning : !car.has_air_conditioning)) &&
       (!fuel_type || car.fuel_type === fuel_type) &&
-      (!drive_type || car.drive_type === drive_type) &&
+      (!drive_type || car.drive_type.toLowerCase() === drive_type.toLowerCase()) &&
       (!seatsFrom || car.seats >= parseInt(seatsFrom)) &&
       (!seatsTo || car.seats <= parseInt(seatsTo)) &&
       (!priceFrom || car.price_per_day >= parseFloat(priceFrom)) &&
@@ -119,91 +121,49 @@ const CarRentalPage = () => {
 
       {showFilters && (
         <div className="advanced-filters">
-          <select name="type" value={filter.type} onChange={handleFilterChange}>
-            <option value="">{t('cars.filters.allTypes')}</option>
-            <option value="sedan">{t('cars.filters.sedan')}</option>
-            <option value="suv">{t('cars.filters.suv')}</option>
-            <option value="minivan">{t('cars.filters.minivan')}</option>
-          </select>
+          {/* ... остальные select-фильтры ... */}
 
-          <select name="brand" value={filter.brand} onChange={handleFilterChange}>
-            <option value="">{t('cars.filters.allBrands')}</option>
-            {brands.map(b => <option key={b} value={b}>{b}</option>)}
-          </select>
-
-          {filter.brand && (
-            <select name="model" value={filter.model} onChange={handleFilterChange}>
-              <option value="">{t('cars.filters.allModels')}</option>
-              {models.map(m => <option key={m} value={m}>{m}</option>)}
-            </select>
-          )}
-
-          <select name="color" value={filter.color} onChange={handleFilterChange}>
-            <option value="">{t('cars.filters.allColors')}</option>
-            <option value="white">{t('cars.colors.white')}</option>
-            <option value="black">{t('cars.colors.black')}</option>
-            <option value="silver">{t('cars.colors.silver')}</option>
-            <option value="gray">{t('cars.colors.gray')}</option>
-            <option value="blue">{t('cars.colors.blue')}</option>
-            <option value="red">{t('cars.colors.red')}</option>
-          </select>
-
-          <select name="transmission" value={filter.transmission} onChange={handleFilterChange}>
-            <option value="">{t('cars.filters.allTransmissions')}</option>
-            <option value="automatic">{t('cars.transmissionTypes.automatic')}</option>
-            <option value="manual">{t('cars.transmissionTypes.manual')}</option>
-          </select>
-
-          <select name="airConditioning" value={filter.airConditioning} onChange={handleFilterChange}>
-            <option value="">{t('cars.filters.anyAC')}</option>
-            <option value="yes">{t('common.yes')}</option>
-            <option value="no">{t('common.no')}</option>
-          </select>
-
-          <select name="fuel_type" value={filter.fuel_type} onChange={handleFilterChange}>
-            <option value="">{t('cars.filters.allFuels')}</option>
-            <option value="petrol">{t('cars.fuel.petrol')}</option>
-            <option value="diesel">{t('cars.fuel.diesel')}</option>
-            <option value="gas">{t('cars.fuel.gas')}</option>
-            <option value="electric">{t('cars.fuel.electric')}</option>
-          </select>
-
-          <select name="drive_type" value={filter.drive_type} onChange={handleFilterChange}>
-            <option value="">{t('cars.filters.allDrives')}</option>
-            <option value="fwd">{t('cars.drive.fwd')}</option>
-            <option value="rwd">{t('cars.drive.rwd')}</option>
-            <option value="awd">{t('cars.drive.awd')}</option>
-          </select>
-
-          <div className="range-group">
-            <label>{t('cars.seats')}</label>
-            <input type="number" name="seatsFrom" value={filter.seatsFrom} onChange={handleFilterChange} />
-            <input type="number" name="seatsTo" value={filter.seatsTo} onChange={handleFilterChange} />
-          </div>
-
-          <div className="range-group">
-            <label>{t('cars.pricePerDay')}</label>
-            <input type="number" name="priceFrom" value={filter.priceFrom} onChange={handleFilterChange} />
-            <input type="number" name="priceTo" value={filter.priceTo} onChange={handleFilterChange} />
-          </div>
-
-          <div className="range-group">
-            <label>{t('cars.year')}</label>
-            <input type="number" name="yearFrom" value={filter.yearFrom} onChange={handleFilterChange} />
-            <input type="number" name="yearTo" value={filter.yearTo} onChange={handleFilterChange} />
-          </div>
-
-          <div className="range-group">
-            <label>{t('cars.engineCapacity')}</label>
-            <input type="number" step="0.1" name="engineFrom" value={filter.engineFrom} onChange={handleFilterChange} />
-            <input type="number" step="0.1" name="engineTo" value={filter.engineTo} onChange={handleFilterChange} />
-          </div>
-
-          <div className="range-group">
-            <label>{t('cars.mileage')}</label>
-            <input type="number" name="mileageFrom" value={filter.mileageFrom} onChange={handleFilterChange} />
-            <input type="number" name="mileageTo" value={filter.mileageTo} onChange={handleFilterChange} />
-          </div>
+          {[{
+            label: t('cars.seats'),
+            from: 'seatsFrom',
+            to: 'seatsTo'
+          }, {
+            label: t('cars.pricePerDay'),
+            from: 'priceFrom',
+            to: 'priceTo'
+          }, {
+            label: t('cars.year'),
+            from: 'yearFrom',
+            to: 'yearTo'
+          }, {
+            label: t('cars.engineCapacity'),
+            from: 'engineFrom',
+            to: 'engineTo'
+          }, {
+            label: t('cars.mileage'),
+            from: 'mileageFrom',
+            to: 'mileageTo'
+          }].map(({ label, from, to }) => (
+            <div className="range-group" key={from}>
+              <label>{label}</label>
+              <div className="range-inputs">
+                <span>{t('common.from')}</span>
+                <input
+                  type="number"
+                  name={from}
+                  value={filter[from]}
+                  onChange={handleFilterChange}
+                />
+                <span>{t('common.to')}</span>
+                <input
+                  type="number"
+                  name={to}
+                  value={filter[to]}
+                  onChange={handleFilterChange}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       )}
 
