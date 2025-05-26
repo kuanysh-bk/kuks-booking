@@ -65,3 +65,56 @@
   font-style: italic;
   text-align: center;
 }
+
+.toggle-filters {
+  margin: 10px 0;
+  padding: 10px 15px;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.advanced-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.advanced-filters select,
+.advanced-filters input {
+  padding: 6px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.range-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+}
+.range-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.range-group input {
+  margin-bottom: 5px;
+}
+
+.reset-filters {
+  margin: 10px 0 20px;
+  padding: 8px 14px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.reset-filters:hover {
+  background-color: #c0392b;
+}
