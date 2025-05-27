@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import Keyboard from 'react-simple-keyboard';
+import 'react-simple-keyboard/build/css/index.css';
 import './ExcursionBookingPage.css';
 import BackButton from '../components/BackButton';
 
@@ -25,8 +27,12 @@ const CarBookingPage = () => {
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(0);
 
+  // Keyboard state
+  const [showKeyboard, setShowKeyboard] = useState(false);
+  const [currentInput, setCurrentInput] = useState('');
+  const [layoutName, setLayoutName] = useState('default');
+
   useEffect(() => {
-    // Получаем цену за день машины
     fetch(`https://booking-backend-tjmn.onrender.com/cars/${carId}`)
       .then(res => res.json())
       .then(data => {
@@ -34,7 +40,8 @@ const CarBookingPage = () => {
           1,
           (new Date(dateTo) - new Date(dateFrom)) / (1000 * 60 * 60 * 24) + 1
         );
-        setPrice(data.price_per_day * days);
+        const daily = parseFloat(data.price_per_day);
+        if (!isNaN(daily)) setPrice(Math.round(daily * days));
       })
       .catch(err => console.error('Ошибка получения цены:', err));
   }, [carId, dateFrom, dateTo]);
@@ -42,6 +49,36 @@ const CarBookingPage = () => {
   const handleChange = e => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleFocus = e => {
+    setCurrentInput(e.target.name);
+    setShowKeyboard(true);
+  };
+
+  const handleKeyPress = button => {
+    if (button === '{shift}' || button === '{lock}') {
+      const newLayout = layoutName === 'default' ? 'shift' : 'default';
+      setLayoutName(newLayout);
+      return;
+    }
+    if (!currentInput) return;
+    setFormData(prev => {
+      let val = String(prev[currentInput] || '');
+      if (button === '{bksp}') val = val.slice(0, -1);
+      else if (button === '{space}') val += ' ';
+      else val += button;
+      return {
+        ...prev,
+        [currentInput]: val
+      };
+    });
+  };
+
+  const hideKeyboard = () => {
+    setShowKeyboard(false);
+    setCurrentInput('');
+    setLayoutName('default');
   };
 
   const handleSubmit = async e => {
@@ -96,6 +133,7 @@ const CarBookingPage = () => {
               placeholder={t(`booking.${field}`)}
               value={formData[field]}
               onChange={handleChange}
+              onFocus={handleFocus}
               required={['firstName','lastName','phone'].includes(field)}
             />
           </div>
@@ -103,7 +141,7 @@ const CarBookingPage = () => {
 
         <div className="form-group">
           <label htmlFor="contact_method">{t('booking.contactMethod')}</label>
-          <select name="contact_method" value={formData.contact_method} onChange={handleChange}>
+          <select name="contact_method" value={formData.contact_method} onChange={handleChange} onFocus={handleFocus}>
             <option value="WhatsApp">WhatsApp</option>
             <option value="Telegram">Telegram</option>
             <option value="Email">Email</option>
@@ -125,6 +163,12 @@ const CarBookingPage = () => {
           {loading ? t('booking.processing') : t('booking.pay')}
         </button>
       </form>
+      {showKeyboard && (
+        <div className="keyboard-wrapper">
+          <button className="keyboard-hide-btn" onClick={hideKeyboard}>×</button>
+          <Keyboard layoutName={layoutName} onKeyPress={handleKeyPress} />
+        </div>
+      )}
       <BackButton />
     </div>
   );
