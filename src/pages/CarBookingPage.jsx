@@ -105,6 +105,11 @@ const CarBookingPage = () => {
       };
 
       console.log('payload →', JSON.stringify(payload, null, 2));
+      ['email', 'document_number'].forEach(key => {
+        if (payload[key] === '') {
+          payload[key] = null;
+        }
+      });
 
       const res = await fetch('https://booking-backend-tjmn.onrender.com/api/pay', {
         method: 'POST',
