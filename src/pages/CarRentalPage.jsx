@@ -8,6 +8,13 @@ const CarRentalPage = () => {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
+  const [sort, setSort] = useState('');
+
+  const sortedCars = [...filteredCars].sort((a, b) => {
+    if (sort === 'price_asc') return a.price_per_day - b.price_per_day;
+    if (sort === 'price_desc') return b.price_per_day - a.price_per_day;
+    return 0;
+  });
 
   const [filter, setFilter] = useState({
     type: '', brand: '', model: '', color: '',
@@ -104,20 +111,28 @@ const CarRentalPage = () => {
   return (
     <div className="car-rental-wrapper">
       <h1>{t('cars.title')}</h1>
-
-      <button className="toggle-filters" onClick={toggleFilters}>
-        {showFilters ? t('cars.hideFilters') : t('cars.showFilters')}
-      </button>
-      <button className="reset-filters" onClick={() => {
-        setFilter({
-          type: '', brand: '', model: '', color: '',
-          transmission: '', airConditioning: '', fuel_type: '', drive_type: '',
-          seatsFrom: '', seatsTo: '', priceFrom: '', priceTo: '',
-          yearFrom: '', yearTo: '', engineFrom: '', engineTo: '', mileageFrom: '', mileageTo: ''
-        });
-      }}>
-        {t('cars.resetFilters')}
-      </button>
+      <div className="header-controls">
+        <div>
+          <button className="toggle-filters" onClick={toggleFilters}>
+            {showFilters ? t('cars.hideFilters') : t('cars.showFilters')}
+          </button>
+          <button className="reset-filters" onClick={() => {
+            setFilter({
+              type: '', brand: '', model: '', color: '',
+              transmission: '', airConditioning: '', fuel_type: '', drive_type: '',
+              seatsFrom: '', seatsTo: '', priceFrom: '', priceTo: '',
+              yearFrom: '', yearTo: '', engineFrom: '', engineTo: '', mileageFrom: '', mileageTo: ''
+            });
+          }}>
+            {t('cars.resetFilters')}
+          </button>
+        </div>
+        <select className="sort-select" onChange={e => setSort(e.target.value)}>
+          <option value="">{t('cars.car_sort.noSort')}</option>
+          <option value="price_asc">{t('cars.car_sort.priceAsc')}</option>
+          <option value="price_desc">{t('cars.car_sort.priceDesc')}</option>
+        </select>
+      </div>
 
       {showFilters && (
         <div className="advanced-filters">
@@ -215,7 +230,7 @@ const CarRentalPage = () => {
         <div className="loading-spinner">{t('common.loading')}</div>
       ) : (
         <div className="car-list">
-          {filteredCars.map(car => (
+          {sortedCars.map(car => (
             <div className="car-card" key={car.id}>
               {car.image_url ? (
                 <img src={car.image_url} alt={`${car.brand} ${car.model}`} className="car-image" />
@@ -224,18 +239,24 @@ const CarRentalPage = () => {
               )}
               <div className="car-info">
                 <h2>{car.brand} {car.model}</h2>
-                <p>{t('cars.supplier')}: {car.supplier?.name || '-'}</p>
-                <p>{t('cars.year')}: {car.year}</p>
-                <p>{t('cars.fuelType')}: {t(`cars.fuel.${car.fuel_type}`)}</p>
-                <p>{t('cars.driveType')}: {t(`cars.drive.${car.drive_type?.toLowerCase()}`)}</p>
-                <p>{t('cars.engineCapacity')}: {car.engine_capacity}</p>
-                <p>{t('cars.mileage')}: {car.mileage}</p>
-                <p>{t('cars.color')}: {t(`cars.colors.${car.color}`)}</p>
-                <p>{t('cars.seats')}: {car.seats}</p>
-                <p>{t('cars.type')}: {t(`cars.types.${car.car_type}`)}</p>
-                <p>{t('cars.transmission')}: {t(`cars.transmissionTypes.${car.transmission}`)}</p>
-                <p>{t('cars.ac')}: {car.has_air_conditioning ? t('common.yes') : t('common.no')}</p>
-                <p>{t('cars.pricePerDay')}: {car.price_per_day} AED</p>
+                <div className="car-info-columns">
+                  <div className="car-info-column">
+                    <p>{t('cars.supplier')}: {car.supplier?.name || '-'}</p>
+                    <p>{t('cars.year')}: {car.year}</p>
+                    <p>{t('cars.fuelType')}: {t(`cars.fuel.${car.fuel_type}`)}</p>
+                    <p>{t('cars.driveType')}: {t(`cars.drive.${car.drive_type?.toLowerCase()}`)}</p>
+                    <p>{t('cars.engineCapacity')}: {car.engine_capacity} L</p>
+                  </div>
+                  <div className="car-info-column">
+                    <p>{t('cars.mileage')}: {car.mileage} km</p>
+                    <p>{t('cars.color')}: {t(`cars.colors.${car.color}`)}</p>
+                    <p>{t('cars.seats')}: {car.seats}</p>
+                    <p>{t('cars.type')}: {t(`cars.types.${car.car_type}`)}</p>
+                    <p>{t('cars.transmission')}: {t(`cars.transmissionTypes.${car.transmission}`)}</p>
+                    <p>{t('cars.ac')}: {car.has_air_conditioning ? t('common.yes') : t('common.no')}</p>
+                  </div>
+                </div>
+                <p className="car-price">{t('cars.pricePerDay')}: {car.price_per_day} AED</p>
                 <button className="book-button" onClick={() => alert(`${t('cars.booked')}: ${car.brand} ${car.model}`)}>
                   {t('cars.book')}
                 </button>
