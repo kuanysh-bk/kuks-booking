@@ -32,6 +32,8 @@ const CarBookingPage = () => {
   const [currentInput, setCurrentInput] = useState('');
   const [layoutName, setLayoutName] = useState('default');
 
+  const [supplierId, setSupplierId] = useState(null);
+
   useEffect(() => {
     fetch(`https://booking-backend-tjmn.onrender.com/cars/${carId}`)
       .then(res => res.json())
@@ -42,6 +44,7 @@ const CarBookingPage = () => {
         );
         const daily = parseFloat(data.price_per_day);
         if (!isNaN(daily)) setPrice(Math.round(daily * days));
+        setSupplierId(data.supplier_id); // ← сохранить supplier_id
       })
       .catch(err => console.error('Ошибка получения цены:', err));
   }, [carId, dateFrom, dateTo]);
@@ -67,6 +70,8 @@ const CarBookingPage = () => {
       let val = String(prev[currentInput] || '');
       if (button === '{bksp}') val = val.slice(0, -1);
       else if (button === '{space}') val += ' ';
+      else if (button === '{tab}') val += '';
+      else if (button === '{enter}') val += '';
       else val += button;
       return {
         ...prev,
@@ -93,7 +98,8 @@ const CarBookingPage = () => {
         end_date: dateTo,
         car_id: parseInt(carId),
         booking_type: 'car',
-        total_price: price
+        total_price: price,
+        supplier_id: supplierId 
       };
 
       const res = await fetch('https://booking-backend-tjmn.onrender.com/api/pay', {
