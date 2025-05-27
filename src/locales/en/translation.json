@@ -13,7 +13,9 @@
     "no": "No",
     "loading": "Loading...",
     "from": "from",
-    "to": "to"
+    "to": "to",
+    "agree": "Agree",
+    "cancel": "Cancel"
   },
   "details": {
     "location": "Location",
@@ -43,7 +45,8 @@
     "total": "Total",
     "pay": "Pay",
     "error": "Payment error. Please try again later.",
-    "processing": "Processing..."
+    "processing": "Processing...",
+    "titleCar": "Car Booking"
   },
   "operator": {
     "selectOperator": "Select a tour operator",
@@ -90,6 +93,7 @@
   },
   "cars": {
     "title": "Car Rental",
+    "licenseRequired": "To rent a car, you need a local or international driver's license.",
     "color": "Color",
     "seats": "Seats",
     "type": "Type",

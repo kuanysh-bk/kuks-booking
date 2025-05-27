@@ -1,0 +1,121 @@
+import React, { useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import './ExcursionBookingPage.css';
+import BackButton from '../components/BackButton';
+
+const CarBookingPage = () => {
+  const { t, i18n } = useTranslation();
+  const { carId } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const { dateFrom, dateTo } = location.state || {};
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    contact_method: 'WhatsApp',
+    email: '',
+    document_number: '',
+    language: i18n.language
+  });
+
+  const [status, setStatus] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus(null);
+
+    try {
+      const payload = {
+        ...formData,
+        date_from: dateFrom,
+        date_to: dateTo,
+        car_id: parseInt(carId),
+        booking_type: 'car'
+      };
+
+      const res = await fetch('https://booking-backend-tjmn.onrender.com/api/pay', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) throw new Error('Payment failed');
+      const result = await res.json();
+
+      navigate('/success', {
+        state: {
+          bookingId: result.booking_id,
+          dateFrom,
+          dateTo,
+          carId
+        }
+      });
+    } catch (err) {
+      console.error(err);
+      setStatus(t('booking.error'));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="booking-page">
+      <h1 className="booking-title">{t('booking.titleCar')}</h1>
+      <form className="booking-form" onSubmit={handleSubmit}>
+        {['firstName','lastName','phone','email','document_number'].map(field => (
+          <div className="form-group" key={field}>
+            <label htmlFor={field}>{t(`booking.${field}`)}</label>
+            <input
+              id={field} name={field} type="text"
+              placeholder={t(`booking.${field}`)}
+              value={formData[field]}
+              onChange={handleChange}
+              required={['firstName','lastName','phone'].includes(field)}
+            />
+          </div>
+        ))}
+
+        <div className="form-group">
+          <label htmlFor="contact_method">{t('booking.contactMethod')}</label>
+          <select name="contact_method" value={formData.contact_method} onChange={handleChange}>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Telegram">Telegram</option>
+            <option value="Email">Email</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="language">{t('booking.guideLanguage')}</label>
+          <select name="language" value={formData.language} onChange={handleChange}>
+            <option value="ru">Русский</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>{t('booking.date')}</label>
+          <p>{dateFrom} — {dateTo}</p>
+        </div>
+
+        {status && <p className="error-text">{status}</p>}
+        <button type="submit" className="pay-button" disabled={loading}>
+          {loading ? t('booking.processing') : t('booking.pay')}
+        </button>
+      </form>
+      <BackButton />
+    </div>
+  );
+};
+
+export default CarBookingPage;

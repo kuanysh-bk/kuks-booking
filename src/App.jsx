@@ -23,6 +23,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/excursions" element={<ExcursionOperatorPage />} />
           <Route path="/cars" element={<CarRentalPage />} />
+          <Route path="/cars/:carId/calendar" element={<CarDatePage />} />
+          <Route path="/cars/:carId/booking" element={<CarBookingPage />} />
           <Route path="/excursions/:operatorId" element={<ExcursionListPage />} />
           <Route path="/excursions/:operatorId/:excursionId" element={<ExcursionDetailsPage />} />
           <Route path="/excursions/:operatorId/:excursionId/date" element={<ExcursionDatePage />} />

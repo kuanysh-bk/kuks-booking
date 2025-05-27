@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './CarRentalPage.css';
 import BackButton from '../components/BackButton';
+import { useNavigate } from 'react-router-dom';
 
 const CarRentalPage = () => {
   const { t } = useTranslation();
@@ -9,6 +10,19 @@ const CarRentalPage = () => {
   const [loading, setLoading] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
   const [sort, setSort] = useState('');
+  const [selectedCar, setSelectedCar] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+
+  const handleBookClick = (car) => {
+    setSelectedCar(car);
+    setShowModal(true);
+  };
+  
+  const handleConfirmBooking = () => {
+    setShowModal(false);
+    navigate(`/cars/${selectedCar.id}/calendar`);
+  };
 
   const [filter, setFilter] = useState({
     type: '', brand: '', model: '', color: '',
@@ -107,6 +121,16 @@ const CarRentalPage = () => {
     if (sort === 'price_desc') return b.price_per_day - a.price_per_day;
     return 0;
   });
+
+  {showModal && (
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <p>{t('cars.licenseRequired')}</p>
+        <button onClick={handleConfirmBooking}>{t('common.agree')}</button>
+        <button onClick={() => setShowModal(false)}>{t('common.cancel')}</button>
+      </div>
+    </div>
+  )}
 
   return (
     <div className="car-rental-wrapper">
