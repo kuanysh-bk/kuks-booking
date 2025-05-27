@@ -281,7 +281,7 @@ const CarRentalPage = () => {
                   </div>
                 </div>
                 <p className="car-price">{t('cars.pricePerDay')}: {car.price_per_day} AED</p>
-                <button className="book-button" onClick={() => alert(`${t('cars.booked')}: ${car.brand} ${car.model}`)}>
+                <button className="book-button" onClick={() => handleBookClick(car)}>
                   {t('cars.book')}
                 </button>
               </div>
