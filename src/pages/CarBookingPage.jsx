@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './ExcursionBookingPage.css';
 import BackButton from '../components/BackButton';
 
 const CarBookingPage = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { carId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,12 +18,26 @@ const CarBookingPage = () => {
     phone: '',
     contact_method: 'WhatsApp',
     email: '',
-    document_number: '',
-    language: i18n.language
+    document_number: ''
   });
 
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [price, setPrice] = useState(0);
+
+  useEffect(() => {
+    // Получаем цену за день машины
+    fetch(`https://booking-backend-tjmn.onrender.com/cars/${carId}`)
+      .then(res => res.json())
+      .then(data => {
+        const days = Math.max(
+          1,
+          (new Date(dateTo) - new Date(dateFrom)) / (1000 * 60 * 60 * 24) + 1
+        );
+        setPrice(data.price_per_day * days);
+      })
+      .catch(err => console.error('Ошибка получения цены:', err));
+  }, [carId, dateFrom, dateTo]);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -38,10 +52,11 @@ const CarBookingPage = () => {
     try {
       const payload = {
         ...formData,
-        date_from: dateFrom,
-        date_to: dateTo,
+        start_date: dateFrom,
+        end_date: dateTo,
         car_id: parseInt(carId),
-        booking_type: 'car'
+        booking_type: 'car',
+        total_price: price
       };
 
       const res = await fetch('https://booking-backend-tjmn.onrender.com/api/pay', {
@@ -96,16 +111,13 @@ const CarBookingPage = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="language">{t('booking.guideLanguage')}</label>
-          <select name="language" value={formData.language} onChange={handleChange}>
-            <option value="ru">Русский</option>
-            <option value="en">English</option>
-          </select>
+          <label>{t('booking.date')}</label>
+          <p>{dateFrom} — {dateTo}</p>
         </div>
 
         <div className="form-group">
-          <label>{t('booking.date')}</label>
-          <p>{dateFrom} — {dateTo}</p>
+          <label>{t('booking.total')}</label>
+          <p>{price} AED</p>
         </div>
 
         {status && <p className="error-text">{status}</p>}
