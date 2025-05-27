@@ -26,27 +26,30 @@ const CarBookingPage = () => {
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(0);
+  const [supplierId, setSupplierId] = useState(null);
 
-  // Keyboard state
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [currentInput, setCurrentInput] = useState('');
   const [layoutName, setLayoutName] = useState('default');
-
-  const [supplierId, setSupplierId] = useState(null);
 
   useEffect(() => {
     fetch(`https://booking-backend-tjmn.onrender.com/cars/${carId}`)
       .then(res => res.json())
       .then(data => {
-        const days = Math.max(
-          1,
-          (new Date(dateTo) - new Date(dateFrom)) / (1000 * 60 * 60 * 24) + 1
-        );
         const daily = parseFloat(data.price_per_day);
-        if (!isNaN(daily)) setPrice(Math.round(daily * days));
-        setSupplierId(data.supplier_id); // ← сохранить supplier_id
+        const supplier = data.supplier_id;
+        if (!isNaN(daily)) {
+          const days = Math.max(1, (new Date(dateTo) - new Date(dateFrom)) / (1000 * 60 * 60 * 24) + 1);
+          setPrice(Math.round(daily * days));
+        } else {
+          setPrice(0);
+        }
+        setSupplierId(supplier);
       })
-      .catch(err => console.error('Ошибка получения цены:', err));
+      .catch(err => {
+        console.error('Ошибка получения машины:', err);
+        setPrice(0);
+      });
   }, [carId, dateFrom, dateTo]);
 
   const handleChange = e => {
@@ -70,8 +73,7 @@ const CarBookingPage = () => {
       let val = String(prev[currentInput] || '');
       if (button === '{bksp}') val = val.slice(0, -1);
       else if (button === '{space}') val += ' ';
-      else if (button === '{tab}') val += '';
-      else if (button === '{enter}') val += '';
+      else if (button === '{tab}' || button === '{enter}') val += '';
       else val += button;
       return {
         ...prev,
@@ -99,7 +101,7 @@ const CarBookingPage = () => {
         car_id: parseInt(carId),
         booking_type: 'car',
         total_price: price,
-        supplier_id: supplierId 
+        supplier_id: supplierId
       };
 
       const res = await fetch('https://booking-backend-tjmn.onrender.com/api/pay', {
