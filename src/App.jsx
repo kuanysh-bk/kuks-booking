@@ -12,6 +12,8 @@ import ExcursionBookingPage from './pages/ExcursionBookingPage';
 import BookingSuccessPage from './pages/BookingSuccessPage';
 import IdleWatcher from './components/IdleWatcher';
 import CarRentalPage from './pages/CarRentalPage';
+import CarDatePage from './pages/CarDatePage';
+import CarBookingPage from './pages/CarBookingPage';
 
 
 function App() {
