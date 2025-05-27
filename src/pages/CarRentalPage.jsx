@@ -228,8 +228,8 @@ const CarRentalPage = () => {
                 <p>{t('cars.year')}: {car.year}</p>
                 <p>{t('cars.fuelType')}: {t(`cars.fuel.${car.fuel_type}`)}</p>
                 <p>{t('cars.driveType')}: {t(`cars.drive.${car.drive_type?.toLowerCase()}`)}</p>
-                <p>{t('cars.engineCapacity')}: {car.engine_capacity} L</p>
-                <p>{t('cars.mileage')}: {car.mileage} km</p>
+                <p>{t('cars.engineCapacity')}: {car.engine_capacity}</p>
+                <p>{t('cars.mileage')}: {car.mileage}</p>
                 <p>{t('cars.color')}: {t(`cars.colors.${car.color}`)}</p>
                 <p>{t('cars.seats')}: {car.seats}</p>
                 <p>{t('cars.type')}: {t(`cars.types.${car.car_type}`)}</p>

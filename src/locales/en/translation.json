@@ -89,69 +89,71 @@
     "home": "Home"
   },
   "cars": {
-  "title": "Car Rental",
-  "color": "Color",
-  "seats": "Seats",
-  "type": "Type",
-  "transmission": "Transmission",
-  "ac": "Air Conditioning",
-  "pricePerDay": "Price per day",
-  "book": "Book Now",
-  "booked": "Car booked",
-  "filters": {
-    "allColors": "All colors",
-    "allTransmissions": "Any transmission",
-    "anyAC": "Air Conditioning (yes/no)",
-    "allFuels": "Any fuel type",
-    "allDrives": "Any drive type",
-    "allTypes": "All types",
-    "allSeats": "Any number of seats",
-      "allBrands": "All brands",
-      "allModels": "All models",
+    "title": "Car Rental",
+    "color": "Color",
+    "seats": "Seats",
+    "type": "Type",
+    "transmission": "Transmission",
+    "ac": "Air Conditioning",
+    "pricePerDay": "Price per day",
+    "book": "Book Now",
+    "booked": "Car booked",
+    "supplier": "Company",
+    "driveType": "Drive Type",
+    "filters": {
+      "allColors": "All colors",
+      "allTransmissions": "Any transmission",
+      "anyAC": "Air Conditioning (yes/no)",
+      "allFuels": "Any fuel type",
+      "allDrives": "Any drive type",
+      "allTypes": "All types",
+      "allSeats": "Any number of seats",
+        "allBrands": "All brands",
+        "allModels": "All models",
+        "sedan": "Sedan",
+        "suv": "SUV",
+        "minivan": "Minivan"
+    },
+    "fuel": {
+      "petrol": "Petrol",
+      "diesel": "Diesel",
+      "gas": "Gas",
+      "electric": "Electric"
+    },
+    "drive": {
+      "fwd": "Front-wheel drive",
+      "rwd": "Rear-wheel drive",
+      "awd": "All-wheel drive"
+    },
+    "resetFilters": "Reset filters",
+    "showFilters": "Show filters",
+    "hideFilters": "Hide filters",
+    "engineCapacity": "Engine capacity (L)",
+    "year": "Year",
+    "mileage": "Mileage (km)",
+    "fuelType": "Fuel type",
+    "car_sort": {
+      "noSort": "No sorting",
+      "priceAsc": "Price ascending",
+      "priceDesc": "Price descending"
+    },
+    "types": {
       "sedan": "Sedan",
       "suv": "SUV",
       "minivan": "Minivan"
-  },
-  "fuel": {
-    "petrol": "Petrol",
-    "diesel": "Diesel",
-    "gas": "Gas",
-    "electric": "Electric"
-  },
-  "drive": {
-    "fwd": "Front-wheel drive",
-    "rwd": "Rear-wheel drive",
-    "awd": "All-wheel drive"
-  },
-  "resetFilters": "Reset filters",
-  "showFilters": "Show filters",
-  "hideFilters": "Hide filters",
-  "engineCapacity": "Engine capacity (L)",
-  "year": "Year",
-  "mileage": "Mileage (km)",
-  "fuelType": "Fuel type",
-  "car_sort": {
-    "noSort": "No sorting",
-    "priceAsc": "Price ascending",
-    "priceDesc": "Price descending"
-  },
-  "types": {
-    "sedan": "Sedan",
-    "suv": "SUV",
-    "minivan": "Minivan"
-  },
-  "transmissionTypes": {
-    "automatic": "Automatic",
-    "manual": "Manual"
-  },
-  "colors": {
-    "black": "Black",
-    "white": "White",
-    "blue": "Blue",
-    "red": "Red",
-    "silver": "Silver",
-    "gray": "Gray"
-  },
-  "noPhoto": "Photo not uploaded yet"
-}
+    },
+    "transmissionTypes": {
+      "automatic": "Automatic",
+      "manual": "Manual"
+    },
+    "colors": {
+      "black": "Black",
+      "white": "White",
+      "blue": "Blue",
+      "red": "Red",
+      "silver": "Silver",
+      "gray": "Gray"
+    },
+    "noPhoto": "Photo not uploaded yet"
+  }
 }
