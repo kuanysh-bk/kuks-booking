@@ -122,16 +122,6 @@ const CarRentalPage = () => {
     return 0;
   });
 
-  {showModal && (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <p>{t('cars.licenseRequired')}</p>
-        <button onClick={handleConfirmBooking}>{t('common.agree')}</button>
-        <button onClick={() => setShowModal(false)}>{t('common.cancel')}</button>
-      </div>
-    </div>
-  )}
-
   return (
     <div className="car-rental-wrapper">
       <h1>{t('cars.title')}</h1>
@@ -287,6 +277,15 @@ const CarRentalPage = () => {
               </div>
             </div>
           ))}
+        {showModal && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <p>{t('cars.licenseRequired')}</p>
+              <button onClick={handleConfirmBooking}>{t('common.agree')}</button>
+              <button onClick={() => setShowModal(false)}>{t('common.cancel')}</button>
+            </div>
+          </div>
+        )}
         </div>
       )}
       <BackButton />
