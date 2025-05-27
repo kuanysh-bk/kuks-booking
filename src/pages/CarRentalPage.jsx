@@ -10,12 +10,6 @@ const CarRentalPage = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [sort, setSort] = useState('');
 
-  const sortedCars = [...filteredCars].sort((a, b) => {
-    if (sort === 'price_asc') return a.price_per_day - b.price_per_day;
-    if (sort === 'price_desc') return b.price_per_day - a.price_per_day;
-    return 0;
-  });
-
   const [filter, setFilter] = useState({
     type: '', brand: '', model: '', color: '',
     transmission: '', airConditioning: '', fuel_type: '', drive_type: '',
@@ -106,6 +100,12 @@ const CarRentalPage = () => {
       (!mileageFrom || car.mileage >= parseInt(mileageFrom)) &&
       (!mileageTo || car.mileage <= parseInt(mileageTo))
     );
+  });
+
+  const sortedCars = [...filteredCars].sort((a, b) => {
+    if (sort === 'price_asc') return a.price_per_day - b.price_per_day;
+    if (sort === 'price_desc') return b.price_per_day - a.price_per_day;
+    return 0;
   });
 
   return (
