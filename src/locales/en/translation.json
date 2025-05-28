@@ -91,7 +91,11 @@
     "dates": "Rental dates",
     "peopleCount": "Number of People",
     "operatorContact": "Operator Contact",
-    "home": "Home"
+    "home": "Home",
+    "operatorName": "Company Name",
+    "operatorPhone": "Phone",
+    "operatorEmail": "Email",
+    "operatorAddress": "Address"
   },
   "cars": {
     "title": "Car Rental",

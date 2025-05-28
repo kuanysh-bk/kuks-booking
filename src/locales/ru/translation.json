@@ -91,7 +91,11 @@
     "dates": "Даты аренды",
     "peopleCount": "Количество человек",
     "operatorContact": "Контакт туроператора",
-    "home": "На главную"
+    "home": "На главную",
+    "operatorName": "Название компании",
+    "operatorPhone": "Телефон",
+    "operatorEmail": "Email",
+    "operatorAddress": "Адрес"
   },
   "cars": {
     "title": "Аренда автомобилей",
