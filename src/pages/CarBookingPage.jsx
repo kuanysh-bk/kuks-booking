@@ -98,6 +98,7 @@ const CarBookingPage = () => {
         ...formData,
         start_date: dateFrom,
         end_date: dateTo,
+        date: dateFrom,
         car_id: parseInt(carId),
         booking_type: 'car',
         total_price: price,
