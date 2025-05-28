@@ -69,7 +69,7 @@ const ExcursionDetailsPage = () => {
         <p><strong>{t('excursion.price')}:</strong> {excursion.price} AED</p>
       </div>
 
-      <button className="book-button" onClick={() => navigate(`/excursions/${operatorId}/${excursionId}/date`)}>
+      <button className="book-button-details" onClick={() => navigate(`/excursions/${operatorId}/${excursionId}/date`)}>
         {t('excursion.book')}
       </button>
 
