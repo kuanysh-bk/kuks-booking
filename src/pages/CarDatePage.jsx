@@ -23,10 +23,14 @@ const CarDatePage = () => {
     registerLocale('en', en);
   }, []);
 
+  console.log('carId из useParams:', carId);
+
   useEffect(() => {
+    if (!carId) return;
     fetch(`https://booking-backend-tjmn.onrender.com/car-reservations?car_id=${carId}`)
       .then(res => res.json())
       .then(data => {
+        console.log('>>> Ответ от /car-reservations:', data);
         const dates = [];
         data.forEach(item => {
         const start = new Date(item.start_date);
