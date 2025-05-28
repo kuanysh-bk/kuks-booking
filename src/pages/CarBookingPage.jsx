@@ -36,6 +36,7 @@ const CarBookingPage = () => {
     fetch(`https://booking-backend-tjmn.onrender.com/cars/${carId}`)
       .then(res => res.json())
       .then(data => {
+        console.log('>>> Ответ от /car-reservations:', data);
         const daily = parseFloat(data.price_per_day);
         const supplier = data.supplier_id;
         if (!isNaN(daily)) {
