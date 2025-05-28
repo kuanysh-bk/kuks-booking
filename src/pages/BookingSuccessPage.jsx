@@ -32,28 +32,32 @@ const BookingSuccessPage = () => {
 
   return (
     <div className="success-wrapper">
-      <h1>{t('bookingSuccess.title')}</h1>
-
-      {data?.bookingType === 'car' ? (
-        <>
-          <p><strong>{t('bookingSuccess.bookingId')}:</strong> {bookingId}</p>
-          <p><strong>{t('bookingSuccess.car')}:</strong> {data.carId}</p>
-          <p><strong>{t('bookingSuccess.dates')}:</strong> {data.dateFrom} – {data.dateTo}</p>
-          <p><strong>{t('bookingSuccess.operatorContact')}:</strong> {operatorContact}</p>
-        </>
-      ) : (
-        <>
-          <p><strong>{t('bookingSuccess.bookingId')}:</strong> {bookingId}</p>
-          <p><strong>{t('bookingSuccess.excursion')}:</strong> {data.excursionTitle}</p>
-          <p><strong>{t('bookingSuccess.date')}:</strong> {data.date}</p>
-          <p><strong>{t('bookingSuccess.peopleCount')}:</strong> {data.peopleCount}</p>
-          <p><strong>{t('bookingSuccess.operatorContact')}:</strong> {operatorContact}</p>
-        </>
-      )}
-
-      <button onClick={() => navigate('/')}>{t('bookingSuccess.home')}</button>
+      <h1 className="success-title">{t('bookingSuccess.title')}</h1>
+  
+      <div className="success-info">
+        <p><strong>{t('bookingSuccess.bookingId')}:</strong> {bookingId}</p>
+  
+        {data?.bookingType === 'car' ? (
+          <>
+            <p><strong>{t('bookingSuccess.carId')}:</strong> {data.carId}</p>
+            <p><strong>{t('bookingSuccess.dates')}:</strong> {data.dateFrom} – {data.dateTo}</p>
+            <p><strong>{t('bookingSuccess.operatorContact')}:</strong> {operatorContact}</p>
+          </>
+        ) : (
+          <>
+            <p><strong>{t('bookingSuccess.excursion')}:</strong> {data.excursionTitle}</p>
+            <p><strong>{t('bookingSuccess.date')}:</strong> {data.date}</p>
+            <p><strong>{t('bookingSuccess.peopleCount')}:</strong> {data.peopleCount}</p>
+            <p><strong>{t('bookingSuccess.operatorContact')}:</strong> {operatorContact}</p>
+          </>
+        )}
+      </div>
+  
+      <button className="home-button-success" onClick={() => navigate('/')}>
+        {t('bookingSuccess.home')}
+      </button>
     </div>
-  );
+  );  
 };
 
 export default BookingSuccessPage;

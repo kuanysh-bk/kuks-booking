@@ -126,7 +126,9 @@ const CarBookingPage = () => {
           bookingId: result.booking_id,
           dateFrom,
           dateTo,
-          carId
+          carId,
+          bookingType: 'car',
+          supplierId
         }
       });
     } catch (err) {
