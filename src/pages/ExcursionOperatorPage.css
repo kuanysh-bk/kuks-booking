@@ -26,8 +26,10 @@
   width: 100%;
 }
 
-/* каждая карточка */
 .operator-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   padding: 1rem;
   font-size: 1.2rem;
   background-color: #0066ff;
@@ -35,11 +37,24 @@
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  text-align: center;
+  text-align: left;
 }
 
 /* эффект при наведении */
 .operator-card:hover {
   background-color: #004fcc;
   transform: translateY(-2px);
+}
+
+.operator-logo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.operator-name {
+  flex: 1;
+  text-align: center;
+  font-weight: 600;
 }

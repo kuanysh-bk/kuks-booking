@@ -72,7 +72,7 @@ const ExcursionOperatorPage = () => {
                   className="operator-logo"
                 />
               )}
-              <h3>{op.name}</h3>
+              <h3 className="operator-name">{op.name}</h3>
             </div>
           ))}
         </div>
