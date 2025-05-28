@@ -56,6 +56,8 @@ const CarDatePage = () => {
     });
   };
 
+  console.log('Недоступные даты:', unavailableDates);
+
   return (
     <div className="date-page-wrapper">
       <h2 className="date-page-title">{t('booking.selectDate')}</h2>
