@@ -27,9 +27,13 @@ const CarDatePage = () => {
     fetch(`https://booking-backend-tjmn.onrender.com/car-reservations?car_id=${carId}`)
       .then(res => res.json())
       .then(data => {
-        const dates = data.map(item => {
-          const [y, m, d] = item.date.split('-');
-          return new Date(+y, +m - 1, +d);
+        const dates = [];
+        data.forEach(item => {
+        const start = new Date(item.start_date);
+        const end = new Date(item.end_date);
+        for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+            dates.push(new Date(d));  // создаём копию, иначе ошибка
+        }
         });
         setUnavailableDates(dates);
       })
