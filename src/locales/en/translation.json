@@ -86,7 +86,9 @@
     "title": "Booking Successful!",
     "bookingId": "Booking Number",
     "excursion": "Excursion",
+    "car": "Car",
     "date": "Date",
+    "dates": "Rental dates",
     "peopleCount": "Number of People",
     "operatorContact": "Operator Contact",
     "home": "Home"
