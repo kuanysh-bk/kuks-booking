@@ -42,6 +42,8 @@ const CarDatePage = () => {
         setUnavailableDates(dates);
       })
       .catch(err => console.error('Ошибка загрузки дат:', err));
+      console.log('Недоступные даты:', unavailableDates);
+    
   }, [carId]);
 
   const handleContinue = () => {
@@ -59,8 +61,6 @@ const CarDatePage = () => {
       },
     });
   };
-
-  console.log('Недоступные даты:', unavailableDates);
 
   return (
     <div className="date-page-wrapper">
