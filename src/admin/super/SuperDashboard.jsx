@@ -107,11 +107,10 @@ const SuperDashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map(user => (
+              {users.filter(user => !user.is_superuser).map(user => (
                 <tr key={user.id}>
                   <td>{user.id}</td>
                   <td>{user.email}</td>
-                  <td>{user.is_superuser ? '✔' : ''}</td>
                   <td>{getSupplierName(user.supplier_id)}</td>
                   <td>
                     <button className="edit-btn">{t('common.edit')}</button>
