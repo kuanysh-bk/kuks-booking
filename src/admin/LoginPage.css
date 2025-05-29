@@ -76,7 +76,7 @@
 
   @keyframes spin {
     to {
-      transform: rotate(360deg) translateY(-50%);
+      transform: rotate(360deg);
     }
   }
   
