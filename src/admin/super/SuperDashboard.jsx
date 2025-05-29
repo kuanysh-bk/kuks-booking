@@ -10,7 +10,7 @@ const SuperDashboard = () => {
 
   useEffect(() => {
     if (activeTab === 'users') {
-      fetch('/api/super/users', {
+      fetch('https://booking-backend-tjmn.onrender.com/api/super/users', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
