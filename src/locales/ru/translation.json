@@ -201,6 +201,8 @@
     "address": "Адрес",
     "actions": "Действия",
     "submit": "Создать",
-    "choose_supplier": "Выберите компанию"
+    "choose_supplier": "Выберите компанию",
+    "email_required": "Поле Email не должно быть пустым",
+    "invalid_email": "Введите корректный Email"
   }
 }

@@ -12,23 +12,36 @@ const SuperDashboard = () => {
   const [newUser, setNewUser] = useState({ email: '', supplier_id: '' });
 
   const handleAddUser = async () => {
-  const res = await fetch('https://booking-backend-tjmn.onrender.com/api/super/users', {
-    method: 'POST',
-    headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('token')}`
-    },
-    body: JSON.stringify(newUser)
-  });
-  if (res.ok) {
-    setNewUser({ email: '', supplier_id: '' });
-    setShowAddForm(false);
-    const updated = await fetch('https://booking-backend-tjmn.onrender.com/api/super/users', {
-    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-    }).then(r => r.json());
-    setUsers(updated);
+    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+  
+    if (!newUser.email.trim()) {
+      alert(t('super_dashboard.email_required'));
+      return;
     }
-  };
+  
+    if (!emailRegex.test(newUser.email)) {
+      alert(t('super_dashboard.invalid_email'));
+      return;
+    }
+  
+    const res = await fetch('https://booking-backend-tjmn.onrender.com/api/super/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify(newUser)
+    });
+  
+    if (res.ok) {
+      setNewUser({ email: '', supplier_id: '' });
+      setShowAddForm(false);
+      const updated = await fetch('https://booking-backend-tjmn.onrender.com/api/super/users', {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      }).then(r => r.json());
+      setUsers(updated);
+    }
+  };  
 
   useEffect(() => {
     const fetchData = async () => {
