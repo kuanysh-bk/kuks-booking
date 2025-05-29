@@ -24,7 +24,8 @@
     "repeat_new": "Повторите новый пароль",
     "submit": "Подтвердить",
     "password_mismatch": "Пароли не совпадают",
-    "password_updated": "Пароль обновлён"
+    "password_updated": "Пароль обновлён",
+    "logout": "Выйти"
   },
   "details": {
     "location": "Локация",

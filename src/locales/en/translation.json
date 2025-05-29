@@ -24,7 +24,8 @@
     "repeat_new": "Repeat New Password",
     "submit": "Submit",
     "password_mismatch": "Passwords do not match",
-    "password_updated": "Password updated successfully"
+    "password_updated": "Password updated successfully",
+    "logout": "Logout"
   },
   "details": {
     "location": "Location",

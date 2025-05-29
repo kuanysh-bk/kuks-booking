@@ -94,7 +94,16 @@ const Header = () => {
               value={repeatPassword}
               onChange={e => setRepeatPassword(e.target.value)}
             />
-            <button onClick={handleChangePassword}>{t('common.submit')}</button>
+            <div className="modal-buttons">
+              <button onClick={handleChangePassword}>{t('common.submit')}</button>
+              <button className="cancel-button" onClick={() => {
+                setShowModal(false);
+                setPassword('');
+                setRepeatPassword('');
+              }}>
+                {t('common.cancel')}
+              </button>
+            </div>
           </div>
         </div>
       )}
