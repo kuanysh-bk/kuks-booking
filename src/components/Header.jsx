@@ -16,7 +16,9 @@ const Header = () => {
   const [repeatPassword, setRepeatPassword] = useState('');
 
   const handleChangePassword = async () => {
+    if (password.length < 5) return alert(t('common.password_too_short'));
     if (password !== repeatPassword) return alert(t('common.password_mismatch'));
+  
     await fetch('https://booking-backend-tjmn.onrender.com/api/admin/change-password', {
       method: 'POST',
       headers: {
@@ -25,6 +27,7 @@ const Header = () => {
       },
       body: JSON.stringify({ password })
     });
+  
     setShowModal(false);
     setPassword('');
     setRepeatPassword('');

@@ -25,7 +25,8 @@
     "submit": "Подтвердить",
     "password_mismatch": "Пароли не совпадают",
     "password_updated": "Пароль обновлён",
-    "logout": "Выйти"
+    "logout": "Выйти",
+    "password_too_short": "Пароль должен быть минимум 5 символов"
   },
   "details": {
     "location": "Локация",
