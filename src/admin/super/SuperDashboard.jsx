@@ -101,7 +101,6 @@ const SuperDashboard = () => {
               <tr>
                 <th>ID</th>
                 <th>{t('super_dashboard.email')}</th>
-                <th>{t('super_dashboard.is_superuser')}</th>
                 <th>{t('super_dashboard.supplier')}</th>
                 <th>{t('super_dashboard.actions')}</th>
               </tr>
