@@ -8,6 +8,9 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const isAdmin = location.pathname.startsWith('/admin');
+  const isLoginPage = location.pathname === '/admin/login';
+
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
@@ -16,10 +19,16 @@ const Header = () => {
     navigate('/');
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('isSuperuser');
+    navigate('/admin/login');
+  };
+
   return (
     <header className="header">
       <div className="header-left">
-        {location.pathname !== '/' && location.pathname !== "/success" && (
+        {!isAdmin && location.pathname !== '/' && location.pathname !== '/success' && (
           <button className="home-button-header" onClick={goHome}>
             {t('common.home', 'Home')}
           </button>
@@ -38,6 +47,11 @@ const Header = () => {
         >
           English
         </button>
+        {isAdmin && !isLoginPage && (
+          <button className="logout-button" onClick={handleLogout}>
+            {t('common.logout', 'Logout')}
+          </button>
+        )}
       </div>
     </header>
   );

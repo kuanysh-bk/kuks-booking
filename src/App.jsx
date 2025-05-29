@@ -28,18 +28,19 @@ function App() {
   return (
     <BrowserRouter>
       <Layout>
-        <IdleWatcher>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/excursions" element={<ExcursionOperatorPage />} />
-          <Route path="/cars" element={<CarRentalPage />} />
-          <Route path="/cars/:carId/calendar" element={<CarDatePage />} />
-          <Route path="/cars/:carId/booking" element={<CarBookingPage />} />
-          <Route path="/excursions/:operatorId" element={<ExcursionListPage />} />
-          <Route path="/excursions/:operatorId/:excursionId" element={<ExcursionDetailsPage />} />
-          <Route path="/excursions/:operatorId/:excursionId/date" element={<ExcursionDatePage />} />
-          <Route path="/excursions/:operatorId/:excursionId/booking" element={<ExcursionBookingPage />} />
-          <Route path="/success" element={<BookingSuccessPage />} />
+          <IdleWatcher>
+            <Route path="/" element={<Home />} />
+            <Route path="/excursions" element={<ExcursionOperatorPage />} />
+            <Route path="/cars" element={<CarRentalPage />} />
+            <Route path="/cars/:carId/calendar" element={<CarDatePage />} />
+            <Route path="/cars/:carId/booking" element={<CarBookingPage />} />
+            <Route path="/excursions/:operatorId" element={<ExcursionListPage />} />
+            <Route path="/excursions/:operatorId/:excursionId" element={<ExcursionDetailsPage />} />
+            <Route path="/excursions/:operatorId/:excursionId/date" element={<ExcursionDatePage />} />
+            <Route path="/excursions/:operatorId/:excursionId/booking" element={<ExcursionBookingPage />} />
+            <Route path="/success" element={<BookingSuccessPage />} />
+          </IdleWatcher>
           <Route path="/admin/login" element={<LoginPage />} />
           <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/admin/super/dashboard" element={<ProtectedRoute><SuperDashboard /></ProtectedRoute>} />
@@ -48,7 +49,6 @@ function App() {
           <Route path="/admin/add" element={<ProtectedRoute><AddContentPage /></ProtectedRoute>} />
           <Route path="/admin/bookings" element={<ProtectedRoute><BookingsPage /></ProtectedRoute>} />
         </Routes>
-        </IdleWatcher>
       </Layout>
     </BrowserRouter>
   );
