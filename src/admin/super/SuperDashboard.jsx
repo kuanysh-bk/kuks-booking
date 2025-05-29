@@ -12,7 +12,7 @@ const SuperDashboard = () => {
   const [newUser, setNewUser] = useState({ email: '', supplier_id: '' });
 
   const handleAddUser = async () => {
-    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
     if (!newUser.email.trim()) {
       alert(t('super_dashboard.email_required'));
