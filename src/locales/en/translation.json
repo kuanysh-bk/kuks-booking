@@ -181,10 +181,15 @@
     "title": "Superuser Dashboard",
     "users": "Users",
     "suppliers": "Suppliers",
+    "add_user": "Add User",
+    "add_supplier": "Add Supplier",
     "email": "Email",
     "is_superuser": "Superuser",
-    "supplier_id": "Supplier",
-    "actions": "Actions",
-    "suppliers_tab": "Here will be supplier management"
+    "supplier": "Supplier",
+    "name": "Name",
+    "phone": "Phone",
+    "type": "Type",
+    "address": "Address",
+    "actions": "Actions"
   }
 }
