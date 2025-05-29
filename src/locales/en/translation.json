@@ -165,5 +165,12 @@
       "gray": "Gray"
     },
     "noPhoto": "Photo not uploaded yet"
+  },
+  "login": {
+    "title": "Admin Login",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Log In",
+    "invalid_credentials": "Invalid email or password"
   }
 }

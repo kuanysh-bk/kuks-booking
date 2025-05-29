@@ -165,5 +165,12 @@
       "gray": "Серый"
     },
     "noPhoto": "Фото ещё не загружено"
-    }
+    },
+    "login": {
+      "title": "Вход в систему",
+      "email": "Email",
+      "password": "Пароль",
+      "submit": "Войти",
+      "invalid_credentials": "Неверный email или пароль"
+    }    
 }
