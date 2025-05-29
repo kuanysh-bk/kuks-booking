@@ -190,6 +190,8 @@
     "phone": "Phone",
     "type": "Type",
     "address": "Address",
-    "actions": "Actions"
+    "actions": "Actions",
+    "submit": "Submit",
+    "choose_supplier": "Choose Supplier"
   }
 }

@@ -8,6 +8,27 @@ const SuperDashboard = () => {
   const [activeTab, setActiveTab] = useState('users');
   const [users, setUsers] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newUser, setNewUser] = useState({ email: '', supplier_id: '' });
+
+  const handleAddUser = async () => {
+  const res = await fetch('https://booking-backend-tjmn.onrender.com/api/super/users', {
+    method: 'POST',
+    headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    body: JSON.stringify(newUser)
+  });
+  if (res.ok) {
+    setNewUser({ email: '', supplier_id: '' });
+    setShowAddForm(false);
+    const updated = await fetch('https://booking-backend-tjmn.onrender.com/api/super/users', {
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    }).then(r => r.json());
+    setUsers(updated);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,9 +68,34 @@ const SuperDashboard = () => {
 
       {activeTab === 'users' && (
         <div className="table-wrapper">
-          <div className="table-actions">
-            <button className="add-btn">{t('super_dashboard.add_user')}</button>
-          </div>
+          {showAddForm && (
+            <div className="add-user-form">
+                <input
+                type="email"
+                placeholder={t('super_dashboard.email')}
+                value={newUser.email}
+                onChange={e => setNewUser({ ...newUser, email: e.target.value })}
+                />
+                <select
+                value={newUser.supplier_id}
+                onChange={e => setNewUser({ ...newUser, supplier_id: e.target.value })}
+                >
+                <option value="">{t('super_dashboard.choose_supplier')}</option>
+                {suppliers.map(s => (
+                    <option key={s.id} value={s.id}>{s.name}</option>
+                ))}
+                </select>
+                <button className="add-btn" onClick={handleAddUser}>
+                {t('super_dashboard.submit')}
+                </button>
+            </div>
+            )}
+
+            <div className="table-actions">
+            <button className="add-btn" onClick={() => setShowAddForm(!showAddForm)}>
+                {t('super_dashboard.add_user')}
+            </button>
+            </div>
           <table className="data-table">
             <thead>
               <tr>
