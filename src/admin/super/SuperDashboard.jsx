@@ -7,46 +7,56 @@ const SuperDashboard = () => {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('users');
   const [users, setUsers] = useState([]);
+  const [suppliers, setSuppliers] = useState([]);
 
   useEffect(() => {
-    if (activeTab === 'users') {
-      fetch('https://booking-backend-tjmn.onrender.com/api/super/users', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      })
-        .then(res => res.json())
-        .then(setUsers);
-    }
+    const fetchData = async () => {
+      if (activeTab === 'users') {
+        const res = await fetch('https://booking-backend-tjmn.onrender.com/api/super/users', {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        });
+        const usersData = await res.json();
+        setUsers(usersData);
+      } else if (activeTab === 'suppliers') {
+        const res = await fetch('https://booking-backend-tjmn.onrender.com/api/super/suppliers', {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        });
+        const suppliersData = await res.json();
+        setSuppliers(suppliersData);
+      }
+    };
+    fetchData();
   }, [activeTab]);
+
+  const getSupplierName = (id) => {
+    const supplier = suppliers.find(s => s.id === id);
+    return supplier ? supplier.name : id;
+  };
 
   return (
     <div className="super-dashboard">
       <h1 className="dashboard-title">{t('super_dashboard.title')}</h1>
       <div className="tabs">
-        <button
-          className={activeTab === 'users' ? 'tab active' : 'tab'}
-          onClick={() => setActiveTab('users')}
-        >
+        <button className={activeTab === 'users' ? 'tab active' : 'tab'} onClick={() => setActiveTab('users')}>
           {t('super_dashboard.users')}
         </button>
-        <button
-          className={activeTab === 'suppliers' ? 'tab active' : 'tab'}
-          onClick={() => setActiveTab('suppliers')}
-        >
+        <button className={activeTab === 'suppliers' ? 'tab active' : 'tab'} onClick={() => setActiveTab('suppliers')}>
           {t('super_dashboard.suppliers')}
         </button>
       </div>
 
       {activeTab === 'users' && (
         <div className="table-wrapper">
+          <div className="table-actions">
+            <button className="add-btn">{t('super_dashboard.add_user')}</button>
+          </div>
           <table className="data-table">
             <thead>
               <tr>
                 <th>ID</th>
                 <th>{t('super_dashboard.email')}</th>
                 <th>{t('super_dashboard.is_superuser')}</th>
-                <th>{t('super_dashboard.supplier_id')}</th>
+                <th>{t('super_dashboard.supplier')}</th>
                 <th>{t('super_dashboard.actions')}</th>
               </tr>
             </thead>
@@ -56,7 +66,7 @@ const SuperDashboard = () => {
                   <td>{user.id}</td>
                   <td>{user.email}</td>
                   <td>{user.is_superuser ? '✔' : ''}</td>
-                  <td>{user.supplier_id}</td>
+                  <td>{getSupplierName(user.supplier_id)}</td>
                   <td>
                     <button className="edit-btn">{t('common.edit')}</button>
                     <button className="delete-btn">{t('common.delete')}</button>
@@ -69,7 +79,40 @@ const SuperDashboard = () => {
       )}
 
       {activeTab === 'suppliers' && (
-        <div className="placeholder">{t('super_dashboard.suppliers_tab')}</div>
+        <div className="table-wrapper">
+          <div className="table-actions">
+            <button className="add-btn">{t('super_dashboard.add_supplier')}</button>
+          </div>
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>{t('super_dashboard.name')}</th>
+                <th>{t('super_dashboard.phone')}</th>
+                <th>{t('super_dashboard.email')}</th>
+                <th>{t('super_dashboard.type')}</th>
+                <th>{t('super_dashboard.address')}</th>
+                <th>{t('super_dashboard.actions')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {suppliers.map(supplier => (
+                <tr key={supplier.id}>
+                  <td>{supplier.id}</td>
+                  <td>{supplier.name}</td>
+                  <td>{supplier.phone}</td>
+                  <td>{supplier.email}</td>
+                  <td>{supplier.supplier_type}</td>
+                  <td>{supplier.address}</td>
+                  <td>
+                    <button className="edit-btn">{t('common.edit')}</button>
+                    <button className="delete-btn">{t('common.delete')}</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
