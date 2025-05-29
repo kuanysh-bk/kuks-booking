@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useNavigate } from 'react';
 import { useTranslation } from 'react-i18next';
 import './SuperDashboard.css';
 
@@ -10,6 +10,14 @@ const SuperDashboard = () => {
   const [suppliers, setSuppliers] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [newUser, setNewUser] = useState({ email: '', supplier_id: '' });
+  const navigate = useNavigate();
+
+    useEffect(() => {
+    const isSuperuser = localStorage.getItem("isSuperuser");
+    if (isSuperuser !== "true") {
+        navigate("/admin/dashboard");
+    }
+    }, []);
 
   const handleAddUser = async () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
