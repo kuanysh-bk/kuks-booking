@@ -11,6 +11,19 @@ const Header = () => {
   const isAdmin = location.pathname.startsWith('/admin');
   const isLoginPage = location.pathname === '/admin/login';
 
+  const [showModal, setShowModal] = useState(false);
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
+
+  const handleChangePassword = async () => {
+    if (password !== repeatPassword) return alert(t('common.password_mismatch'));
+    // TODO: реализовать POST-запрос
+    setShowModal(false);
+    setPassword('');
+    setRepeatPassword('');
+    alert(t('common.password_updated'));
+  };
+
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
@@ -34,9 +47,14 @@ const Header = () => {
           </button>
         )}
         {isAdmin && !isLoginPage && (
-          <button className="logout-button" onClick={handleLogout}>
-            {t('common.logout', 'Logout')}
-          </button>
+          <>
+            <button className="change-password-button" onClick={() => setShowModal(true)}>
+              {t('common.change_password')}
+            </button>
+            <button className="logout-button" onClick={handleLogout}>
+              {t('common.logout')}
+            </button>
+          </>
         )}
       </div>
       <div className="language-selector">
@@ -53,6 +71,26 @@ const Header = () => {
           English
         </button>
       </div>
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-box">
+            <h3>{t('common.new_password')}</h3>
+            <input
+              type="password"
+              placeholder={t('common.enter_new')}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder={t('common.repeat_new')}
+              value={repeatPassword}
+              onChange={e => setRepeatPassword(e.target.value)}
+            />
+            <button onClick={handleChangePassword}>{t('common.submit')}</button>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

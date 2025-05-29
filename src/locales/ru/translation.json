@@ -17,7 +17,14 @@
     "agree": "Согласен",
     "cancel": "Отмена",
     "edit": "Редактировать",
-    "delete": "Удалить"
+    "delete": "Удалить",
+    "change_password": "Изменить пароль",
+    "new_password": "Новый пароль",
+    "enter_new": "Введите новый пароль",
+    "repeat_new": "Повторите новый пароль",
+    "submit": "Подтвердить",
+    "password_mismatch": "Пароли не совпадают",
+    "password_updated": "Пароль обновлён"
   },
   "details": {
     "location": "Локация",

@@ -17,7 +17,14 @@
     "agree": "Agree",
     "cancel": "Cancel",
     "edit": "Редактировать",
-    "delete": "Удалить"
+    "delete": "Удалить",
+    "change_password": "Change Password",
+    "new_password": "New Password",
+    "enter_new": "Enter New Password",
+    "repeat_new": "Repeat New Password",
+    "submit": "Submit",
+    "password_mismatch": "Passwords do not match",
+    "password_updated": "Password updated successfully"
   },
   "details": {
     "location": "Location",
