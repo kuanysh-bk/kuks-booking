@@ -71,7 +71,10 @@ const LoginPage = () => {
         {error && <div className="login-error">{error}</div>}
 
         <button className={`login-button ${isLoading ? 'loading' : ''}`} onClick={handleLogin} disabled={isLoading}>
-        {isLoading ? t('login.loading', 'Logging in...') : t('login.submit')}
+        <span className="login-button-content">
+            {t('login.loading', 'Logging in...')}
+            {isLoading && <span className="spinner" />}
+        </span>
         </button>
       </div>
     </div>
