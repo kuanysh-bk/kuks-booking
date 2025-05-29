@@ -15,7 +15,9 @@
     "from": "from",
     "to": "to",
     "agree": "Agree",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "edit": "Редактировать",
+    "delete": "Удалить"
   },
   "details": {
     "location": "Location",
@@ -174,5 +176,15 @@
     "invalid_credentials": "Invalid email or password",
     "loading": "Sign in...",
     "error": "Authorization error"
+  },
+  "super_dashboard": {
+    "title": "Superuser Dashboard",
+    "users": "Users",
+    "suppliers": "Suppliers",
+    "email": "Email",
+    "is_superuser": "Superuser",
+    "supplier_id": "Supplier",
+    "actions": "Actions",
+    "suppliers_tab": "Here will be supplier management"
   }
 }

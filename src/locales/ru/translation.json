@@ -15,7 +15,9 @@
     "from": "от",
     "to": "до",
     "agree": "Согласен",
-    "cancel": "Отмена"
+    "cancel": "Отмена",
+    "edit": "Редактировать",
+      "delete": "Удалить"
   },
   "details": {
     "location": "Локация",
@@ -165,14 +167,24 @@
       "gray": "Серый"
     },
     "noPhoto": "Фото ещё не загружено"
-    },
-    "login": {
-      "title": "Вход в систему",
-      "email": "Email",
-      "password": "Пароль",
-      "submit": "Войти",
-      "invalid_credentials": "Неверный email или пароль",
-      "loading": "Вход...",
-      "error": "Ошибка авторизации"
-    }    
+  },
+  "login": {
+    "title": "Вход в систему",
+    "email": "Email",
+    "password": "Пароль",
+    "submit": "Войти",
+    "invalid_credentials": "Неверный email или пароль",
+    "loading": "Вход...",
+    "error": "Ошибка авторизации"
+  },
+  "super_dashboard": {
+    "title": "Панель суперпользователя",
+    "users": "Пользователи",
+    "suppliers": "Компании",
+    "email": "Email",
+    "is_superuser": "Суперюзер",
+    "supplier_id": "Компания",
+    "actions": "Действия",
+    "suppliers_tab": "Здесь будет управление компаниями"
+  }
 }
