@@ -29,18 +29,16 @@ function App() {
     <BrowserRouter>
       <Layout>
         <Routes>
-          <IdleWatcher>
-            <Route path="/" element={<Home />} />
-            <Route path="/excursions" element={<ExcursionOperatorPage />} />
-            <Route path="/cars" element={<CarRentalPage />} />
-            <Route path="/cars/:carId/calendar" element={<CarDatePage />} />
-            <Route path="/cars/:carId/booking" element={<CarBookingPage />} />
-            <Route path="/excursions/:operatorId" element={<ExcursionListPage />} />
-            <Route path="/excursions/:operatorId/:excursionId" element={<ExcursionDetailsPage />} />
-            <Route path="/excursions/:operatorId/:excursionId/date" element={<ExcursionDatePage />} />
-            <Route path="/excursions/:operatorId/:excursionId/booking" element={<ExcursionBookingPage />} />
-            <Route path="/success" element={<BookingSuccessPage />} />
-          </IdleWatcher>
+        <Route path="/" element={<IdleWatcher><Home /></IdleWatcher>} />
+          <Route path="/excursions" element={<IdleWatcher><ExcursionOperatorPage /></IdleWatcher>} />
+          <Route path="/cars" element={<IdleWatcher><CarRentalPage /></IdleWatcher>} />
+          <Route path="/cars/:carId/calendar" element={<IdleWatcher><CarDatePage /></IdleWatcher>} />
+          <Route path="/cars/:carId/booking" element={<IdleWatcher><CarBookingPage /></IdleWatcher>} />
+          <Route path="/excursions/:operatorId" element={<IdleWatcher><ExcursionListPage /></IdleWatcher>} />
+          <Route path="/excursions/:operatorId/:excursionId" element={<IdleWatcher><ExcursionDetailsPage /></IdleWatcher>} />
+          <Route path="/excursions/:operatorId/:excursionId/date" element={<IdleWatcher><ExcursionDatePage /></IdleWatcher>} />
+          <Route path="/excursions/:operatorId/:excursionId/booking" element={<IdleWatcher><ExcursionBookingPage /></IdleWatcher>} />
+          <Route path="/success" element={<IdleWatcher><BookingSuccessPage /></IdleWatcher>} />
           <Route path="/admin/login" element={<LoginPage />} />
           <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/admin/super/dashboard" element={<ProtectedRoute><SuperDashboard /></ProtectedRoute>} />
