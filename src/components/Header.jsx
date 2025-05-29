@@ -17,7 +17,14 @@ const Header = () => {
 
   const handleChangePassword = async () => {
     if (password !== repeatPassword) return alert(t('common.password_mismatch'));
-    // TODO: реализовать POST-запрос
+    await fetch('https://booking-backend-tjmn.onrender.com/api/admin/change-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify({ password })
+    });
     setShowModal(false);
     setPassword('');
     setRepeatPassword('');
