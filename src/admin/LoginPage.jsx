@@ -10,22 +10,31 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
     setError('');
-    const res = await fetch('https://booking-backend-tjmn.onrender.com/api/admin/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('isSuperuser', data.is_superuser);
-      navigate(data.is_superuser ? '/admin/super/dashboard' : '/admin/dashboard');
-    } else {
-      setError(t('login.invalid_credentials'));
+    setIsLoading(true);
+  
+    try {
+      const res = await fetch('https://booking-backend-tjmn.onrender.com/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+  
+      if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('isSuperuser', data.is_superuser);
+        navigate(data.is_superuser ? '/admin/super/dashboard' : '/admin/dashboard');
+      } else {
+        setError(t('login.invalid_credentials'));
+      }
+    } catch (err) {
+      setError(t('login.error'));
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -52,8 +61,8 @@ const LoginPage = () => {
 
         {error && <div className="login-error">{error}</div>}
 
-        <button className="login-button" onClick={handleLogin}>
-          {t('login.submit')}
+        <button className={`login-button ${isLoading ? 'loading' : ''}`} onClick={handleLogin} disabled={isLoading}>
+        {isLoading ? t('login.loading', 'Logging in...') : t('login.submit')}
         </button>
       </div>
     </div>

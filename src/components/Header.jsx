@@ -33,6 +33,11 @@ const Header = () => {
             {t('common.home', 'Home')}
           </button>
         )}
+        {isAdmin && !isLoginPage && (
+          <button className="logout-button" onClick={handleLogout}>
+            {t('common.logout', 'Logout')}
+          </button>
+        )}
       </div>
       <div className="language-selector">
         <button
@@ -47,11 +52,6 @@ const Header = () => {
         >
           English
         </button>
-        {isAdmin && !isLoginPage && (
-          <button className="logout-button" onClick={handleLogout}>
-            {t('common.logout', 'Logout')}
-          </button>
-        )}
       </div>
     </header>
   );

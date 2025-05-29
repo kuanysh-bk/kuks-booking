@@ -167,10 +167,12 @@
     "noPhoto": "Photo not uploaded yet"
   },
   "login": {
-    "title": "Admin Login",
+    "title": "Signing In",
     "email": "Email",
     "password": "Password",
     "submit": "Log In",
-    "invalid_credentials": "Invalid email or password"
+    "invalid_credentials": "Invalid email or password",
+    "loading": "Sign in...",
+    "error": "Authorization error"
   }
 }

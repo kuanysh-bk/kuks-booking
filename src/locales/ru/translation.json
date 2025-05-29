@@ -171,6 +171,8 @@
       "email": "Email",
       "password": "Пароль",
       "submit": "Войти",
-      "invalid_credentials": "Неверный email или пароль"
+      "invalid_credentials": "Неверный email или пароль",
+      "loading": "Вход...",
+      "error": "Ошибка авторизации"
     }    
 }
