@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './LoginPage.css'; // подключаем стили
@@ -11,6 +11,15 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const isSuperuser = localStorage.getItem('isSuperuser');
+  
+    if (token) {
+      navigate(isSuperuser === 'true' ? '/admin/super/dashboard' : '/admin/dashboard');
+    }
+  }, []);  
 
   const handleLogin = async () => {
     setError('');
