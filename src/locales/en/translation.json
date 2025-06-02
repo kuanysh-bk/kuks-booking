@@ -26,7 +26,8 @@
     "password_mismatch": "Passwords do not match",
     "password_updated": "Password updated successfully",
     "logout": "Logout",
-    "password_too_short": "Password must be at least 5 characters long"
+    "password_too_short": "Password must be at least 5 characters long",
+    "save": "Save"
   },
   "details": {
     "location": "Location",
@@ -208,6 +209,9 @@
     "choose_supplier": "Choose Supplier",
     "email_required": "Email field cannot be empty",
     "invalid_email": "Enter a valid email address",
-    "choose_supplier_required": "Please select a supplier"
+    "choose_supplier_required": "Please select a supplier",
+    "password": "Password",
+    "edit_user": "Edit User",
+    "new_password": "Enter new Password or leave empty to keep current"
   }
 }

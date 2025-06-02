@@ -26,7 +26,8 @@
     "password_mismatch": "Пароли не совпадают",
     "password_updated": "Пароль обновлён",
     "logout": "Выйти",
-    "password_too_short": "Пароль должен быть минимум 5 символов"
+    "password_too_short": "Пароль должен быть минимум 5 символов",
+    "save": "Сохранить"
   },
   "details": {
     "location": "Локация",
@@ -208,6 +209,9 @@
     "choose_supplier": "Выберите компанию",
     "email_required": "Поле Email не должно быть пустым",
     "invalid_email": "Введите корректный Email",
-    "choose_supplier_required": "Выберите компанию"
+    "choose_supplier_required": "Выберите компанию",
+    "password": "Пароль",
+    "edit_user": "Редактировать пользователя",
+    "new_password": "Новый пароль (оставьте пустым, чтобы сохранить текущий)"
   }
 }
