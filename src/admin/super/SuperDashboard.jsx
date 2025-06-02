@@ -32,6 +32,11 @@ const SuperDashboard = () => {
       alert(t('super_dashboard.invalid_email'));
       return;
     }
+
+    if (!newUser.supplier_id) {
+      alert(t('super_dashboard.choose_supplier_required', 'Выберите компанию'));
+      return;
+    }
   
     const res = await fetch('https://booking-backend-tjmn.onrender.com/api/super/users', {
       method: 'POST',
