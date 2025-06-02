@@ -16,8 +16,8 @@
     "to": "to",
     "agree": "Agree",
     "cancel": "Cancel",
-    "edit": "Редактировать",
-    "delete": "Удалить",
+    "edit": "Edit",
+    "delete": "Delete",
     "change_password": "Change Password",
     "new_password": "New Password",
     "enter_new": "Enter New Password",
@@ -26,7 +26,7 @@
     "password_mismatch": "Passwords do not match",
     "password_updated": "Password updated successfully",
     "logout": "Logout",
-    "password_too_short": "Пароль должен быть минимум 5 символов"
+    "password_too_short": "Password must be at least 5 characters long"
   },
   "details": {
     "location": "Location",
