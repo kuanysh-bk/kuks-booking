@@ -58,12 +58,22 @@ const SuperDashboard = () => {
         const res = await fetch('https://booking-backend-tjmn.onrender.com/api/super/users', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         });
+        if (res.status === 401) {
+          localStorage.clear();
+          navigate("/admin");
+          return;
+        }
         const usersData = await res.json();
         setUsers(usersData);
       } else if (activeTab === 'suppliers') {
         const res = await fetch('https://booking-backend-tjmn.onrender.com/api/super/suppliers', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         });
+        if (res.status === 401) {
+          localStorage.clear();
+          navigate("/admin");
+          return;
+        }
         const suppliersData = await res.json();
         setSuppliers(suppliersData);
       }
