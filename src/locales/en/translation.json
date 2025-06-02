@@ -203,6 +203,7 @@
     "submit": "Submit",
     "choose_supplier": "Choose Supplier",
     "email_required": "Email field cannot be empty",
-    "invalid_email": "Enter a valid email address"
+    "invalid_email": "Enter a valid email address",
+    "choose_supplier_required": "Please select a supplier"
   }
 }

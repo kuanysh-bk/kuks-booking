@@ -203,6 +203,7 @@
     "submit": "Создать",
     "choose_supplier": "Выберите компанию",
     "email_required": "Поле Email не должно быть пустым",
-    "invalid_email": "Введите корректный Email"
+    "invalid_email": "Введите корректный Email",
+    "choose_supplier_required": "Выберите компанию"
   }
 }

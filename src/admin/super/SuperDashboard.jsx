@@ -34,7 +34,7 @@ const SuperDashboard = () => {
     }
 
     if (!newUser.supplier_id) {
-      alert(t('super_dashboard.choose_supplier_required', 'Выберите компанию'));
+      alert(t('super_dashboard.choose_supplier_required'));
       return;
     }
   
