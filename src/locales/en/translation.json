@@ -37,6 +37,8 @@
   },
   "booking": {
     "selectDate": "Select Excursion Date",
+    "selectDateCar": "Select Car Rental Dates",
+    "placeholderCar": "Select available dates",
     "placeholder": "Click to choose a date",
     "continue": "Continue",
     "loading": "Loading...",

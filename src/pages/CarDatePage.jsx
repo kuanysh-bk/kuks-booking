@@ -60,7 +60,7 @@ const CarDatePage = () => {
 
   return (
     <div className="date-page-wrapper">
-      <h2 className="date-page-title">{t('booking.selectDate')}</h2>
+      <h2 className="date-page-title">{t('booking.selectDateCar')}</h2>
       <div className="datepicker-container">
         <DatePicker
           selected={startDate}
