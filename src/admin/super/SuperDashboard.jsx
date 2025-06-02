@@ -12,6 +12,7 @@ const SuperDashboard = () => {
   const [newUser, setNewUser] = useState({ email: '', supplier_id: '', password: '' });
   const [editUser, setEditUser] = useState(null);
   const navigate = useNavigate();
+  const [editSuccess, setEditSuccess] = useState(false);
 
   useEffect(() => {
     const isSuperuser = localStorage.getItem("isSuperuser");
@@ -50,7 +51,7 @@ const SuperDashboard = () => {
       alert(t('super_dashboard.invalid_email'));
       return;
     }
-    if (editUser.password && editUser.password.length < 6) {
+    if (editUser.password && editUser.password.length < 5) {
       alert(t('super_dashboard.password_too_short'));
       return;
     }
@@ -68,8 +69,12 @@ const SuperDashboard = () => {
     });
     if (res.ok) {
       setEditUser(null);
+      setEditSuccess(true); // показать уведомление
       loadUsers();
+    
+      setTimeout(() => setEditSuccess(false), 3000); // скрыть через 3 секунды
     }
+
   };
 
   const loadUsers = async () => {
@@ -109,6 +114,12 @@ const SuperDashboard = () => {
   return (
     <div className="super-dashboard">
       <h1 className="dashboard-title">{t('super_dashboard.title')}</h1>
+      {editSuccess && (
+        <div className="success-message">
+          {t('super_dashboard.user_updated', 'Пользователь успешно обновлён')}
+        </div>
+      )}
+
       <div className="tabs">
         <button className={activeTab === 'users' ? 'tab active' : 'tab'} onClick={() => setActiveTab('users')}>{t('super_dashboard.users')}</button>
         <button className={activeTab === 'suppliers' ? 'tab active' : 'tab'} onClick={() => setActiveTab('suppliers')}>{t('super_dashboard.suppliers')}</button>

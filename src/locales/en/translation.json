@@ -212,6 +212,8 @@
     "choose_supplier_required": "Please select a supplier",
     "password": "Password",
     "edit_user": "Edit User",
-    "new_password": "Enter new Password or leave empty to keep current"
+    "new_password": "Enter new Password or leave empty to keep current",
+    "password_too_short": "Password must be at least 5 characters long",
+    "user_updated": "User updated successfully"
   }
 }

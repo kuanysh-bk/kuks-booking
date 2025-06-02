@@ -130,4 +130,12 @@
   gap: 12px;
 }
 
-
+.success-message {
+  background-color: #d1fae5;
+  color: #065f46;
+  padding: 12px;
+  border-radius: 6px;
+  text-align: center;
+  margin: 1rem auto;
+  max-width: 600px;
+}
