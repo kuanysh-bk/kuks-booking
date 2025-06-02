@@ -42,6 +42,22 @@ const SuperDashboard = () => {
 
   const handleEditUser = async () => {
     if (!editUser.email || !editUser.supplier_id) return;
+    if (!editUser.email.trim()) {
+      alert(t('super_dashboard.email_required'));
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(editUser.email)) {
+      alert(t('super_dashboard.invalid_email'));
+      return;
+    }
+    if (editUser.password && editUser.password.length < 6) {
+      alert(t('super_dashboard.password_too_short'));
+      return;
+    }
+    if (!editUser.supplier_id) {
+      alert(t('super_dashboard.choose_supplier_required'));
+      return;
+    }
     const res = await fetch(`https://booking-backend-tjmn.onrender.com/api/super/users/${editUser.id}`, {
       method: 'PUT',
       headers: {
