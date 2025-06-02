@@ -60,7 +60,7 @@ const SuperDashboard = () => {
         });
         if (res.status === 401) {
           localStorage.clear();
-          navigate("/admin");
+          navigate("/admin/login");
           return;
         }
         const usersData = await res.json();
@@ -71,7 +71,7 @@ const SuperDashboard = () => {
         });
         if (res.status === 401) {
           localStorage.clear();
-          navigate("/admin");
+          navigate("/admin/login");
           return;
         }
         const suppliersData = await res.json();
