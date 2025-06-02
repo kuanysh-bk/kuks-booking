@@ -35,7 +35,7 @@ const LoginPage = () => {
       });
 
       if (res.status === 401) {
-        setError(t("login.invalid", "Неверный email или пароль"));
+        setError(t("login.invalid_credentials", "Неверный email или пароль"));
         setIsLoading(false);
         return;
       }

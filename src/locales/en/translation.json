@@ -184,7 +184,9 @@
     "submit": "Log In",
     "invalid_credentials": "Invalid email or password",
     "loading": "Sign in...",
-    "error": "Authorization error"
+    "error": "Authorization error",
+    "error_fill_fields": "Please fill in all fields",
+    "error_network": "Network error. Please try again later."
   },
   "super_dashboard": {
     "title": "Superuser Dashboard",

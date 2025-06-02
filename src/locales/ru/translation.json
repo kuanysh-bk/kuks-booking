@@ -184,7 +184,9 @@
     "submit": "Войти",
     "invalid_credentials": "Неверный email или пароль",
     "loading": "Вход...",
-    "error": "Ошибка авторизации"
+    "error": "Ошибка авторизации",
+    "error_fill_fields": "Пожалуйста, заполните все поля",
+    "error_network": "Ошибка сети"
   },
   "super_dashboard": {
     "title": "Панель суперпользователя",
