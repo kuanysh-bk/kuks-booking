@@ -22,11 +22,19 @@ const SupplierDashboard = () => {
         setForm(data);
       });
 
-    fetch(`https://booking-backend-tjmn.onrender.com/api/super/items/${supplierId}`, {
+    if (supplier?.supplier_type === "cars") {
+      fetch(`https://booking-backend-tjmn.onrender.com/api/admin/cars?supplier_id=${supplierId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-    })
+      })
       .then(res => res.json())
       .then(setItems);
+    } else if (supplier?.supplier_type === "excursions") {
+      fetch(`https://booking-backend-tjmn.onrender.com/api/admin/excursions?operator_id=${supplierId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+      })
+      .then(res => res.json())
+      .then(setItems);
+    }
 
     fetch(`https://booking-backend-tjmn.onrender.com/api/super/bookings/${supplierId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
@@ -45,29 +53,35 @@ const SupplierDashboard = () => {
       body: JSON.stringify(form)
     });
     if (res.ok) {
-      setSuccess("Профиль успешно обновлён");
+      setSuccess(t("suppliers.ProfileUpdated", "Профиль успешно обновлен"));
       setTimeout(() => setSuccess(""), 3000);
     }
   };
 
   return (
     <div className="supplier-dashboard">
-      <h2>Панель управления {supplier?.name}</h2>
+      <h2>{t("suppliers.ManagePage")} {supplier?.name}</h2>
       <div className="tabs">
-        <button onClick={() => setActiveTab("items")} className={activeTab === "items" ? "active" : ""}>Items</button>
-        <button onClick={() => setActiveTab("orders")} className={activeTab === "orders" ? "active" : ""}>Заказы</button>
-        <button onClick={() => setActiveTab("profile")} className={activeTab === "profile" ? "active" : ""}>Редактировать профиль</button>
+        <button onClick={() => setActiveTab("items")} className={activeTab === "items" ? "active" : ""}>
+          {t("suppliers.ItemsTab")}
+        </button>
+        <button onClick={() => setActiveTab("orders")} className={activeTab === "orders" ? "active" : ""}>
+          {t("suppliers.OrdersTab")}
+        </button>
+        <button onClick={() => setActiveTab("profile")} className={activeTab === "profile" ? "active" : ""}>
+          {t("suppliers.EditProfileTab")}
+        </button>
       </div>
 
       {activeTab === "items" && (
         <div>
-          <button className="add-btn">Добавить</button>
+          <button className="add-btn">{t("suppliers.AddButton")}</button>
           <table className="data-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Название</th>
-                <th>Тип</th>
+                <th>{t("suppliers.ItemID")}</th>
+                <th>{t("suppliers.ItemName")}</th>
+                <th>{t("suppliers.ItemType")}</th>
               </tr>
             </thead>
             <tbody>
@@ -87,10 +101,10 @@ const SupplierDashboard = () => {
         <table className="data-table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Дата</th>
-              <th>Язык</th>
-              <th>Сумма</th>
+              <th>{t("suppliers.OrderID")}</th>
+              <th>{t("suppliers.OrderDate")}</th>
+              <th>{t("suppliers.OrderLanguage")}</th>
+              <th>{t("suppliers.OrderAmount")}</th>
             </tr>
           </thead>
           <tbody>
@@ -108,12 +122,37 @@ const SupplierDashboard = () => {
 
       {activeTab === "profile" && (
         <div className="edit-form">
-          <input type="text" placeholder="Имя" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
-          <input type="email" placeholder="Email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
-          <input type="text" placeholder="Телефон" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
-          <input type="text" placeholder="Тип" value={form.supplier_type} onChange={e => setForm({ ...form, supplier_type: e.target.value })} />
-          <input type="text" placeholder="Адрес" value={form.address} onChange={e => setForm({ ...form, address: e.target.value })} />
-          <button onClick={handleProfileSave}>Сохранить</button>
+          <input
+            type="text"
+            placeholder={t("suppliers.ProfileName")}
+            value={form.name}
+            onChange={e => setForm({ ...form, name: e.target.value })}
+          />
+          <input
+            type="email"
+            placeholder={t("suppliers.ProfileEmail")}
+            value={form.email}
+            onChange={e => setForm({ ...form, email: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder={t("suppliers.ProfilePhone")}
+            value={form.phone}
+            onChange={e => setForm({ ...form, phone: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder={t("suppliers.ProfileType")}
+            value={form.supplier_type}
+            onChange={e => setForm({ ...form, supplier_type: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder={t("suppliers.ProfileAddress")}
+            value={form.address}
+            onChange={e => setForm({ ...form, address: e.target.value })}
+          />
+          <button onClick={handleProfileSave}>{t("suppliers.SaveButton")}</button>
           {success && <p className="success-message">{success}</p>}
         </div>
       )}
