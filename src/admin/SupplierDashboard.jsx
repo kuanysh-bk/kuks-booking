@@ -79,17 +79,47 @@ const SupplierDashboard = () => {
           <table className="data-table">
             <thead>
               <tr>
-                <th>{t("suppliers.ItemID")}</th>
-                <th>{t("suppliers.ItemName")}</th>
-                <th>{t("suppliers.ItemType")}</th>
+                {supplier?.supplier_type === "cars" ? (
+                  <>
+                    <th>{t("suppliers.ItemID")}</th>
+                    <th>{t("suppliers.CarBrand")}</th>
+                    <th>{t("suppliers.CarModel")}</th>
+                    <th>{t("suppliers.CarColor")}</th>
+                    <th>{t("suppliers.CarPricePerDay")}</th>
+                    <th>{t("suppliers.CarYear")}</th>
+                    <th>{t("suppliers.CarMileage")}</th>
+                  </>
+                ) : supplier?.supplier_type === "excursions" ? (
+                  <>
+                    <th>{t("suppliers.ItemID")}</th>
+                    <th>{t("suppliers.ExcursionTitle")}</th>
+                    <th>{t("suppliers.ExcursionPrice")}</th>
+                    <th>{t("suppliers.ExcursionLocation")}</th>
+                  </>
+                ) : null}
               </tr>
             </thead>
             <tbody>
               {items.map(item => (
                 <tr key={item.id}>
-                  <td>{item.id}</td>
-                  <td>{item.title || item.name}</td>
-                  <td>{item.type}</td>
+                  {supplier?.supplier_type === "cars" ? (
+                    <>
+                      <td>{item.id}</td>
+                      <td>{item.brand}</td>
+                      <td>{item.model}</td>
+                      <td>{item.color}</td>
+                      <td>{item.price_per_day}</td>
+                      <td>{item.year}</td>
+                      <td>{item.mileage}</td>
+                    </>
+                  ) : supplier?.supplier_type === "excursions" ? (
+                    <>
+                      <td>{item.id}</td>
+                      <td>{item.title}</td>
+                      <td>{item.price}</td>
+                      <td>{item.location}</td>
+                    </>
+                  ) : null}
                 </tr>
               ))}
             </tbody>
@@ -102,18 +132,30 @@ const SupplierDashboard = () => {
           <thead>
             <tr>
               <th>{t("suppliers.OrderID")}</th>
-              <th>{t("suppliers.OrderDate")}</th>
-              <th>{t("suppliers.OrderLanguage")}</th>
-              <th>{t("suppliers.OrderAmount")}</th>
+              <th>{t("suppliers.BookingID")}</th>
+              <th>{t("suppliers.ContactMethod")}</th>
+              <th>{t("suppliers.Language")}</th>
+              <th>{t("suppliers.PeopleCount")}</th>
+              <th>{t("suppliers.Date")}</th>
+              <th>{t("suppliers.TotalPrice")}</th>
+              <th>{t("suppliers.PickupLocation")}</th>
+              {supplier?.supplier_type === "cars" && <th>{t("suppliers.CarID")}</th>}
             </tr>
           </thead>
           <tbody>
             {orders.map(o => (
               <tr key={o.id}>
-                <td>{o.id}</td>
-                <td>{o.booking_date}</td>
-                <td>{o.language}</td>
-                <td>{o.total_amount}</td>
+                <>
+                  <td>{o.id}</td>
+                  <td>{o.booking_id}</td>
+                  <td>{o.contact_method}</td>
+                  <td>{o.language}</td>
+                  <td>{o.people_count}</td>
+                  <td>{o.date}</td>
+                  <td>{o.total_price}</td>
+                  <td>{o.pickup_location}</td>
+                  {supplier?.supplier_type === "cars" && <td>{o.car_id}</td>}
+                </>
               </tr>
             ))}
           </tbody>
