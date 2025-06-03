@@ -13,6 +13,8 @@ const SuperDashboard = () => {
   const [editUser, setEditUser] = useState(null);
   const navigate = useNavigate();
   const [editSuccess, setEditSuccess] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
 
   useEffect(() => {
     const isSuperuser = localStorage.getItem("isSuperuser");
@@ -77,6 +79,24 @@ const SuperDashboard = () => {
 
   };
 
+  const confirmDeleteUser = async () => {
+    if (!userToDelete) return;
+  
+    const res = await fetch(`https://booking-backend-tjmn.onrender.com/api/super/users/${userToDelete.id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+  
+    if (res.ok) {
+      setUserToDelete(null);
+      setDeleteSuccess(true);
+      loadUsers();
+      setTimeout(() => setDeleteSuccess(false), 3000);
+    }
+  };  
+
   const loadUsers = async () => {
     const res = await fetch('https://booking-backend-tjmn.onrender.com/api/super/users', {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
@@ -92,18 +112,17 @@ const SuperDashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (activeTab === 'users') loadUsers();
-      else {
-        const res = await fetch('https://booking-backend-tjmn.onrender.com/api/super/suppliers', {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-        });
-        if (res.status === 401) {
-          localStorage.clear();
-          navigate("/admin/login");
-        } else {
-          const data = await res.json();
-          setSuppliers(data);
-        }
+      loadUsers();
+      
+      const res = await fetch('https://booking-backend-tjmn.onrender.com/api/super/suppliers', {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      });
+      if (res.status === 401) {
+        localStorage.clear();
+        navigate("/admin/login");
+      } else {
+        const data = await res.json();
+        setSuppliers(data);
       }
     };
     fetchData();
@@ -117,6 +136,11 @@ const SuperDashboard = () => {
       {editSuccess && (
         <div className="success-message">
           {t('super_dashboard.user_updated', 'Пользователь успешно обновлён')}
+        </div>
+      )}
+      {deleteSuccess && (
+        <div className="success-message">
+          {t('super_dashboard.user_deleted', 'Пользователь успешно удалён')}
         </div>
       )}
 
@@ -160,7 +184,7 @@ const SuperDashboard = () => {
                   <td>{getSupplierName(user.supplier_id)}</td>
                   <td>
                     <button className="edit-btn" onClick={() => setEditUser(user)}>{t('common.edit')}</button>
-                    <button className="delete-btn">{t('common.delete')}</button>
+                    <button className="delete-btn" onClick={() => setUserToDelete(user)}>{t('common.delete')}</button>
                   </td>
                 </tr>
               ))}
@@ -180,6 +204,18 @@ const SuperDashboard = () => {
                 <div className="modal-actions">
                   <button onClick={handleEditUser}>{t('common.save')}</button>
                   <button onClick={() => setEditUser(null)}>{t('common.cancel')}</button>
+                </div>
+              </div>
+            </div>
+          )}
+          {userToDelete && (
+            <div className="modal-overlay">
+              <div className="modal">
+                <h2>{t('super_dashboard.confirm_delete')}</h2>
+                <p>{t('super_dashboard.confirm_delete_user', { email: userToDelete.email })}</p>
+                <div className="modal-actions">
+                  <button onClick={confirmDeleteUser}>{t('common.confirm')}</button>
+                  <button onClick={() => setUserToDelete(null)}>{t('common.cancel')}</button>
                 </div>
               </div>
             </div>
