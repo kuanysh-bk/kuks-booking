@@ -224,6 +224,7 @@
     "confirm_delete_supplier": "You are about to delete supplier {{name}}. Are you sure?",
     "choose_type": "Choose Type",
     "cars": "Cars",
-    "excursion": "Excursion"
+    "excursion": "Excursion",
+    "fill_required": "Please fill in all required fields"
   }
 }

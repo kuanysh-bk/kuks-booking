@@ -22,6 +22,7 @@ import ExcursionsPage from './admin/ExcursionsPage';
 import CarsPage from './admin/CarsPage';
 import AddContentPage from './admin/AddContentPage';
 import BookingsPage from './admin/BookingsPage';
+import SupplierDashboard from './admin/SupplierDashboard';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           <Route path="/admin/login" element={<LoginPage />} />
           <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/admin/super/dashboard" element={<ProtectedRoute><SuperDashboard /></ProtectedRoute>} />
+          <Route path="/admin/supplier/:supplierId" element={<ProtectedRoute><SupplierDashboard /></ProtectedRoute>} />
           <Route path="/admin/excursions" element={<ProtectedRoute><ExcursionsPage /></ProtectedRoute>} />
           <Route path="/admin/cars" element={<ProtectedRoute><CarsPage /></ProtectedRoute>} />
           <Route path="/admin/add" element={<ProtectedRoute><AddContentPage /></ProtectedRoute>} />

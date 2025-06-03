@@ -315,7 +315,14 @@ const SuperDashboard = () => {
               {suppliers.map(supplier => (
                 <tr key={supplier.id}>
                   <td>{supplier.id}</td>
-                  <td>{supplier.name}</td>
+                  <td>
+                    <span
+                      className="supplier-link"
+                      onClick={() => navigate(`/admin/supplier/${supplier.id}`)}
+                    >
+                      {supplier.name}
+                    </span>
+                  </td>
                   <td>{supplier.phone}</td>
                   <td>{supplier.email}</td>
                   <td>{supplier.supplier_type}</td>
