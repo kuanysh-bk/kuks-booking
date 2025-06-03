@@ -339,7 +339,11 @@ const SuperDashboard = () => {
                 <input type="text" placeholder={t('super_dashboard.name')} value={supplierForm.name} onChange={e => setSupplierForm({ ...supplierForm, name: e.target.value })} />
                 <input type="text" placeholder={t('super_dashboard.phone')} value={supplierForm.phone} onChange={e => setSupplierForm({ ...supplierForm, phone: e.target.value })} />
                 <input type="email" placeholder={t('super_dashboard.email')} value={supplierForm.email} onChange={e => setSupplierForm({ ...supplierForm, email: e.target.value })} />
-                <input type="text" placeholder={t('super_dashboard.type')} value={supplierForm.supplier_type} onChange={e => setSupplierForm({ ...supplierForm, supplier_type: e.target.value })} />
+                <select value={supplierForm.supplier_type} onChange={e => setSupplierForm({ ...supplierForm, supplier_type: e.target.value })}>
+                  <option value="">{t('super_dashboard.choose_type')}</option>
+                  <option value="cars">{t('super_dashboard.cars')}</option>
+                  <option value="excursion">{t('super_dashboard.excursion')}</option>
+                </select>
                 <input type="text" placeholder={t('super_dashboard.address')} value={supplierForm.address} onChange={e => setSupplierForm({ ...supplierForm, address: e.target.value })} />
                 <div className="modal-actions">
                   <button onClick={handleSaveSupplier}>{t('common.save')}</button>

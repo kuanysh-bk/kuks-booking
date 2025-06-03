@@ -218,6 +218,12 @@
     "user_updated": "User updated successfully",
     "confirm_delete": "Delete",
     "confirm_delete_user": "You are about to delete user {{email}}. Are you sure?",
-    "user_deleted": "User deleted successfully"
+    "user_deleted": "User deleted successfully",
+    "edit_supplier": "Edit Supplier",
+    "supplier_success": "Supplier updated successfully",
+    "confirm_delete_supplier": "You are about to delete supplier {{name}}. Are you sure?",
+    "choose_type": "Choose Type",
+    "cars": "Cars",
+    "excursion": "Excursion"
   }
 }
