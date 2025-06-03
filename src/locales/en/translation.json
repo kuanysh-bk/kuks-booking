@@ -27,7 +27,8 @@
     "password_updated": "Password updated successfully",
     "logout": "Logout",
     "password_too_short": "Password must be at least 5 characters long",
-    "save": "Save"
+    "save": "Save",
+    "confirm": "Confirm"
   },
   "details": {
     "location": "Location",

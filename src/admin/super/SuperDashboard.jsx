@@ -15,6 +15,13 @@ const SuperDashboard = () => {
   const [editSuccess, setEditSuccess] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [showSupplierForm, setShowSupplierForm] = useState(false);
+  const [editSupplier, setEditSupplier] = useState(null);
+  const [supplierForm, setSupplierForm] = useState({
+    name: '', phone: '', email: '', supplier_type: '', address: ''
+  });
+  const [supplierToDelete, setSupplierToDelete] = useState(null);
+  const [supplierSuccess, setSupplierSuccess] = useState(false);
 
   useEffect(() => {
     const isSuperuser = localStorage.getItem("isSuperuser");
@@ -26,6 +33,10 @@ const SuperDashboard = () => {
     if (!newUser.email.trim()) return alert(t('super_dashboard.email_required'));
     if (!emailRegex.test(newUser.email)) return alert(t('super_dashboard.invalid_email'));
     if (!newUser.supplier_id) return alert(t('super_dashboard.choose_supplier_required'));
+    if (newUser.password && newUser.password.length < 5) {
+      alert(t('super_dashboard.password_too_short'));
+      return;
+    }
 
     const res = await fetch('https://booking-backend-tjmn.onrender.com/api/super/users', {
       method: 'POST',
@@ -95,7 +106,60 @@ const SuperDashboard = () => {
       loadUsers();
       setTimeout(() => setDeleteSuccess(false), 3000);
     }
-  };  
+  };
+
+  const handleSaveSupplier = async () => {
+    const { name, phone, email, supplier_type, address } = supplierForm;
+    if (!name || !phone || !email || !supplier_type || !address) {
+      alert(t('super_dashboard.fill_required'));
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert(t('super_dashboard.invalid_email'));
+      return;
+    }
+
+    const method = editSupplier ? 'PUT' : 'POST';
+    const url = editSupplier
+      ? `https://booking-backend-tjmn.onrender.com/api/super/suppliers/${editSupplier.id}`
+      : 'https://booking-backend-tjmn.onrender.com/api/super/suppliers';
+
+    const res = await fetch(url, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify(supplierForm)
+    });
+
+    if (res.ok) {
+      setShowSupplierForm(false);
+      setEditSupplier(null);
+      setSupplierForm({ name: '', phone: '', email: '', supplier_type: '', address: '' });
+      setSupplierSuccess(true);
+      loadUsers(); // обновим список
+      setTimeout(() => setSupplierSuccess(false), 3000);
+    }
+  };
+
+  const confirmDeleteSupplier = async () => {
+    if (!supplierToDelete) return;
+
+    const res = await fetch(`https://booking-backend-tjmn.onrender.com/api/super/suppliers/${supplierToDelete.id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+
+    if (res.ok) {
+      setSupplierToDelete(null);
+      setSupplierSuccess(true);
+      loadUsers();
+      setTimeout(() => setSupplierSuccess(false), 3000);
+    }
+  };
 
   const loadUsers = async () => {
     const res = await fetch('https://booking-backend-tjmn.onrender.com/api/super/users', {
@@ -225,8 +289,15 @@ const SuperDashboard = () => {
 
       {activeTab === 'suppliers' && (
         <div className="table-wrapper">
+          {supplierSuccess && (
+            <div className="success-message">{t('super_dashboard.supplier_success')}</div>
+          )}
           <div className="table-actions">
-            <button className="add-btn">{t('super_dashboard.add_supplier')}</button>
+            <button className="add-btn" onClick={() => {
+                setEditSupplier(null);
+                setSupplierForm({ name: '', phone: '', email: '', supplier_type: '', address: '' });
+                setShowSupplierForm(true);
+              }}>{t('super_dashboard.add_supplier')}</button>
           </div>
           <table className="data-table">
             <thead>
@@ -250,13 +321,46 @@ const SuperDashboard = () => {
                   <td>{supplier.supplier_type}</td>
                   <td>{supplier.address}</td>
                   <td>
-                    <button className="edit-btn">{t('common.edit')}</button>
-                    <button className="delete-btn">{t('common.delete')}</button>
+                    <button className="edit-btn" onClick={() => {
+                        setEditSupplier(supplier);
+                        setSupplierForm(supplier);
+                        setShowSupplierForm(true);
+                      }}>{t('common.edit')}</button>
+                    <button className="delete-btn" onClick={() => setSupplierToDelete(supplier)}>{t('common.delete')}</button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          {showSupplierForm && (
+            <div className="modal-overlay">
+              <div className="modal">
+                <h2>{editSupplier ? t('super_dashboard.edit_supplier') : t('super_dashboard.add_supplier')}</h2>
+                <input type="text" placeholder={t('super_dashboard.name')} value={supplierForm.name} onChange={e => setSupplierForm({ ...supplierForm, name: e.target.value })} />
+                <input type="text" placeholder={t('super_dashboard.phone')} value={supplierForm.phone} onChange={e => setSupplierForm({ ...supplierForm, phone: e.target.value })} />
+                <input type="email" placeholder={t('super_dashboard.email')} value={supplierForm.email} onChange={e => setSupplierForm({ ...supplierForm, email: e.target.value })} />
+                <input type="text" placeholder={t('super_dashboard.type')} value={supplierForm.supplier_type} onChange={e => setSupplierForm({ ...supplierForm, supplier_type: e.target.value })} />
+                <input type="text" placeholder={t('super_dashboard.address')} value={supplierForm.address} onChange={e => setSupplierForm({ ...supplierForm, address: e.target.value })} />
+                <div className="modal-actions">
+                  <button onClick={handleSaveSupplier}>{t('common.save')}</button>
+                  <button onClick={() => setShowSupplierForm(false)}>{t('common.cancel')}</button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {supplierToDelete && (
+            <div className="modal-overlay">
+              <div className="modal">
+                <h2>{t('super_dashboard.confirm_delete')}</h2>
+                <p>{t('super_dashboard.confirm_delete_supplier', { name: supplierToDelete.name })}</p>
+                <div className="modal-actions">
+                  <button onClick={confirmDeleteSupplier}>{t('common.confirm')}</button>
+                  <button onClick={() => setSupplierToDelete(null)}>{t('common.cancel')}</button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
