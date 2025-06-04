@@ -43,6 +43,10 @@ const LoginPage = () => {
       const data = await res.json();
       localStorage.setItem("token", data.token);
       localStorage.setItem("isSuperuser", data.is_superuser);
+      if (!data.is_superuser && data.supplier_id) {
+        localStorage.setItem("supplier_id", data.supplier_id);
+      }
+            
       navigate(data.is_superuser ? "/admin/super/dashboard" : "/admin/dashboard");
     } catch (err) {
       setError(t("login.error_network", "Ошибка сети"));
