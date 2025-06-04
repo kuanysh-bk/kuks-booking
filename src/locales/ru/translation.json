@@ -259,6 +259,8 @@
     "ProfileAddress": "Адрес",
     "SaveButton": "Сохранить",
     "EditButton": "Редактировать",
-    "DeleteButton": "Удалить"
+    "DeleteButton": "Удалить",
+    "ProfileUpdated": "Профиль успешно обновлён",
+    "Actions": "Действия"
   }
 }

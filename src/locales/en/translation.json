@@ -259,6 +259,8 @@
     "ProfileAddress": "Address",
     "SaveButton": "Save",
     "EditButton": "Edit",
-    "DeleteButton": "Delete"
+    "DeleteButton": "Delete",
+    "ProfileUpdated": "Profile updated successfully",
+    "Actions": "Actions"
   }
 }

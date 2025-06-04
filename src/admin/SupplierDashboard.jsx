@@ -97,11 +97,6 @@ const SupplierDashboard = () => {
   return (
     <div className="supplier-dashboard">
       <h2>{t("suppliers.ManagePage")} {supplier?.name}</h2>
-      {isSuperuser && supplierIdParam && (
-        <button className="back-button" onClick={() => navigate("/admin/super/dashboard")}>
-          ← Назад
-        </button>
-      )}
       <div className="tabs">
         <button onClick={() => setActiveTab("items")} className={activeTab === "items" ? "active" : ""}>
           {t("suppliers.ItemsTab")}
@@ -253,6 +248,11 @@ const SupplierDashboard = () => {
           <button onClick={handleProfileSave}>{t("suppliers.SaveButton")}</button>
           {success && <p className="success-message">{success}</p>}
         </div>
+      )}
+    {isSuperuser && supplierIdParam && (
+        <button className="back-button" onClick={() => navigate("/admin/super/dashboard")}>
+          {t("common.back")}
+        </button>
       )}
     </div>
   );
