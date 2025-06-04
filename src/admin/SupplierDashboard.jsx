@@ -229,12 +229,6 @@ const SupplierDashboard = () => {
           />
           <input
             type="text"
-            placeholder={t("suppliers.ProfileType")}
-            value={form.supplier_type}
-            onChange={e => setForm({ ...form, supplier_type: e.target.value })}
-          />
-          <input
-            type="text"
             placeholder={t("suppliers.ProfileAddress")}
             value={form.address}
             onChange={e => setForm({ ...form, address: e.target.value })}
@@ -244,7 +238,7 @@ const SupplierDashboard = () => {
         </div>
       )}
     {isSuperuser && supplierIdParam && (
-        <button className="back-button" onClick={() => navigate("/admin/super/dashboard")}>
+        <button className="back-btn" onClick={() => navigate("/admin/super/dashboard")}>
           {t("common.back")}
         </button>
       )}
