@@ -28,7 +28,7 @@ const SupplierDashboard = () => {
       })
       .then(res => res.json())
       .then(setItems);
-    } else if (supplier?.supplier_type === "excursions") {
+    } else if (supplier?.supplier_type === "excursion") {
       fetch(`https://booking-backend-tjmn.onrender.com/api/admin/excursions?operator_id=${supplierId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
       })
@@ -89,7 +89,7 @@ const SupplierDashboard = () => {
                     <th>{t("suppliers.CarYear")}</th>
                     <th>{t("suppliers.CarMileage")}</th>
                   </>
-                ) : supplier?.supplier_type === "excursions" ? (
+                ) : supplier?.supplier_type === "excursion" ? (
                   <>
                     <th>{t("suppliers.ItemID")}</th>
                     <th>{t("suppliers.ExcursionTitle")}</th>
@@ -112,7 +112,7 @@ const SupplierDashboard = () => {
                       <td>{item.year}</td>
                       <td>{item.mileage}</td>
                     </>
-                  ) : supplier?.supplier_type === "excursions" ? (
+                  ) : supplier?.supplier_type === "excursion" ? (
                     <>
                       <td>{item.id}</td>
                       <td>{item.title}</td>
