@@ -36,7 +36,7 @@ const SupplierDashboard = () => {
       .then(setItems);
     }
 
-    fetch(`https://booking-backend-tjmn.onrender.com/api/admin/bookings/${supplierId}`, {
+    fetch(`https://booking-backend-tjmn.onrender.com/api/admin/bookings?supplier_id=${supplierId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     })
       .then(res => res.json())
