@@ -15,6 +15,40 @@ const SupplierDashboard = () => {
   const [supplierId, setSupplierId] = useState(null);
   const [isSuperuser, setIsSuperuser] = useState(false);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [newCar, setNewCar] = useState({
+    brand: "",
+    model: "",
+    color: "",
+    seats: "",
+    price_per_day: "",
+    car_type: "",
+    transmission: "",
+    has_air_conditioning: false,
+    year: "",
+    fuel_type: "",
+    engine_capacity: "",
+    mileage: "",
+    drive_type: "",
+    supplier_id: supplierId
+  });
+
+  const carTypes = ["sedan", "suv", "minvan", "coupe", "hatchback", "pickup"];
+  const transmissions = ["automatic", "manual"];
+  const fuelTypes = ["petrol", "gas", "electric", "hybrid"];
+  const driveTypes = ["FWD", "RWD", "AWD"];
+
+  const handleSubmitCar = async () => {
+    await fetch("https://booking-backend-tjmn.onrender.com/api/admin/cars", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify(newCar)
+    });
+    setShowModal(false);
+  };
 
   useEffect(() => {
     const isSuper = localStorage.getItem("isSuperuser") === "true";
@@ -105,19 +139,56 @@ const SupplierDashboard = () => {
 
       {activeTab === "items" && (
         <div>
-          <button className="add-btn">{t("suppliers.AddButton")}</button>
+          <button className="add-btn" onClick={() => setShowModal(true)}>{t("suppliers.AddButton")}</button>
+          {showModal && (
+            <div className="modal">
+              <div className="modal-content">
+                <h3>{t("suppliers.AddNewCar")}</h3>
+                <input placeholder={t("cars.brand")} value={newCar.brand} onChange={e => setNewCar({ ...newCar, brand: e.target.value })} />
+                <input placeholder={t("cars.model")} value={newCar.model} onChange={e => setNewCar({ ...newCar, model: e.target.value })} />
+                <input placeholder={t("cars.color")} value={newCar.color} onChange={e => setNewCar({ ...newCar, color: e.target.value })} />
+                <input placeholder={t("cars.seats")} type="number" value={newCar.seats} onChange={e => setNewCar({ ...newCar, seats: e.target.value })} />
+                <input placeholder={t("cars.price_per_day")} type="number" value={newCar.price_per_day} onChange={e => setNewCar({ ...newCar, price_per_day: e.target.value })} />
+                <select value={newCar.car_type} onChange={e => setNewCar({ ...newCar, car_type: e.target.value })}>
+                  <option value="">{t("cars.car_type")}</option>
+                  {carTypes.map(type => <option key={type} value={type}>{type}</option>)}
+                </select>
+                <select value={newCar.transmission} onChange={e => setNewCar({ ...newCar, transmission: e.target.value })}>
+                  <option value="">{t("cars.transmission")}</option>
+                  {transmissions.map(tr => <option key={tr} value={tr}>{tr}</option>)}
+                </select>
+                <select value={newCar.fuel_type} onChange={e => setNewCar({ ...newCar, fuel_type: e.target.value })}>
+                  <option value="">{t("cars.fuel_type")}</option>
+                  {fuelTypes.map(f => <option key={f} value={f}>{f}</option>)}
+                </select>
+                <select value={newCar.drive_type} onChange={e => setNewCar({ ...newCar, drive_type: e.target.value })}>
+                  <option value="">{t("cars.drive_type")}</option>
+                  {driveTypes.map(d => <option key={d} value={d}>{d}</option>)}
+                </select>
+                <input placeholder={t("cars.year")} type="number" value={newCar.year} onChange={e => setNewCar({ ...newCar, year: e.target.value })} />
+                <input placeholder={t("cars.engine_capacity")} type="number" value={newCar.engine_capacity} onChange={e => setNewCar({ ...newCar, engine_capacity: e.target.value })} />
+                <input placeholder={t("cars.mileage")} type="number" value={newCar.mileage} onChange={e => setNewCar({ ...newCar, mileage: e.target.value })} />
+                <div className="checkbox-row">
+                  <label><input type="checkbox" checked={newCar.has_air_conditioning} onChange={e => setNewCar({ ...newCar, has_air_conditioning: e.target.checked })} />{t("cars.has_air_conditioning")}</label>
+                </div>
+                <button onClick={handleSubmitCar}>{t("suppliers.AddButton")}</button>
+                <button onClick={() => setShowModal(false)}>{t("common.cancel")}</button>
+              </div>
+            </div>
+          )}
+          
           <table className="data-table">
             <thead>
               <tr>
                 {supplier?.supplier_type === "cars" ? (
                   <>
                     <th>{t("suppliers.ItemID")}</th>
-                    <th>{t("suppliers.CarBrand")}</th>
-                    <th>{t("suppliers.CarModel")}</th>
-                    <th>{t("suppliers.CarColor")}</th>
-                    <th>{t("suppliers.CarPricePerDay")}</th>
-                    <th>{t("suppliers.CarYear")}</th>
-                    <th>{t("suppliers.CarMileage")}</th>
+                    <th>{t("cars.brand")}</th>
+                    <th>{t("cars.model")}</th>
+                    <th>{t("cars.color")}</th>
+                    <th>{t("cars.price_per_day")}</th>
+                    <th>{t("cars.year")}</th>
+                    <th>{t("cars.mileage")}</th>
                     <th>{t("suppliers.Actions")}</th>
                   </>
                 ) : supplier?.supplier_type === "excursion" ? (
