@@ -16,6 +16,21 @@ const SupplierDashboard = () => {
   const [isSuperuser, setIsSuperuser] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const isSuper = localStorage.getItem("isSuperuser") === "true";
+    const storedId = localStorage.getItem("supplier_id");
+
+    setIsSuperuser(isSuper);
+
+    if (isSuper && supplierIdParam) {
+      setSupplierId(supplierIdParam);
+    } else if (storedId) {
+      setSupplierId(storedId);
+    } else {
+      navigate("/admin/login");
+    }
+  }, [supplierIdParam]);
+
   // 1. Получаем данные поставщика один раз
   useEffect(() => {
     if (!supplierId) return;
@@ -57,7 +72,6 @@ const SupplierDashboard = () => {
       .catch(error => console.error("Error fetching bookings:", error));
 
   }, [supplierId, supplier]);
-
 
   const handleProfileSave = async () => {
     const res = await fetch(`https://booking-backend-tjmn.onrender.com/api/super/suppliers/${supplierId}`, {
