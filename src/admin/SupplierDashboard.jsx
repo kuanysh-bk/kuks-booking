@@ -106,6 +106,7 @@ const SupplierDashboard = () => {
                     <th>{t("suppliers.CarPricePerDay")}</th>
                     <th>{t("suppliers.CarYear")}</th>
                     <th>{t("suppliers.CarMileage")}</th>
+                    <th>{t("suppliers.Actions")}</th>
                   </>
                 ) : supplier?.supplier_type === "excursion" ? (
                   <>
@@ -113,6 +114,7 @@ const SupplierDashboard = () => {
                     <th>{t("suppliers.ExcursionTitle")}</th>
                     <th>{t("suppliers.ExcursionPrice")}</th>
                     <th>{t("suppliers.ExcursionLocation")}</th>
+                    <th>{t("suppliers.Actions")}</th>
                   </>
                 ) : null}
               </tr>
@@ -129,13 +131,21 @@ const SupplierDashboard = () => {
                       <td>{item.price_per_day}</td>
                       <td>{item.year}</td>
                       <td>{item.mileage}</td>
+                      <td>
+                        <button className="edit-btn">{t("suppliers.EditButton")}</button>
+                        <button className="delete-btn">{t("suppliers.DeleteButton")}</button>
+                      </td>
                     </>
                   ) : supplier?.supplier_type === "excursion" ? (
                     <>
                       <td>{item.id}</td>
                       <td>{item.title}</td>
                       <td>{item.price}</td>
-                      <td>{item.location}</td>
+                      <td>{item.location_en}</td>
+                      <td>
+                        <button className="edit-btn">{t("suppliers.EditButton")}</button>
+                        <button className="delete-btn">{t("suppliers.DeleteButton")}</button>
+                      </td>
                     </>
                   ) : null}
                 </tr>
@@ -158,6 +168,7 @@ const SupplierDashboard = () => {
               <th>{t("suppliers.TotalPrice")}</th>
               <th>{t("suppliers.PickupLocation")}</th>
               {supplier?.supplier_type === "cars" && <th>{t("suppliers.CarID")}</th>}
+              <th>{t("suppliers.Actions")}</th>
             </tr>
           </thead>
           <tbody>
@@ -173,6 +184,10 @@ const SupplierDashboard = () => {
                   <td>{o.total_price}</td>
                   <td>{o.pickup_location}</td>
                   {supplier?.supplier_type === "cars" && <td>{o.car_id}</td>}
+                  <td>
+                    <button className="edit-btn">{t("suppliers.EditButton")}</button>
+                    <button className="delete-btn">{t("suppliers.DeleteButton")}</button>
+                  </td>
                 </>
               </tr>
             ))}

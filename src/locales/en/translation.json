@@ -257,6 +257,8 @@
     "ProfilePhone": "Phone",
     "ProfileType": "Supplier Type",
     "ProfileAddress": "Address",
-    "SaveButton": "Save"
+    "SaveButton": "Save",
+    "EditButton": "Edit",
+    "DeleteButton": "Delete"
   }
 }

@@ -257,6 +257,8 @@
     "ProfilePhone": "Телефон",
     "ProfileType": "Тип поставщика",
     "ProfileAddress": "Адрес",
-    "SaveButton": "Сохранить"
+    "SaveButton": "Сохранить",
+    "EditButton": "Редактировать",
+    "DeleteButton": "Удалить"
   }
 }
