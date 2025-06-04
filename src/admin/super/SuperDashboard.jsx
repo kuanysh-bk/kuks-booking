@@ -121,7 +121,7 @@ const SuperDashboard = () => {
 
     const method = editSupplier ? 'PUT' : 'POST';
     const url = editSupplier
-      ? `https://booking-backend-tjmn.onrender.com/api/super/suppliers/${editSupplier.id}`
+      ? `https://booking-backend-tjmn.onrender.com/api/suppliers/${editSupplier.id}`
       : 'https://booking-backend-tjmn.onrender.com/api/super/suppliers';
 
     const res = await fetch(url, {
@@ -178,7 +178,7 @@ const SuperDashboard = () => {
     const fetchData = async () => {
       loadUsers();
       
-      const res = await fetch('https://booking-backend-tjmn.onrender.com/api/super/suppliers', {
+      const res = await fetch('https://booking-backend-tjmn.onrender.com/api/suppliers', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       if (res.status === 401) {

@@ -35,7 +35,7 @@ const SupplierDashboard = () => {
   useEffect(() => {
     if (!supplierId) return;
 
-    fetch(`https://booking-backend-tjmn.onrender.com/api/super/suppliers/${supplierId}`, {
+    fetch(`https://booking-backend-tjmn.onrender.com/api/suppliers/${supplierId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     })
       .then(res => res.json())
@@ -74,7 +74,7 @@ const SupplierDashboard = () => {
   }, [supplierId, supplier]);
 
   const handleProfileSave = async () => {
-    const res = await fetch(`https://booking-backend-tjmn.onrender.com/api/super/suppliers/${supplierId}`, {
+    const res = await fetch(`https://booking-backend-tjmn.onrender.com/api/suppliers/${supplierId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
