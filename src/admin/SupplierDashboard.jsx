@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import "./SupplierDashboard.css";
 
 const SupplierDashboard = () => {
   const { t } = useTranslation();
@@ -45,7 +46,7 @@ const SupplierDashboard = () => {
         .then(setItems);
       }
     }
-    
+
     fetch(`https://booking-backend-tjmn.onrender.com/api/admin/bookings?supplier_id=${supplierId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     })
