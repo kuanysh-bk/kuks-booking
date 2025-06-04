@@ -41,7 +41,7 @@ function App() {
           <Route path="/excursions/:operatorId/:excursionId/booking" element={<IdleWatcher><ExcursionBookingPage /></IdleWatcher>} />
           <Route path="/success" element={<IdleWatcher><BookingSuccessPage /></IdleWatcher>} />
           <Route path="/admin/login" element={<LoginPage />} />
-          <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/admin/dashboard" element={<ProtectedRoute><SupplierDashboard /></ProtectedRoute>} />
           <Route path="/admin/super/dashboard" element={<ProtectedRoute><SuperDashboard /></ProtectedRoute>} />
           <Route path="/admin/supplier/:supplierId" element={<ProtectedRoute><SupplierDashboard /></ProtectedRoute>} />
           <Route path="/admin/excursions" element={<ProtectedRoute><ExcursionsPage /></ProtectedRoute>} />

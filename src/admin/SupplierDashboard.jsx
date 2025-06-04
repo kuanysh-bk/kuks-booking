@@ -1,17 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./SupplierDashboard.css";
 
 const SupplierDashboard = () => {
   const { t } = useTranslation();
-  const { supplierId } = useParams();
   const [activeTab, setActiveTab] = useState("items");
   const [supplier, setSupplier] = useState(null);
   const [items, setItems] = useState([]);
   const [orders, setOrders] = useState([]);
   const [form, setForm] = useState({ name: "", phone: "", email: "", address: "", supplier_type: "" });
   const [success, setSuccess] = useState("");
+  const { supplierId: supplierIdParam } = useParams(); // from URL only if superuser
+  const [supplierId, setSupplierId] = useState(null);
+  const [isSuperuser, setIsSuperuser] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isSuper = localStorage.getItem("isSuperuser") === "true";
+    const storedId = localStorage.getItem("supplier_id");
+
+    setIsSuperuser(isSuper);
+
+    if (isSuper && supplierIdParam) {
+      setSupplierId(supplierIdParam);
+    } else if (storedId) {
+      setSupplierId(storedId);
+    } else {
+      navigate("/admin/login");
+    }
+  }, [supplierIdParam]);
 
   useEffect(() => {
     fetch(`https://booking-backend-tjmn.onrender.com/api/super/suppliers/${supplierId}`, {
@@ -79,6 +97,11 @@ const SupplierDashboard = () => {
   return (
     <div className="supplier-dashboard">
       <h2>{t("suppliers.ManagePage")} {supplier?.name}</h2>
+      {isSuperuser && supplierIdParam && (
+        <button className="back-button" onClick={() => navigate("/admin/super/dashboard")}>
+          ← Назад
+        </button>
+      )}
       <div className="tabs">
         <button onClick={() => setActiveTab("items")} className={activeTab === "items" ? "active" : ""}>
           {t("suppliers.ItemsTab")}
