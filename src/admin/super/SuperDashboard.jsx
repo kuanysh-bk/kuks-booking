@@ -228,7 +228,9 @@ const SuperDashboard = () => {
           )}
 
           <div className="table-actions">
-            <button className="add-btn" onClick={() => setShowAddForm(!showAddForm)}>{t('super_dashboard.add_user')}</button>
+            <button className="add-btn" onClick={() => setShowAddForm(!showAddForm)}>
+              {showAddForm ? t('common.cancel') : t('super_dashboard.add_user')}
+            </button>
           </div>
 
           <table className="data-table">

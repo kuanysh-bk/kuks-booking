@@ -154,10 +154,10 @@
 }
 
 .supplier-link {
-  cursor: 'pointer';
-  color: '#2563eb';
+  cursor: pointer;
+  color: #2563eb;
   text-decoration: underline; 
 }
 .supplier-link:hover {
-  color: '#1d4ed8';
+  color: #1d4ed8;
 }
