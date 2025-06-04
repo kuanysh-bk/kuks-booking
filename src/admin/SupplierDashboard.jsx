@@ -16,32 +16,49 @@ const SupplierDashboard = () => {
     fetch(`https://booking-backend-tjmn.onrender.com/api/super/suppliers/${supplierId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then(data => {
         setSupplier(data);
         setForm(data);
+      })
+      .catch(error => {
+        console.error("Failed to fetch supplier data:", error);
       });
 
-    if (supplier?.supplier_type === "cars") {
-      fetch(`https://booking-backend-tjmn.onrender.com/api/admin/cars?supplier_id=${supplierId}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-      })
-      .then(res => res.json())
-      .then(setItems);
-    } else if (supplier?.supplier_type === "excursion") {
-      fetch(`https://booking-backend-tjmn.onrender.com/api/admin/excursions?operator_id=${supplierId}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-      })
-      .then(res => res.json())
-      .then(setItems);
+    if (supplier) {
+      if (supplier.supplier_type === "cars") {
+        fetch(`https://booking-backend-tjmn.onrender.com/api/admin/cars?supplier_id=${supplierId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+        })
+        .then(res => res.json())
+        .then(setItems);
+      } else if (supplier.supplier_type === "excursion") {
+        fetch(`https://booking-backend-tjmn.onrender.com/api/admin/excursions?operator_id=${supplierId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+        })
+        .then(res => res.json())
+        .then(setItems);
+      }
     }
-
+    
     fetch(`https://booking-backend-tjmn.onrender.com/api/admin/bookings?supplier_id=${supplierId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     })
-      .then(res => res.json())
-      .then(setOrders);
-  }, [supplierId]);
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`Failed to fetch bookings: ${res.statusText}`);
+        }
+        return res.json();
+      })
+      .then(setOrders)
+      .catch(error => console.error("Error fetching bookings:", error));
+    
+  }, [supplierId, supplier]);
 
   const handleProfileSave = async () => {
     const res = await fetch(`https://booking-backend-tjmn.onrender.com/api/super/suppliers/${supplierId}`, {
