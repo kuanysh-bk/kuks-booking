@@ -125,6 +125,9 @@
     "booked": "Car booked",
     "supplier": "Company",
     "driveType": "Drive Type",
+    "brand": "Brand",
+    "model": "Model",
+    "price_per_day": "Price per day",
     "filters": {
       "allColors": "All colors",
       "allTransmissions": "Any transmission",
@@ -133,17 +136,18 @@
       "allDrives": "Any drive type",
       "allTypes": "All types",
       "allSeats": "Any number of seats",
-        "allBrands": "All brands",
-        "allModels": "All models",
-        "sedan": "Sedan",
-        "suv": "SUV",
-        "minivan": "Minivan"
+      "allBrands": "All brands",
+      "allModels": "All models",
+      "sedan": "Sedan",
+      "suv": "SUV",
+      "minivan": "Minivan"
     },
     "fuel": {
       "petrol": "Petrol",
       "diesel": "Diesel",
       "gas": "Gas",
-      "electric": "Electric"
+      "electric": "Electric",
+      "hybrid": "Hybrid"
     },
     "drive": {
       "fwd": "Front-wheel drive",
@@ -165,7 +169,10 @@
     "types": {
       "sedan": "Sedan",
       "suv": "SUV",
-      "minivan": "Minivan"
+      "minivan": "Minivan",
+      "hatchback": "Hatchback",
+      "coupe": "Coupe",
+      "pickup": "Pickup"
     },
     "transmissionTypes": {
       "automatic": "Automatic",
@@ -179,7 +186,9 @@
       "silver": "Silver",
       "gray": "Gray"
     },
-    "noPhoto": "Photo not uploaded yet"
+    "noPhoto": "Photo not uploaded yet",
+    "car_type": "Car Type",
+    "has_air_conditioning": "Has Air Conditioning"
   },
   "login": {
     "title": "Signing In",
@@ -261,6 +270,7 @@
     "EditButton": "Edit",
     "DeleteButton": "Delete",
     "ProfileUpdated": "Profile updated successfully",
-    "Actions": "Actions"
+    "Actions": "Actions",
+    "AddNewCar": "Add New Car"
   }
 }

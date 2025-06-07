@@ -11,7 +11,7 @@ const SupplierDashboard = () => {
   const [orders, setOrders] = useState([]);
   const [form, setForm] = useState({ name: "", phone: "", email: "", address: "", supplier_type: "" });
   const [success, setSuccess] = useState("");
-  const { supplierId: supplierIdParam } = useParams(); // from URL only if superuser
+  const { supplierId: supplierIdParam } = useParams();
   const [supplierId, setSupplierId] = useState(null);
   const [isSuperuser, setIsSuperuser] = useState(false);
   const navigate = useNavigate();
@@ -33,10 +33,12 @@ const SupplierDashboard = () => {
     supplier_id: supplierId
   });
 
-  const carTypes = ["sedan", "suv", "minvan", "coupe", "hatchback", "pickup"];
+  const carTypes = ["sedan", "suv", "minivan", "coupe", "hatchback", "pickup"];
   const transmissions = ["automatic", "manual"];
   const fuelTypes = ["petrol", "gas", "electric", "hybrid"];
   const driveTypes = ["FWD", "RWD", "AWD"];
+  const carColors = ["black", "white", "blue", "red", "silver", "gray"];
+  const carYears = Array.from({ length: 2025 - 1950 + 1 }, (_, i) => 1950 + i);
 
   const handleSubmitCar = async () => {
     await fetch("https://booking-backend-tjmn.onrender.com/api/admin/cars", {
@@ -65,7 +67,6 @@ const SupplierDashboard = () => {
     }
   }, [supplierIdParam]);
 
-  // 1. Получаем данные поставщика один раз
   useEffect(() => {
     if (!supplierId) return;
 
@@ -80,7 +81,6 @@ const SupplierDashboard = () => {
       .catch(error => console.error("Failed to fetch supplier data:", error));
   }, [supplierId]);
 
-  // 2. Загружаем контент и брони только когда supplier получен
   useEffect(() => {
     if (!supplierId || !supplier) return;
 
@@ -117,7 +117,7 @@ const SupplierDashboard = () => {
       body: JSON.stringify(form)
     });
     if (res.ok) {
-      setSuccess(t("suppliers.ProfileUpdated", "Профиль успешно обновлен"));
+      setSuccess(t("suppliers.ProfileUpdated"));
       setTimeout(() => setSuccess(""), 3000);
     }
   };
@@ -126,53 +126,55 @@ const SupplierDashboard = () => {
     <div className="supplier-dashboard">
       <h2>{t("suppliers.ManagePage")} {supplier?.name}</h2>
       <div className="tabs">
-        <button onClick={() => setActiveTab("items")} className={activeTab === "items" ? "active" : ""}>
-          {t("suppliers.ItemsTab")}
-        </button>
-        <button onClick={() => setActiveTab("orders")} className={activeTab === "orders" ? "active" : ""}>
-          {t("suppliers.OrdersTab")}
-        </button>
-        <button onClick={() => setActiveTab("profile")} className={activeTab === "profile" ? "active" : ""}>
-          {t("suppliers.EditProfileTab")}
-        </button>
+        <button onClick={() => setActiveTab("items")} className={activeTab === "items" ? "active" : ""}>{t("suppliers.ItemsTab")}</button>
+        <button onClick={() => setActiveTab("orders")} className={activeTab === "orders" ? "active" : ""}>{t("suppliers.OrdersTab")}</button>
+        <button onClick={() => setActiveTab("profile")} className={activeTab === "profile" ? "active" : ""}>{t("suppliers.EditProfileTab")}</button>
       </div>
 
       {activeTab === "items" && (
         <div>
           <button className="add-btn" onClick={() => setShowModal(true)}>{t("suppliers.AddButton")}</button>
           {showModal && (
-            <div className="modal">
-              <div className="modal-content">
+            <div className="modal-overlay">
+              <div className="modal">
                 <h3>{t("suppliers.AddNewCar")}</h3>
                 <input placeholder={t("cars.brand")} value={newCar.brand} onChange={e => setNewCar({ ...newCar, brand: e.target.value })} />
                 <input placeholder={t("cars.model")} value={newCar.model} onChange={e => setNewCar({ ...newCar, model: e.target.value })} />
-                <input placeholder={t("cars.color")} value={newCar.color} onChange={e => setNewCar({ ...newCar, color: e.target.value })} />
+                <select value={newCar.color} onChange={e => setNewCar({ ...newCar, color: e.target.value })}>
+                  <option value="">{t("cars.color")}</option>
+                  {carColors.map(color => <option key={color} value={color}>{t(`cars.colors.${color}`)}</option>)}
+                </select>
                 <input placeholder={t("cars.seats")} type="number" value={newCar.seats} onChange={e => setNewCar({ ...newCar, seats: e.target.value })} />
                 <input placeholder={t("cars.price_per_day")} type="number" value={newCar.price_per_day} onChange={e => setNewCar({ ...newCar, price_per_day: e.target.value })} />
                 <select value={newCar.car_type} onChange={e => setNewCar({ ...newCar, car_type: e.target.value })}>
                   <option value="">{t("cars.car_type")}</option>
-                  {carTypes.map(type => <option key={type} value={type}>{type}</option>)}
+                  {carTypes.map(type => <option key={type} value={type}>{t(`cars.types.${type}`)}</option>)}
                 </select>
                 <select value={newCar.transmission} onChange={e => setNewCar({ ...newCar, transmission: e.target.value })}>
                   <option value="">{t("cars.transmission")}</option>
-                  {transmissions.map(tr => <option key={tr} value={tr}>{tr}</option>)}
+                  {transmissions.map(tr => <option key={tr} value={tr}>{t(`cars.transmissionTypes.${tr}`)}</option>)}
                 </select>
                 <select value={newCar.fuel_type} onChange={e => setNewCar({ ...newCar, fuel_type: e.target.value })}>
-                  <option value="">{t("cars.fuel_type")}</option>
-                  {fuelTypes.map(f => <option key={f} value={f}>{f}</option>)}
+                  <option value="">{t("cars.fuelType")}</option>
+                  {fuelTypes.map(f => <option key={f} value={f}>{t(`cars.fuel.${f}`)}</option>)}
                 </select>
                 <select value={newCar.drive_type} onChange={e => setNewCar({ ...newCar, drive_type: e.target.value })}>
-                  <option value="">{t("cars.drive_type")}</option>
-                  {driveTypes.map(d => <option key={d} value={d}>{d}</option>)}
+                  <option value="">{t("cars.driveType")}</option>
+                  {driveTypes.map(d => <option key={d} value={d}>{t(`cars.drive.${d.toLowerCase()}`)}</option>)}
                 </select>
-                <input placeholder={t("cars.year")} type="number" value={newCar.year} onChange={e => setNewCar({ ...newCar, year: e.target.value })} />
-                <input placeholder={t("cars.engine_capacity")} type="number" value={newCar.engine_capacity} onChange={e => setNewCar({ ...newCar, engine_capacity: e.target.value })} />
+                <select value={newCar.year} onChange={e => setNewCar({ ...newCar, year: e.target.value })}>
+                  <option value="">{t("cars.year")}</option>
+                  {carYears.map(y => <option key={y} value={y}>{y}</option>)}
+                </select>
+                <input placeholder={t("cars.engineCapacity")} type="number" value={newCar.engine_capacity} onChange={e => setNewCar({ ...newCar, engine_capacity: e.target.value })} />
                 <input placeholder={t("cars.mileage")} type="number" value={newCar.mileage} onChange={e => setNewCar({ ...newCar, mileage: e.target.value })} />
                 <div className="checkbox-row">
-                  <label><input type="checkbox" checked={newCar.has_air_conditioning} onChange={e => setNewCar({ ...newCar, has_air_conditioning: e.target.checked })} />{t("cars.has_air_conditioning")}</label>
+                  <label><input type="checkbox" checked={newCar.has_air_conditioning} onChange={e => setNewCar({ ...newCar, has_air_conditioning: e.target.checked })} /> {t("cars.ac")}</label>
                 </div>
-                <button onClick={handleSubmitCar}>{t("suppliers.AddButton")}</button>
-                <button onClick={() => setShowModal(false)}>{t("common.cancel")}</button>
+                <div className="modal-actions">
+                  <button onClick={handleSubmitCar}>{t("common.submit")}</button>
+                  <button onClick={() => setShowModal(false)}>{t("common.cancel")}</button>
+                </div>
               </div>
             </div>
           )}
