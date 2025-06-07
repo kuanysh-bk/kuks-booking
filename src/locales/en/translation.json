@@ -188,7 +188,8 @@
     },
     "noPhoto": "Photo not uploaded yet",
     "car_type": "Car Type",
-    "has_air_conditioning": "Has Air Conditioning"
+    "has_air_conditioning": "Has Air Conditioning",
+    "ac_hint": "Air conditioning is available in this car?"
   },
   "login": {
     "title": "Signing In",

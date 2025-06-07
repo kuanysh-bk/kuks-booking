@@ -179,10 +179,25 @@
   .modal-content button:hover {
     background-color: #0056b3;
   }
-  
+
   .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin-bottom: 12px;
+    font-size: 1rem;
   }
   
+  .checkbox-row label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
   
+  .checkbox-row small {
+    color: #555;
+    font-size: 0.85rem;
+    margin-left: 4px;
+  }
   

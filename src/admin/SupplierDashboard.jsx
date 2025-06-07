@@ -170,6 +170,7 @@ const SupplierDashboard = () => {
                 <input placeholder={t("cars.mileage")} type="number" value={newCar.mileage} onChange={e => setNewCar({ ...newCar, mileage: e.target.value })} />
                 <div className="checkbox-row">
                   <label><input type="checkbox" checked={newCar.has_air_conditioning} onChange={e => setNewCar({ ...newCar, has_air_conditioning: e.target.checked })} /> {t("cars.ac")}</label>
+                  <small>{t("cars.ac_hint")}</small>
                 </div>
                 <div className="modal-actions">
                   <button onClick={handleSubmitCar}>{t("common.submit")}</button>
