@@ -293,6 +293,7 @@
     "DeleteButton": "Delete",
     "ProfileUpdated": "Profile updated successfully",
     "Actions": "Actions",
-    "AddNewCar": "Add New Car"
+    "AddNewCar": "Add New Car",
+    "AddNewExcursion": "Add New Excursion"
   }
 }

@@ -281,8 +281,8 @@ const SupplierDashboard = () => {
                       <input placeholder={t("excursions.title")} value={newExcursion.title} onChange={e => setNewExcursion({ ...newExcursion, title: e.target.value })} />
                       <input placeholder={t("excursions.description_en")} value={newExcursion.description_en} onChange={e => setNewExcursion({ ...newExcursion, description_en: e.target.value })} />
                       <input placeholder={t("excursions.description_ru")} value={newExcursion.description_ru} onChange={e => setNewExcursion({ ...newExcursion, description_ru: e.target.value })} />
-                      <input placeholder={t("excursions.duration")} value={newExcursion.duration} onChange={e => setNewExcursion({ ...newExcursion, duration: e.target.value })} />
                       <small>{t("excursions.duration_hint")}</small>
+                      <input placeholder={t("excursions.duration")} value={newExcursion.duration} onChange={e => setNewExcursion({ ...newExcursion, duration: e.target.value })} />
                       <input placeholder={t("excursions.location_en")} value={newExcursion.location_en} onChange={e => setNewExcursion({ ...newExcursion, location_en: e.target.value })} />
                       <input placeholder={t("excursions.location_ru")} value={newExcursion.location_ru} onChange={e => setNewExcursion({ ...newExcursion, location_ru: e.target.value })} />
                       <input placeholder={t("excursions.price")} type="number" value={newExcursion.price} onChange={e => setNewExcursion({ ...newExcursion, price: e.target.value })} />
