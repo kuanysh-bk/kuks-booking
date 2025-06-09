@@ -189,7 +189,10 @@
     "noPhoto": "Photo not uploaded yet",
     "car_type": "Car Type",
     "has_air_conditioning": "Has Air Conditioning",
-    "ac_hint": "Air conditioning is available in this car?"
+    "ac_hint": "Air conditioning is available in this car?",
+    "successfully_added": "Car successfully added",
+    "validation_required": "Please fill in all required fields",
+    "add_error": "Error adding car. Please try again later."
   },
   "login": {
     "title": "Signing In",

@@ -41,16 +41,44 @@ const SupplierDashboard = () => {
   const carYears = Array.from({ length: 2025 - 1950 + 1 }, (_, i) => 1950 + i);
 
   const handleSubmitCar = async () => {
-    await fetch("https://booking-backend-tjmn.onrender.com/api/admin/cars", {
+    const requiredFields = [
+      "brand", "model", "color", "seats", "price_per_day",
+      "car_type", "transmission", "year", "fuel_type",
+      "engine_capacity", "mileage", "drive_type"
+    ];
+  
+    for (const field of requiredFields) {
+      if (!newCar[field]) {
+        alert(t("cars.validation_required"));
+        return;
+      }
+    }
+  
+    const res = await fetch("https://booking-backend-tjmn.onrender.com/api/admin/cars", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`
       },
-      body: JSON.stringify({...newCar, supplier_id: supplierId})
+      body: JSON.stringify({ ...newCar, supplier_id: supplierId })
     });
-    setShowModal(false);
+  
+    if (res.ok) {
+      setShowModal(false);
+      setSuccess(t("cars.successfully_added"));
+      setTimeout(() => setSuccess(""), 3000);
+  
+      // обновляем список
+      fetch(`https://booking-backend-tjmn.onrender.com/api/admin/cars?supplier_id=${supplierId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+      })
+        .then(res => res.json())
+        .then(setItems);
+    } else {
+      alert(t("cars.add_error"));
+    }
   };
+  
 
   useEffect(() => {
     const isSuper = localStorage.getItem("isSuperuser") === "true";
