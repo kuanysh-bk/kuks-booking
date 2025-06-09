@@ -162,6 +162,7 @@ const SupplierDashboard = () => {
       {activeTab === "items" && (
         <div>
           <button className="add-btn" onClick={() => setShowModal(true)}>{t("suppliers.AddButton")}</button>
+          {success && <p className="success-message">{success}</p>}
           {showModal && (
             <div className="modal-overlay">
               <div className="modal">
