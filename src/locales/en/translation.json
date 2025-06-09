@@ -29,8 +29,8 @@
     "password_too_short": "Password must be at least 5 characters long",
     "save": "Save",
     "confirm": "Confirm",
-    "confirm_delete": "Are you sure you want to delete this?",
-    "confirm_question": "Are you sure?",
+    "confirm_delete": "You're about to delete this item.",
+    "confirm_question": "Confirm action?",
     "deleted": "Deleted successfully"
   },
   "details": {
