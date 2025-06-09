@@ -475,8 +475,8 @@ const SupplierDashboard = () => {
                       <td>{item.price}</td>
                       <td>{item.location_en}</td>
                       <td>
-                        <button className="edit-btn">{t("suppliers.EditButton")}</button>
-                        <button className="delete-btn">{t("suppliers.DeleteButton")}</button>
+                        <button className="edit-btn" onClick={() => { setEditItem(item); setShowEditModal(true); }}>{t("suppliers.EditButton")}</button>
+                        <button className="delete-btn" onClick={() => { setDeleteItem(item); setShowDeleteModal(true); }}>{t("suppliers.DeleteButton")}</button>
                       </td>
                     </>
                   ) : null}
