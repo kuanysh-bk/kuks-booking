@@ -28,7 +28,10 @@
     "logout": "Logout",
     "password_too_short": "Password must be at least 5 characters long",
     "save": "Save",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "confirm_delete": "Are you sure you want to delete this?",
+    "confirm_question": "Are you sure?",
+    "deleted": "Deleted successfully"
   },
   "details": {
     "location": "Location",
@@ -99,7 +102,8 @@
     "desc_required": "fill description in at least one language",
     "location_required": "fill location in at least one language",
     "successfully_added": "Excursion successfully added",
-    "add_error": "Error adding excursion. Please try again later."
+    "add_error": "Error adding excursion. Please try again later.",
+    "successfully_updated": "Excursion successfully updated"
   },
   "sort": {
     "none": "No sorting",
@@ -210,7 +214,8 @@
     "ac_hint": "Air conditioning is available in this car?",
     "successfully_added": "Car successfully added",
     "validation_required": "Please fill in all required fields",
-    "add_error": "Error adding car. Please try again later."
+    "add_error": "Error adding car. Please try again later.",
+    "successfully_updated": "Car successfully updated"
   },
   "login": {
     "title": "Signing In",

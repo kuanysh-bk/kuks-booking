@@ -17,6 +17,11 @@ const SupplierDashboard = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
+  const [editItem, setEditItem] = useState(null);
+  const [deleteItem, setDeleteItem] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   const [newExcursion, setNewExcursion] = useState({
     title: "",
     description_en: "",
@@ -298,6 +303,128 @@ const SupplierDashboard = () => {
               </div>
             </div>
           )}
+
+          {showEditModal && (
+            <div className="modal-overlay">
+              <div className="modal">
+                <h3>{t("common.edit")}</h3>
+                {supplier?.supplier_type === "cars" ? (
+                  <>
+                    <input value={editItem.brand} onChange={e => setEditItem({ ...editItem, brand: e.target.value })} />
+                    <input value={editItem.model} onChange={e => setEditItem({ ...editItem, model: e.target.value })} />
+                    <select value={editItem.color} onChange={e => setEditItem({ ...editItem, color: e.target.value })}>
+                      <option value="">{t("cars.color")}</option>
+                      {carColors.map(color => <option key={color} value={color}>{t(`cars.colors.${color}`)}</option>)}
+                    </select>
+                    <input placeholder={t("cars.seats")} type="number" value={editItem.seats} onChange={e => setEditItem({ ...editItem, seats: e.target.value })} />
+                    <input placeholder={t("cars.price_per_day")} type="number" value={editItem.price_per_day} onChange={e => setEditItem({ ...editItem, price_per_day: e.target.value })} />
+                    <select value={editItem.car_type} onChange={e => setEditItem({ ...editItem, car_type: e.target.value })}>
+                      <option value="">{t("cars.car_type")}</option>
+                      {carTypes.map(type => <option key={type} value={type}>{t(`cars.types.${type}`)}</option>)}
+                    </select>
+                    <select value={editItem.transmission} onChange={e => setEditItem({ ...editItem, transmission: e.target.value })}>
+                      <option value="">{t("cars.transmission")}</option>
+                      {transmissions.map(tr => <option key={tr} value={tr}>{t(`cars.transmissionTypes.${tr}`)}</option>)}
+                    </select>
+                    <select value={editItem.fuel_type} onChange={e => setEditItem({ ...editItem, fuel_type: e.target.value })}>
+                      <option value="">{t("cars.fuelType")}</option>
+                      {fuelTypes.map(f => <option key={f} value={f}>{t(`cars.fuel.${f}`)}</option>)}
+                    </select>
+                    <select value={editItem.drive_type} onChange={e => setEditItem({ ...editItem, drive_type: e.target.value })}>
+                      <option value="">{t("cars.driveType")}</option>
+                      {driveTypes.map(d => <option key={d} value={d}>{t(`cars.drive.${d.toLowerCase()}`)}</option>)}
+                    </select>
+                    <select value={editItem.year} onChange={e => setEditItem({ ...editItem, year: e.target.value })}>
+                      <option value="">{t("cars.year")}</option>
+                      {carYears.map(y => <option key={y} value={y}>{y}</option>)}
+                    </select>
+                    <input placeholder={t("cars.engineCapacity")} type="number" value={editItem.engine_capacity} onChange={e => setEditItem({ ...editItem, engine_capacity: e.target.value })} />
+                    <input placeholder={t("cars.mileage")} type="number" value={editItem.mileage} onChange={e => setEditItem({ ...editItem, mileage: e.target.value })} />
+                    <div className="checkbox-row">
+                      <label><input type="checkbox" checked={editItem.has_air_conditioning} onChange={e => setEditItem({ ...editItem, has_air_conditioning: e.target.checked })} /> {t("cars.ac")}</label>
+                      <small>{t("cars.ac_hint")}</small>
+                    </div>
+                    <button onClick={async () => {
+                      await fetch(`https://booking-backend-tjmn.onrender.com/api/admin/cars/${editItem.id}`, {
+                        method: "PUT",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Authorization: `Bearer ${localStorage.getItem("token")}`
+                        },
+                        body: JSON.stringify(editItem)
+                      });
+                      setShowEditModal(false);
+                      setSuccess(t("cars.successfully_updated"));
+                      setTimeout(() => setSuccess(""), 3000);
+                      fetch(`https://booking-backend-tjmn.onrender.com/api/admin/cars?supplier_id=${supplierId}`, {
+                        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+                      }).then(res => res.json()).then(setItems);
+                    }}>{t("common.save")}</button>
+                  </>
+                ) : (
+                  <>
+                    <input placeholder={t("excursions.title")} value={editItem.title} onChange={e => setEditItem({ ...editItem, title: e.target.value })} />
+                    <input placeholder={t("excursions.description_en")} value={editItem.description_en} onChange={e => setEditItem({ ...editItem, description_en: e.target.value })} />
+                    <input placeholder={t("excursions.description_ru")} value={editItem.description_ru} onChange={e => setEditItem({ ...editItem, description_ru: e.target.value })} />
+                    <small>{t("excursions.duration_hint")}</small>
+                    <input placeholder={t("excursions.duration")} value={editItem.duration} onChange={e => setEditItem({ ...editItem, duration: e.target.value })} />
+                    <input placeholder={t("excursions.location_en")} value={editItem.location_en} onChange={e => setEditItem({ ...editItem, location_en: e.target.value })} />
+                    <input placeholder={t("excursions.location_ru")} value={editItem.location_ru} onChange={e => setEditItem({ ...editItem, location_ru: e.target.value })} />
+                    <input placeholder={t("excursions.price")} type="number" value={editItem.price} onChange={e => setEditItem({ ...editItem, price: e.target.value })} />
+                    <input placeholder={t("excursions.adult_price")} type="number" value={editItem.adult_price} onChange={e => setEditItem({ ...editItem, adult_price: e.target.value })} />
+                    <input placeholder={t("excursions.child_price")} type="number" value={editItem.child_price} onChange={e => setEditItem({ ...editItem, child_price: e.target.value })} />
+                    <input placeholder={t("excursions.infant_price")} type="number" value={editItem.infant_price} onChange={e => setEditItem({ ...editItem, infant_price: e.target.value })} />
+                    <button onClick={async () => {
+                      await fetch(`https://booking-backend-tjmn.onrender.com/api/admin/excursions/${editItem.id}`, {
+                        method: "PUT",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Authorization: `Bearer ${localStorage.getItem("token")}`
+                        },
+                        body: JSON.stringify(editItem)
+                      });
+                      setShowEditModal(false);
+                      setSuccess(t("excursions.successfully_updated"));
+                      setTimeout(() => setSuccess(""), 3000);
+                      fetch(`https://booking-backend-tjmn.onrender.com/api/admin/excursions?operator_id=${supplierId}`, {
+                        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+                      }).then(res => res.json()).then(setItems);
+                    }}>{t("common.save")}</button>
+                  </>
+                )}
+                <button onClick={() => setShowEditModal(false)}>{t("common.cancel")}</button>
+              </div>
+            </div>
+          )}
+
+          {showDeleteModal && (
+            <div className="modal-overlay">
+              <div className="modal">
+                <h3>{t("common.confirm_delete")}</h3>
+                <p>{t("common.confirm_question")}</p>
+                <button onClick={async () => {
+                  const url = supplier?.supplier_type === "cars"
+                    ? `https://booking-backend-tjmn.onrender.com/api/admin/cars/${deleteItem.id}`
+                    : `https://booking-backend-tjmn.onrender.com/api/admin/excursions/${deleteItem.id}`;
+
+                  await fetch(url, {
+                    method: "DELETE",
+                    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+                  });
+                  setShowDeleteModal(false);
+                  setSuccess(t("common.deleted"));
+                  setTimeout(() => setSuccess(""), 3000);
+                  const refetchUrl = supplier?.supplier_type === "cars"
+                    ? `https://booking-backend-tjmn.onrender.com/api/admin/cars?supplier_id=${supplierId}`
+                    : `https://booking-backend-tjmn.onrender.com/api/admin/excursions?operator_id=${supplierId}`;
+                  fetch(refetchUrl, {
+                    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+                  }).then(res => res.json()).then(setItems);
+                }}>{t("common.confirm")}</button>
+                <button onClick={() => setShowDeleteModal(false)}>{t("common.cancel")}</button>
+              </div>
+            </div>
+          )}
           
           <table className="data-table">
             <thead>
@@ -337,8 +464,8 @@ const SupplierDashboard = () => {
                       <td>{item.year}</td>
                       <td>{item.mileage}</td>
                       <td>
-                        <button className="edit-btn">{t("suppliers.EditButton")}</button>
-                        <button className="delete-btn">{t("suppliers.DeleteButton")}</button>
+                        <button className="edit-btn" onClick={() => { setEditItem(item); setShowEditModal(true); }}>{t("suppliers.EditButton")}</button>
+                        <button className="delete-btn" onClick={() => { setDeleteItem(item); setShowDeleteModal(true); }}>{t("suppliers.DeleteButton")}</button>
                       </td>
                     </>
                   ) : supplier?.supplier_type === "excursion" ? (
@@ -373,7 +500,6 @@ const SupplierDashboard = () => {
               <th>{t("suppliers.TotalPrice")}</th>
               <th>{t("suppliers.PickupLocation")}</th>
               {supplier?.supplier_type === "cars" && <th>{t("suppliers.CarID")}</th>}
-              <th>{t("suppliers.Actions")}</th>
             </tr>
           </thead>
           <tbody>
@@ -389,10 +515,6 @@ const SupplierDashboard = () => {
                   <td>{o.total_price}</td>
                   <td>{o.pickup_location}</td>
                   {supplier?.supplier_type === "cars" && <td>{o.car_id}</td>}
-                  <td>
-                    <button className="edit-btn">{t("suppliers.EditButton")}</button>
-                    <button className="delete-btn">{t("suppliers.DeleteButton")}</button>
-                  </td>
                 </>
               </tr>
             ))}
