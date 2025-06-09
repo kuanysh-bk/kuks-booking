@@ -83,6 +83,24 @@
     "location": "Location",
     "book": "Book"
   },
+  "excursions": {
+    "title": "Title",
+    "description_en": "Description (English)",
+    "description_ru": "Description (Russian)",
+    "duration": "Duration",
+    "duration_hint": "Specify duration in minutes",
+    "location_en": "Location (English)",
+    "location_ru": "Location (Russian)",
+    "price": "Price",
+    "adult_price": "Adult Price",
+    "child_price": "Child Price",
+    "infant_price": "Infant Price",
+    "validation_required": "Please fill in all required fields",
+    "desc_required": "fill description in at least one language",
+    "location_required": "fill location in at least one language",
+    "successfully_added": "Excursion successfully added",
+    "add_error": "Error adding excursion. Please try again later."
+  },
   "sort": {
     "none": "No sorting",
     "priceAsc": "Price: low to high",
