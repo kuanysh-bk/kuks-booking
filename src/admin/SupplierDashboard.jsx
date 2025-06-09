@@ -47,7 +47,7 @@ const SupplierDashboard = () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`
       },
-      body: JSON.stringify(newCar)
+      body: JSON.stringify({...newCar, supplier_id: supplierId})
     });
     setShowModal(false);
   };
