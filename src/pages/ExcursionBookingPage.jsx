@@ -35,7 +35,6 @@ const ExcursionBookingPage = () => {
       .catch(err => console.error('Ошибка загрузки экскурсии:', err));
     
     console.log('excursionId from params:', excursionId);
-    console.log('Fetched excursions:', data);
   }, [operatorId, excursionId]);
 
   const handleChange = e => {
