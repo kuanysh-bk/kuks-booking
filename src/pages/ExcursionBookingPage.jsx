@@ -122,7 +122,7 @@ const ExcursionBookingPage = () => {
           excursionTitle: excursion.title,
           date: selectedDate,
           peopleCount: totalPeople,
-          operatorId
+          supplierId: excursion.operator_id
         }
       });
     } catch (err) {
