@@ -91,6 +91,7 @@ const ExcursionBookingPage = () => {
     const payload = {
       ...formData,
       excursion_title: excursion.title,
+      excursion_id: excursion.id,
       date: selectedDate,
       total_price: totalPrice,
       supplier_id: operatorId,
