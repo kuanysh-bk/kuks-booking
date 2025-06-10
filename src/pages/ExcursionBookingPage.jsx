@@ -28,10 +28,14 @@ const ExcursionBookingPage = () => {
   const [layoutName, setLayoutName] = useState('default');
 
   useEffect(() => {
+    
     fetch(`https://booking-backend-tjmn.onrender.com/excursions?operator_id=${operatorId}`)
       .then(res => res.json())
-      .then(data => setExcursion(data.find(e => String(e.id) === excursionId)))
+      .then(data => setExcursion(data.find(e => String(e.id) === String(excursionId))))
       .catch(err => console.error('Ошибка загрузки экскурсии:', err));
+    
+    console.log('excursionId from params:', excursionId);
+    console.log('Fetched excursions:', data);
   }, [operatorId, excursionId]);
 
   const handleChange = e => {
