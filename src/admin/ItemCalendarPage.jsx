@@ -50,7 +50,7 @@ const ItemCalendarPage = () => {
   useEffect(() => {
     loadReservations();
     const itemEndpoint = type === 'car' ? 'cars' : 'excursions';
-    fetch(`https://booking-backend-tjmn.onrender.com/api/admin/${itemEndpoint}/${itemId}`, {
+    fetch(`https://booking-backend-tjmn.onrender.com/${itemEndpoint}/${itemId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(res => res.json())
