@@ -299,6 +299,10 @@
     "ProfileUpdated": "Profile updated successfully",
     "Actions": "Actions",
     "AddNewCar": "Add New Car",
-    "AddNewExcursion": "Add New Excursion"
+    "AddNewExcursion": "Add New Excursion",
+    "ReserveDates": "Reserve Dates",
+    "ReservationSaved": "Dates saved",
+    "Name": "Name",
+    "Period": "Period"
   }
 }

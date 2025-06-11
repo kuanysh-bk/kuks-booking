@@ -299,6 +299,10 @@
     "ProfileUpdated": "Профиль успешно обновлён",
     "Actions": "Действия",
     "AddNewCar": "Добавить новый автомобиль",
-    "AddNewExcursion": "Добавить новую экскурсию"
+    "AddNewExcursion": "Добавить новую экскурсию",
+    "ReserveDates": "Резервирование дат",
+    "ReservationSaved": "Даты сохранены",
+    "Name": "Название",
+    "Period": "Период"
   }
 }

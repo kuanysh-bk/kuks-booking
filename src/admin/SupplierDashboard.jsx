@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./SupplierDashboard.css";
 
@@ -457,7 +457,11 @@ const SupplierDashboard = () => {
                   {supplier?.supplier_type === "cars" ? (
                     <>
                       <td>{item.id}</td>
-                      <td>{item.brand}</td>
+                      <td>
+                        <Link to={`/admin/items/car/${item.id}/calendar`}>
+                          {item.brand}
+                        </Link>
+                      </td>
                       <td>{item.model}</td>
                       <td>{item.color}</td>
                       <td>{item.price_per_day}</td>
@@ -471,7 +475,11 @@ const SupplierDashboard = () => {
                   ) : supplier?.supplier_type === "excursion" ? (
                     <>
                       <td>{item.id}</td>
-                      <td>{item.title}</td>
+                      <td>
+                        <Link to={`/admin/items/excursion/${item.id}/calendar`}>
+                          {item.title}
+                        </Link>
+                      </td>
                       <td>{item.price}</td>
                       <td>{item.location_en}</td>
                       <td>
