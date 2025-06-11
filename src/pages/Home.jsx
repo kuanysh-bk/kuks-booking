@@ -4,11 +4,7 @@ import { useTranslation } from 'react-i18next';
 import './Home.css';
 
 const Home = () => {
-  const { t, i18n } = useTranslation();
-
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
+  const { t } = useTranslation();
 
   return (
     <div className="home-wrapper">
