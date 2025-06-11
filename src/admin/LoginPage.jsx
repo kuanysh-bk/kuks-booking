@@ -48,7 +48,7 @@ const LoginPage = () => {
       }
             
       navigate(data.is_superuser ? "/admin/super/dashboard" : "/admin/dashboard");
-    } catch (err) {
+    } catch {
       setError(t("login.error_network", "Ошибка сети"));
     } finally {
       setIsLoading(false);

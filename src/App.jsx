@@ -23,6 +23,7 @@ import CarsPage from './admin/CarsPage';
 import AddContentPage from './admin/AddContentPage';
 import BookingsPage from './admin/BookingsPage';
 import SupplierDashboard from './admin/SupplierDashboard';
+import ItemCalendarPage from './admin/ItemCalendarPage';
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
           <Route path="/admin/dashboard" element={<ProtectedRoute><SupplierDashboard /></ProtectedRoute>} />
           <Route path="/admin/super/dashboard" element={<ProtectedRoute><SuperDashboard /></ProtectedRoute>} />
           <Route path="/admin/supplier/:supplierId" element={<ProtectedRoute><SupplierDashboard /></ProtectedRoute>} />
+          <Route path="/admin/items/:type/:itemId/calendar" element={<ProtectedRoute><ItemCalendarPage /></ProtectedRoute>} />
           <Route path="/admin/excursions" element={<ProtectedRoute><ExcursionsPage /></ProtectedRoute>} />
           <Route path="/admin/cars" element={<ProtectedRoute><CarsPage /></ProtectedRoute>} />
           <Route path="/admin/add" element={<ProtectedRoute><AddContentPage /></ProtectedRoute>} />
