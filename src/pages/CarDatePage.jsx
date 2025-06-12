@@ -31,10 +31,16 @@ const CarDatePage = () => {
       .then(res => res.json())
       .then(data => {
         console.log('>>> Ответ от /car-reservations:', data);
-        const dates = data.map(dateStr => {
-            const [y, m, d] = dateStr.split('-');
-            return new Date(+y, +m - 1, +d);
-          });
+        const dates = [];
+
+        data.forEach(r => {
+          const start = new Date(r.start_date);
+          const end = new Date(r.end_date);
+          for (let dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
+            dates.push(new Date(dt.getTime()));
+          }
+        });
+
         setUnavailableDates(dates);
       })
       .catch(err => console.error('Ошибка загрузки дат:', err));
