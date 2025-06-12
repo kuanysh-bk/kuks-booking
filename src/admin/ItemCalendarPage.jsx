@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import { useTranslation } from 'react-i18next';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -18,6 +18,8 @@ const ItemCalendarPage = () => {
   const [reservations, setReservations] = useState([]);
   const [itemName, setItemName] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     registerLocale('ru', ru);
@@ -32,9 +34,13 @@ const ItemCalendarPage = () => {
         setReservations(data);
         let dates;
         if (type === 'car') {
-          dates = data.map(d => {
-            const [y, m, d2] = (d.start_date || d).split('-');
-            return new Date(+y, +m - 1, +d2);
+          dates = [];
+          data.forEach(d => {
+            const start = new Date(d.start_date);
+            const end = new Date(d.end_date);
+            for (let dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
+              dates.push(new Date(dt));
+            }
           });
         } else {
           dates = data.map(d => {
@@ -57,9 +63,15 @@ const ItemCalendarPage = () => {
       .then(data => {
         const name = type === 'car' ? `${data.brand} ${data.model}` : data.title;
         setItemName(name);
+        const supplierField = type === 'car' ? data.supplier_id : data.operator_id;
+        const mySupplier = localStorage.getItem('supplier_id');
+        const isSuper = localStorage.getItem('isSuperuser') === 'true';
+        if (!isSuper && String(supplierField) !== String(mySupplier)) {
+          navigate('/admin/dashboard');
+        }
       })
       .catch(err => console.error('Failed to load item', err));
-  }, [type, itemId]);
+  }, [type, itemId, navigate]);
 
   const format = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 
@@ -87,12 +99,21 @@ const ItemCalendarPage = () => {
     }
   };
 
-  const handleDelete = async id => {
+  const confirmDelete = async () => {
+    if (!deleteId) return;
     const endpoint = type === 'car' ? 'car-reservations' : 'excursion-reservations';
-    await fetch(`https://booking-backend-tjmn.onrender.com/${endpoint}/${id}`, {
-      method: 'DELETE',
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-    });
+    const res = await fetch(
+      `https://booking-backend-tjmn.onrender.com/${endpoint}/${deleteId}`,
+      {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      }
+    );
+    if (res.ok) {
+      setSuccess(t('common.deleted'));
+      setTimeout(() => setSuccess(''), 3000);
+    }
+    setDeleteId(null);
     loadReservations();
   };
 
@@ -120,7 +141,7 @@ const ItemCalendarPage = () => {
                   : r.date}
               </td>
               <td>
-                <button className="delete-btn" onClick={() => handleDelete(r.id)}>
+                <button className="delete-btn" onClick={() => setDeleteId(r.id)}>
                   {t('suppliers.DeleteButton')}
                 </button>
               </td>
@@ -128,6 +149,19 @@ const ItemCalendarPage = () => {
           ))}
         </tbody>
       </table>
+
+      {deleteId && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>{t('common.confirm_delete')}</h3>
+            <p>{t('common.confirm_question')}</p>
+            <div className="modal-actions">
+              <button onClick={confirmDelete}>{t('common.confirm')}</button>
+              <button onClick={() => setDeleteId(null)}>{t('common.cancel')}</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showCalendar && (
         <div className="datepicker-container">
@@ -157,6 +191,13 @@ const ItemCalendarPage = () => {
               locale={i18n.language === 'ru' ? 'ru' : 'en'}
             />
           )}
+        </div>
+      )}
+
+      {success && <p className="success-message">{success}</p>}
+
+      <div className="action-buttons">
+        {showCalendar && (
           <button
             onClick={handleSave}
             className="continue-button"
@@ -164,14 +205,22 @@ const ItemCalendarPage = () => {
           >
             {t('common.save')}
           </button>
-        </div>
-      )}
-
-      {success && <p className="success-message">{success}</p>}
-
-      <button onClick={() => setShowCalendar(!showCalendar)} className="continue-button">
-        {t('suppliers.AddButton')}
-      </button>
+        )}
+        <button
+          onClick={() => {
+            if (showCalendar) {
+              setShowCalendar(false);
+              setDate(null);
+              setRange([null, null]);
+            } else {
+              setShowCalendar(true);
+            }
+          }}
+          className="continue-button"
+        >
+          {showCalendar ? t('common.cancel') : t('suppliers.AddButton')}
+        </button>
+      </div>
 
       <BackButton />
     </div>
