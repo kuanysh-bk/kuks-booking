@@ -51,6 +51,7 @@
   justify-content: center;
   gap: 10px;
   margin-bottom: 1rem;
+  margin-top: 20px;
 }
 
 /* Modal styles reused for calendar actions */

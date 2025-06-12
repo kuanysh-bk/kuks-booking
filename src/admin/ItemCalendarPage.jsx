@@ -39,7 +39,7 @@ const ItemCalendarPage = () => {
             const start = new Date(d.start_date);
             const end = new Date(d.end_date);
             for (let dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
-              dates.push(new Date(dt));
+              dates.push(new Date(dt.getTime()));
             }
           });
         } else {
