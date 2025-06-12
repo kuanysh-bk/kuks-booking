@@ -82,7 +82,7 @@ const ItemCalendarPage = () => {
         ? { car_id: parseInt(itemId, 10), start_date: format(range[0]), end_date: format(range[1]) }
         : { excursion_id: parseInt(itemId, 10), date: format(date) };
 
-    const res = await fetch(`https://booking-backend-tjmn.onrender.com/${endpoint}`, {
+    const res = await fetch(`https://booking-backend-tjmn.onrender.com/api/admin/${endpoint}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem('token')}` },
       body: JSON.stringify(payload)
@@ -103,7 +103,7 @@ const ItemCalendarPage = () => {
     if (!deleteId) return;
     const endpoint = type === 'car' ? 'car-reservations' : 'excursion-reservations';
     const res = await fetch(
-      `https://booking-backend-tjmn.onrender.com/${endpoint}/${deleteId}`,
+      `https://booking-backend-tjmn.onrender.com/api/admin/${endpoint}/${deleteId}`,
       {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
